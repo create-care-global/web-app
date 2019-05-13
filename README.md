@@ -1,5 +1,19 @@
 # Base React App
 
+## Installing packages
+
+Our `docker-compose.yml` is set up to shadow `node_modules`. To make sure we can start our services, go to `client` and `graphql` and run
+
+```
+yarn
+```
+
+Then, to initialise the data base, go to `graphql` and run
+
+```
+yarn prisma:deploy
+```
+
 ## CLI & containers
 
 To start on MacOS, install the CLI command to make development easier. Go to the root of the project and run the init script.
@@ -8,30 +22,30 @@ To start on MacOS, install the CLI command to make development easier. Go to the
 ./bin/init.sh
 ```
 
-This will create allow you to use `bra` in the CLI to control the project from anywhere, not just in the project folder. Typing `bra` in the CLI will show options. For example:
+This will create allow you to use `ccg` in the CLI to control the project from anywhere, not just in the project folder. Typing `ccg` in the CLI will show options. For example:
 
 To build/rebuild (`service_name` is optional):
 
 ```
-bra build <service_name>
+ccg build <service_name>
 ```
 
 To start the project (`service_name` is optional):
 
 ```
-bra start <service_name>
+ccg start <service_name>
 ```
 
 To stop the project (`service_name` is optional):
 
 ```
-bra stop <service_name>
+ccg stop <service_name>
 ```
 
-The project should be accessible on http://localhost. It is recommended to add the dev base URL to your hosts file. The default is `http://bra.com.dockervm`. It should look something like this:
+The project should be accessible on http://localhost. It is recommended to add the dev base URL to your hosts file. The default is `http://ccg.com.dockervm`. It should look something like this:
 
 ```
-127.0.0.1   bra.com.dockervm
+127.0.0.1   ccg.com.dockervm
 ```
 
 This setup step is optional. You can use `docker-compose` from the root of the project as an alternative.
@@ -72,3 +86,17 @@ This is the main package which can be used to run commands to deploy, migrate da
 ### Prisma Client
 
 Prisma client is how the running node application can interact with the database via graphQL API
+
+### Bit
+
+Some packages in this project are hosted on https://bit.dev/. To make sure you can install packages in your host machine, run the following:
+
+```
+npm config set '@bit:registry' https://node.bit.dev
+```
+
+Made with ♥ by Eddy Nguyen
+
+https://eddy.works
+
+https://github.com/eddeee888/base-react-app
