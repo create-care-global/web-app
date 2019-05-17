@@ -27,7 +27,7 @@ function symlink(){
 }
 
 function init(){
-    echo -e "Welcome to bra setup!"
+    echo -e "Welcome to ccg setup!"
     echo -e "========= **** =========\n"
 
     remove_old_symlink
