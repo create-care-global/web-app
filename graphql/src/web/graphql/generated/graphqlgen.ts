@@ -5,12 +5,9 @@ import {
   GetProjectFeedPayload,
   Project,
   ProjectCategory,
-<<<<<<< HEAD
   ProjectCharacteristicGroup,
   ProjectCharacteristic,
-=======
   GetProjectPayload,
->>>>>>> Create backend
   User,
   CreateProjectPayload,
   SignupPayload,
@@ -40,13 +37,6 @@ export namespace QueryResolvers {
     info: GraphQLResolveInfo
   ) => GetProjectFeedPayload | Promise<GetProjectFeedPayload>;
 
-  export type GetProjectResolver = (
-    parent: undefined,
-    args: ArgsGetProject,
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => GetProjectPayload | Promise<GetProjectPayload>;
-
   export type ProjectCategoriesResolver = (
     parent: undefined,
     args: {},
@@ -60,6 +50,13 @@ export namespace QueryResolvers {
     ctx: ResolverContext,
     info: GraphQLResolveInfo
   ) => ProjectCharacteristicGroup[] | Promise<ProjectCharacteristicGroup[]>;
+
+  export type GetProjectResolver = (
+    parent: undefined,
+    args: ArgsGetProject,
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => GetProjectPayload | Promise<GetProjectPayload>;
 
   export type UserResolver = (
     parent: undefined,
@@ -76,13 +73,6 @@ export namespace QueryResolvers {
       info: GraphQLResolveInfo
     ) => GetProjectFeedPayload | Promise<GetProjectFeedPayload>;
 
-    getProject: (
-      parent: undefined,
-      args: ArgsGetProject,
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => GetProjectPayload | Promise<GetProjectPayload>;
-
     projectCategories: (
       parent: undefined,
       args: {},
@@ -96,6 +86,13 @@ export namespace QueryResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => ProjectCharacteristicGroup[] | Promise<ProjectCharacteristicGroup[]>;
+
+    getProject: (
+      parent: undefined,
+      args: ArgsGetProject,
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => GetProjectPayload | Promise<GetProjectPayload>;
 
     user: (
       parent: undefined,
@@ -216,7 +213,6 @@ export namespace ProjectCategoryResolvers {
   }
 }
 
-<<<<<<< HEAD
 export namespace ProjectCharacteristicGroupResolvers {
   export const defaultResolvers = {
     id: (parent: ProjectCharacteristicGroup) => parent.id,
@@ -302,7 +298,9 @@ export namespace ProjectCharacteristicResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
-=======
+  }
+}
+
 export namespace GetProjectPayloadResolvers {
   export const defaultResolvers = {
     project: (parent: GetProjectPayload) => parent.project
@@ -322,7 +320,6 @@ export namespace GetProjectPayloadResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => Project | Promise<Project>;
->>>>>>> Create backend
   }
 }
 
@@ -571,12 +568,9 @@ export interface Resolvers {
   GetProjectFeedPayload: GetProjectFeedPayloadResolvers.Type;
   Project: ProjectResolvers.Type;
   ProjectCategory: ProjectCategoryResolvers.Type;
-<<<<<<< HEAD
   ProjectCharacteristicGroup: ProjectCharacteristicGroupResolvers.Type;
   ProjectCharacteristic: ProjectCharacteristicResolvers.Type;
-=======
   GetProjectPayload: GetProjectPayloadResolvers.Type;
->>>>>>> Create backend
   User: UserResolvers.Type;
   Mutation: MutationResolvers.Type;
   CreateProjectPayload: CreateProjectPayloadResolvers.Type;
