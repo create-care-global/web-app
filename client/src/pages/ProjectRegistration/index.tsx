@@ -96,8 +96,8 @@ class ProjectRegister extends Component<{}, any>  {
         placeholder='Meaning to the kids' 
         onChange={this.onChange}
       />
-
-      <button onClick={this.onSubmit} />
+      <br/>
+      <button onClick={this.onSubmit}>Submit</button>
     </Main>
   )}
 };
