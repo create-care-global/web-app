@@ -6,6 +6,12 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum SourceOfItems {
+  DIRECT = "DIRECT",
+  LOCAL = "LOCAL",
+  OTHER = "OTHER",
+}
+
 export interface GetProjectInput {
   id: string;
 }
