@@ -5,8 +5,8 @@ import {
   GetProjectFeedPayload,
   Project,
   ProjectCategory,
-  ProjectCharacteristicGroup,
   ProjectCharacteristic,
+  ProjectCharacteristicGroup,
   GetProjectPayload,
   User,
   CreateProjectPayload,
@@ -14,6 +14,8 @@ import {
   LoginPayload
 } from '../models';
 import { ResolverContext } from '../../../types';
+
+type SourceOfItems = 'LOCAL' | 'DIRECT' | 'OTHER';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -128,7 +130,13 @@ export namespace GetProjectFeedPayloadResolvers {
 export namespace ProjectResolvers {
   export const defaultResolvers = {
     id: (parent: Project) => parent.id,
-    title: (parent: Project) => parent.title
+    title: (parent: Project) => parent.title,
+    amountOfKidsHelped: (parent: Project) => parent.amountOfKidsHelped,
+    whyIsThisImportant: (parent: Project) => parent.whyIsThisImportant,
+    meaningToTheKids: (parent: Project) => parent.meaningToTheKids,
+    microNeed: (parent: Project) => parent.microNeed,
+    numberOfItems: (parent: Project) => parent.numberOfItems,
+    sourceOfItems: (parent: Project) => parent.sourceOfItems
   };
 
   export type IdResolver = (
@@ -152,6 +160,55 @@ export namespace ProjectResolvers {
     info: GraphQLResolveInfo
   ) => ProjectCategory | Promise<ProjectCategory>;
 
+  export type SourceOfItemsResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => SourceOfItems | Promise<SourceOfItems>;
+
+  export type AmountOfKidsHelpedResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export type WhyIsThisImportantResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type MeaningToTheKidsResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type MicroNeedResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NumberOfItemsResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export type CharacteristicsResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => ProjectCharacteristic[] | Promise<ProjectCharacteristic[]>;
+
   export interface Type {
     id: (
       parent: Project,
@@ -173,6 +230,55 @@ export namespace ProjectResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => ProjectCategory | Promise<ProjectCategory>;
+
+    sourceOfItems: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => SourceOfItems | Promise<SourceOfItems>;
+
+    amountOfKidsHelped: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+
+    whyIsThisImportant: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    meaningToTheKids: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    microNeed: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    numberOfItems: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+
+    characteristics: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => ProjectCharacteristic[] | Promise<ProjectCharacteristic[]>;
   }
 }
 
@@ -206,6 +312,43 @@ export namespace ProjectCategoryResolvers {
 
     name: (
       parent: ProjectCategory,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+  }
+}
+
+export namespace ProjectCharacteristicResolvers {
+  export const defaultResolvers = {
+    id: (parent: ProjectCharacteristic) => parent.id,
+    name: (parent: ProjectCharacteristic) => parent.name
+  };
+
+  export type IdResolver = (
+    parent: ProjectCharacteristic,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver = (
+    parent: ProjectCharacteristic,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export interface Type {
+    id: (
+      parent: ProjectCharacteristic,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    name: (
+      parent: ProjectCharacteristic,
       args: {},
       ctx: ResolverContext,
       info: GraphQLResolveInfo
@@ -261,43 +404,6 @@ export namespace ProjectCharacteristicGroupResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => ProjectCharacteristic[] | Promise<ProjectCharacteristic[]>;
-  }
-}
-
-export namespace ProjectCharacteristicResolvers {
-  export const defaultResolvers = {
-    id: (parent: ProjectCharacteristic) => parent.id,
-    name: (parent: ProjectCharacteristic) => parent.name
-  };
-
-  export type IdResolver = (
-    parent: ProjectCharacteristic,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type NameResolver = (
-    parent: ProjectCharacteristic,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export interface Type {
-    id: (
-      parent: ProjectCharacteristic,
-      args: {},
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    name: (
-      parent: ProjectCharacteristic,
-      args: {},
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
   }
 }
 
@@ -412,6 +518,12 @@ export namespace MutationResolvers {
   export interface CreateProjectInput {
     title: string;
     categoryId: string;
+    sourceOfItems: SourceOfItems;
+    amountOfKidsHelped: number;
+    whyIsThisImportant: string;
+    meaningToTheKids: string;
+    microNeed: string;
+    numberOfItems: number;
     characteristicIds: string[];
   }
   export interface SignupInput {
@@ -568,8 +680,8 @@ export interface Resolvers {
   GetProjectFeedPayload: GetProjectFeedPayloadResolvers.Type;
   Project: ProjectResolvers.Type;
   ProjectCategory: ProjectCategoryResolvers.Type;
-  ProjectCharacteristicGroup: ProjectCharacteristicGroupResolvers.Type;
   ProjectCharacteristic: ProjectCharacteristicResolvers.Type;
+  ProjectCharacteristicGroup: ProjectCharacteristicGroupResolvers.Type;
   GetProjectPayload: GetProjectPayloadResolvers.Type;
   User: UserResolvers.Type;
   Mutation: MutationResolvers.Type;
