@@ -1,15 +1,24 @@
+import QueryProps from 'common/helpers/typings/QueryProps';
 import gql from 'graphql-tag';
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query, QueryResult } from 'react-apollo';
+import { GetProjects } from './__generated__/GetProjects';
 
 const PROJECT_QUERY = gql`
-  query {
+  query GetProjects {
+    getProjectFeed {
+      projects {
+        id
+        title
+      }
+    }
   }
 `;
 
-const ProjectQuery: React.FunctionComponent
-  = (props :any ) => (
-  <Query {...props} query={PROJECT_QUERY} />
-);
+export type GetProjectsQueryResult = QueryResult<GetProjects>;
 
-export default ProjectQuery;
+const GetProjectsQuery: React.FunctionComponent<QueryProps<GetProjects>> = (
+  props: any
+) => <Query<GetProjects> {...props} query={PROJECT_QUERY} />;
+
+export default GetProjectsQuery;
