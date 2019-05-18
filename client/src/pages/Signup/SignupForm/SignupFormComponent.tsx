@@ -54,7 +54,7 @@ const SignupFormComponent = ({
       validationSchema={SignupSchema}
       onSubmit={onSubmit}
     >
-      {({ values, errors, touched }) => (
+      {({ errors, touched }) => (
         <Form>
           <Grid container>
             <Grid item xs={12}>
