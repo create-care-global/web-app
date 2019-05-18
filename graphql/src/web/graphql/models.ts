@@ -25,4 +25,10 @@ export interface Project {
 
 export interface GetProjectFeedPayload {
   projects: Project[];
+  category?: ProjectCategory;
+}
+
+export interface ProjectCategory {
+  id: string;
+  name: string;
 }
