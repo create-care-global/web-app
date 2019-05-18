@@ -3,9 +3,9 @@ import { linkgen, Paths } from 'common/helpers/pathing';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Logout from 'pages/Logout';
-import Signup from 'pages/Signup';
-import Projects from 'pages/Projects';
 import ProjectPage from 'pages/ProjectPage';
+import Projects from 'pages/Projects';
+import Signup from 'pages/Signup';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 

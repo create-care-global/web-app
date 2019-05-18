@@ -1,6 +1,10 @@
 # import Query.* from "authentication.graphql"
 # import Mutation.* from "authentication.graphql"
 
+type Query {
+  getProjectFeed: GetProjectFeedPayload!
+}
+
 type Mutation {
   createProject(input: CreateProjectInput!): CreateProjectPayload!
 }
@@ -16,4 +20,8 @@ type CreateProjectPayload {
 type Project {
   id: ID!
   title: String!
+}
+
+type GetProjectFeedPayload {
+  projects: [Project!]!
 }

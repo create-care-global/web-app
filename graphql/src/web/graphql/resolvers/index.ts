@@ -1,5 +1,6 @@
 import { Resolvers } from 'src/web/graphql/generated/graphqlgen';
 import { CreateProjectPayload } from 'src/web/graphql/resolvers/CreateProjectPayload';
+import { GetProjectFeedPayload } from 'src/web/graphql/resolvers/GetProjectFeedPayload';
 import { LoginPayload } from 'src/web/graphql/resolvers/LoginPayload';
 import { Mutation } from 'src/web/graphql/resolvers/Mutation';
 import { Project } from 'src/web/graphql/resolvers/Project';
@@ -14,5 +15,6 @@ export const resolvers: Resolvers = {
   SignupPayload,
   LoginPayload,
   CreateProjectPayload,
-  Project
+  Project,
+  GetProjectFeedPayload
 };
