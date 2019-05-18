@@ -15,10 +15,14 @@ export interface LoginPayload {
 }
 
 export interface CreateProjectPayload {
-    project: Project;
+  project: Project;
 }
 
 export interface Project {
-    id: string;
-    title: string;
+  id: string;
+  title: string;
+}
+
+export interface GetProjectFeedPayload {
+  projects: Project[];
 }
