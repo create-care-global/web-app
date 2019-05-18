@@ -119,6 +119,7 @@ export namespace MutationResolvers {
     firstName: string;
     lastName: string;
     password: string;
+    group: string;
   }
   export interface LoginInput {
     email: string;

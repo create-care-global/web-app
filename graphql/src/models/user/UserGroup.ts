@@ -1,6 +1,7 @@
 export enum UserGroup {
   admin = 'admin',
-  user = 'user'
+  driver = 'driver',
+  solver = 'solver'
 }
 
 export type UserGroupMap = { [userGroup in UserGroup]?: boolean };

@@ -6,6 +6,7 @@ import {
 import Grid from '@material-ui/core/Grid';
 import { SignupInput } from '__generated__/globalTypes';
 import Button from 'common/components/Button';
+import { RadioButton, RadioButtonGroup } from 'common/components/Checkbox';
 import FormError from 'common/components/FormError';
 import FormField from 'common/components/FormField';
 import Link from 'common/components/Link';
@@ -13,7 +14,7 @@ import Text from 'common/components/Text';
 import TextInput from 'common/components/TextInput';
 import { linkgen, Paths } from 'common/helpers/pathing';
 import useUrlQuery from 'common/hooks/useUrlQuery';
-import { Form, Formik, FormikActions } from 'formik';
+import { Field, Form, Formik, FormikActions } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
@@ -47,12 +48,13 @@ const SignupFormComponent = ({
         firstName: '',
         lastName: '',
         email: '',
-        password: ''
+        password: '',
+        group: 'driver'
       }}
       validationSchema={SignupSchema}
       onSubmit={onSubmit}
     >
-      {({ errors, touched }) => (
+      {({ values, errors, touched }) => (
         <Form>
           <Grid container>
             <Grid item xs={12}>
@@ -83,6 +85,26 @@ const SignupFormComponent = ({
                 )}
               </FormField>
             </Grid>
+          </Grid>
+
+          <Grid container>
+            <Grid item xs={12}>
+              <RadioButtonGroup error={errors.group} touched={touched.group}>
+                <Field
+                  component={RadioButton}
+                  name="group"
+                  id="driver"
+                  label="I'm a driver"
+                />
+                <Field
+                  component={RadioButton}
+                  name="group"
+                  id="solver"
+                  label="I'm a solver"
+                />
+              </RadioButtonGroup>
+            </Grid>
+            <Grid item xs={12} />
           </Grid>
 
           <FormError error={generalFormError} />

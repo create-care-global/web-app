@@ -65,7 +65,7 @@ const validateInput: ValidateInputFn = async input => {
 
 const createUser: CreateUserFn = async (
   ctx,
-  { password, email, firstName, lastName }
+  { password, email, firstName, lastName, group }
 ) => {
   try {
     const hashedPassword = await ctx.utils.password.hash(password);
@@ -76,7 +76,8 @@ const createUser: CreateUserFn = async (
       password: hashedPassword,
       userGroup: JSON.stringify(
         updateGroup({
-          [UserGroup.user]: true
+          [UserGroup.driver]: group === UserGroup.driver,
+          [UserGroup.solver]: group === UserGroup.solver
         })
       )
     });
