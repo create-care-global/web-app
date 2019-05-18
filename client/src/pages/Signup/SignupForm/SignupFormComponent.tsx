@@ -6,10 +6,10 @@ import {
 import Grid from '@material-ui/core/Grid';
 import { SignupInput } from '__generated__/globalTypes';
 import Button from 'common/components/Button';
-import { RadioButton, RadioButtonGroup } from 'common/components/Checkbox';
 import FormError from 'common/components/FormError';
 import FormField from 'common/components/FormField';
 import Link from 'common/components/Link';
+import { RadioButton, RadioButtonGroup } from 'common/components/Radio';
 import Text from 'common/components/Text';
 import TextInput from 'common/components/TextInput';
 import { linkgen, Paths } from 'common/helpers/pathing';
