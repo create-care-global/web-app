@@ -85,6 +85,12 @@ type Project {
   title: String!
   category: ProjectCategory!
   characteristics(where: ProjectCharacteristicWhereInput, orderBy: ProjectCharacteristicOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectCharacteristic!]
+  sourceOfItems: SourceOfItems!
+  amountOfKidsHelped: Int!
+  whyIsThisImportant: String!
+  meaningToTheKids: String!
+  microNeed: String!
+  numberOfItems: Int!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -649,6 +655,12 @@ input ProjectCreateInput {
   title: String!
   category: ProjectCategoryCreateOneInput!
   characteristics: ProjectCharacteristicCreateManyInput
+  sourceOfItems: SourceOfItems!
+  amountOfKidsHelped: Int!
+  whyIsThisImportant: String!
+  meaningToTheKids: String!
+  microNeed: String!
+  numberOfItems: Int!
 }
 
 type ProjectEdge {
@@ -661,6 +673,18 @@ enum ProjectOrderByInput {
   id_DESC
   title_ASC
   title_DESC
+  sourceOfItems_ASC
+  sourceOfItems_DESC
+  amountOfKidsHelped_ASC
+  amountOfKidsHelped_DESC
+  whyIsThisImportant_ASC
+  whyIsThisImportant_DESC
+  meaningToTheKids_ASC
+  meaningToTheKids_DESC
+  microNeed_ASC
+  microNeed_DESC
+  numberOfItems_ASC
+  numberOfItems_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -670,6 +694,12 @@ enum ProjectOrderByInput {
 type ProjectPreviousValues {
   id: ID!
   title: String!
+  sourceOfItems: SourceOfItems!
+  amountOfKidsHelped: Int!
+  whyIsThisImportant: String!
+  meaningToTheKids: String!
+  microNeed: String!
+  numberOfItems: Int!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -696,10 +726,22 @@ input ProjectUpdateInput {
   title: String
   category: ProjectCategoryUpdateOneRequiredInput
   characteristics: ProjectCharacteristicUpdateManyInput
+  sourceOfItems: SourceOfItems
+  amountOfKidsHelped: Int
+  whyIsThisImportant: String
+  meaningToTheKids: String
+  microNeed: String
+  numberOfItems: Int
 }
 
 input ProjectUpdateManyMutationInput {
   title: String
+  sourceOfItems: SourceOfItems
+  amountOfKidsHelped: Int
+  whyIsThisImportant: String
+  meaningToTheKids: String
+  microNeed: String
+  numberOfItems: Int
 }
 
 input ProjectWhereInput {
@@ -735,6 +777,68 @@ input ProjectWhereInput {
   characteristics_every: ProjectCharacteristicWhereInput
   characteristics_some: ProjectCharacteristicWhereInput
   characteristics_none: ProjectCharacteristicWhereInput
+  sourceOfItems: SourceOfItems
+  sourceOfItems_not: SourceOfItems
+  sourceOfItems_in: [SourceOfItems!]
+  sourceOfItems_not_in: [SourceOfItems!]
+  amountOfKidsHelped: Int
+  amountOfKidsHelped_not: Int
+  amountOfKidsHelped_in: [Int!]
+  amountOfKidsHelped_not_in: [Int!]
+  amountOfKidsHelped_lt: Int
+  amountOfKidsHelped_lte: Int
+  amountOfKidsHelped_gt: Int
+  amountOfKidsHelped_gte: Int
+  whyIsThisImportant: String
+  whyIsThisImportant_not: String
+  whyIsThisImportant_in: [String!]
+  whyIsThisImportant_not_in: [String!]
+  whyIsThisImportant_lt: String
+  whyIsThisImportant_lte: String
+  whyIsThisImportant_gt: String
+  whyIsThisImportant_gte: String
+  whyIsThisImportant_contains: String
+  whyIsThisImportant_not_contains: String
+  whyIsThisImportant_starts_with: String
+  whyIsThisImportant_not_starts_with: String
+  whyIsThisImportant_ends_with: String
+  whyIsThisImportant_not_ends_with: String
+  meaningToTheKids: String
+  meaningToTheKids_not: String
+  meaningToTheKids_in: [String!]
+  meaningToTheKids_not_in: [String!]
+  meaningToTheKids_lt: String
+  meaningToTheKids_lte: String
+  meaningToTheKids_gt: String
+  meaningToTheKids_gte: String
+  meaningToTheKids_contains: String
+  meaningToTheKids_not_contains: String
+  meaningToTheKids_starts_with: String
+  meaningToTheKids_not_starts_with: String
+  meaningToTheKids_ends_with: String
+  meaningToTheKids_not_ends_with: String
+  microNeed: String
+  microNeed_not: String
+  microNeed_in: [String!]
+  microNeed_not_in: [String!]
+  microNeed_lt: String
+  microNeed_lte: String
+  microNeed_gt: String
+  microNeed_gte: String
+  microNeed_contains: String
+  microNeed_not_contains: String
+  microNeed_starts_with: String
+  microNeed_not_starts_with: String
+  microNeed_ends_with: String
+  microNeed_not_ends_with: String
+  numberOfItems: Int
+  numberOfItems_not: Int
+  numberOfItems_in: [Int!]
+  numberOfItems_not_in: [Int!]
+  numberOfItems_lt: Int
+  numberOfItems_lte: Int
+  numberOfItems_gt: Int
+  numberOfItems_gte: Int
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -777,6 +881,12 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
+}
+
+enum SourceOfItems {
+  LOCAL
+  DIRECT
+  OTHER
 }
 
 type Subscription {

@@ -15,6 +15,12 @@ type Mutation {
 input CreateProjectInput {
   title: String!
   categoryId: ID!
+  sourceOfItems: SourceOfItems!
+  amountOfKidsHelped: Int!
+  whyIsThisImportant: String!
+  meaningToTheKids: String!
+  microNeed: String!
+  numberOfItems: Int!
   characteristicIds: [ID!]!
 }
 
@@ -26,6 +32,13 @@ type Project {
   id: ID!
   title: String!
   category: ProjectCategory!
+  sourceOfItems: SourceOfItems!
+  amountOfKidsHelped: Int!
+  whyIsThisImportant: String!
+  meaningToTheKids: String!
+  microNeed: String!
+  numberOfItems: Int!
+  characteristics: [ProjectCharacteristic!]!
 }
 
 type ProjectCategory {
@@ -54,4 +67,10 @@ input GetProjectInput {
 
 type GetProjectPayload {
   project: Project!
+}
+
+enum SourceOfItems {
+  LOCAL
+  DIRECT
+  OTHER
 }

@@ -21,6 +21,14 @@ export interface CreateProjectPayload {
 export interface Project {
   id: string;
   title: string;
+  amountOfKidsHelped: number;
+  whyIsThisImportant: string;
+  meaningToTheKids: string;
+  microNeed: string;
+  numberOfItems: number;
+  sourceOfItems: SourceOfItems;
+  category?: ProjectCategory;
+  characteristics?: ProjectCharacteristic[];
 }
 
 export interface GetProjectFeedPayload {
@@ -47,3 +55,5 @@ export interface ProjectCharacteristic {
   name: string;
   group?: ProjectCharacteristicGroup;
 }
+
+type SourceOfItems = 'LOCAL' | 'DIRECT' | 'OTHER';

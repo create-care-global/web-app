@@ -17,6 +17,12 @@ type Project {
   title: String!
   category: ProjectCategory!
   characteristics: [ProjectCharacteristic!]!
+  sourceOfItems: SourceOfItems!
+  amountOfKidsHelped: Int!
+  whyIsThisImportant: String!
+  meaningToTheKids: String!
+  microNeed: String!
+  numberOfItems: Int!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
@@ -42,4 +48,10 @@ type ProjectCharacteristic {
   group: ProjectCharacteristicGroup!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
+}
+
+enum SourceOfItems {
+  LOCAL
+  DIRECT
+  OTHER
 }
