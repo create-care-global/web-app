@@ -38,9 +38,17 @@ const isAuthenticated = rule()(
 //     ctx.viewer !== null && JSON.parse(ctx.viewer.userGroup).user === true
 // );
 
-export default shield({
-  Mutation: {
-    signup: not(isAuthenticated),
-    login: not(isAuthenticated)
-  }
-});
+const isAnyone = rule()(
+  async (parent: any, args: any, ctx: ResolverContext, info: any) => true
+);
+
+export default shield(
+  {
+    Mutation: {
+      signup: not(isAuthenticated),
+      login: not(isAuthenticated)
+    },
+    Query: isAnyone,
+  },
+  { allowExternalErrors: true }
+);

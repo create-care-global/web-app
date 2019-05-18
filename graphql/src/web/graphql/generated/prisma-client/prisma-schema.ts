@@ -6,6 +6,10 @@ export const typeDefs = /* GraphQL */ `type AggregateProject {
   count: Int!
 }
 
+type AggregateProjectCategory {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -25,6 +29,12 @@ type Mutation {
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
+  createProjectCategory(data: ProjectCategoryCreateInput!): ProjectCategory!
+  updateProjectCategory(data: ProjectCategoryUpdateInput!, where: ProjectCategoryWhereUniqueInput!): ProjectCategory
+  updateManyProjectCategories(data: ProjectCategoryUpdateManyMutationInput!, where: ProjectCategoryWhereInput): BatchPayload!
+  upsertProjectCategory(where: ProjectCategoryWhereUniqueInput!, create: ProjectCategoryCreateInput!, update: ProjectCategoryUpdateInput!): ProjectCategory!
+  deleteProjectCategory(where: ProjectCategoryWhereUniqueInput!): ProjectCategory
+  deleteManyProjectCategories(where: ProjectCategoryWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -53,6 +63,151 @@ type PageInfo {
 type Project {
   id: ID!
   title: String!
+  category: ProjectCategory!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProjectCategory {
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProjectCategoryConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectCategoryEdge]!
+  aggregate: AggregateProjectCategory!
+}
+
+input ProjectCategoryCreateInput {
+  id: ID
+  name: String!
+}
+
+input ProjectCategoryCreateOneInput {
+  create: ProjectCategoryCreateInput
+  connect: ProjectCategoryWhereUniqueInput
+}
+
+type ProjectCategoryEdge {
+  node: ProjectCategory!
+  cursor: String!
+}
+
+enum ProjectCategoryOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ProjectCategoryPreviousValues {
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProjectCategorySubscriptionPayload {
+  mutation: MutationType!
+  node: ProjectCategory
+  updatedFields: [String!]
+  previousValues: ProjectCategoryPreviousValues
+}
+
+input ProjectCategorySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProjectCategoryWhereInput
+  AND: [ProjectCategorySubscriptionWhereInput!]
+  OR: [ProjectCategorySubscriptionWhereInput!]
+  NOT: [ProjectCategorySubscriptionWhereInput!]
+}
+
+input ProjectCategoryUpdateDataInput {
+  name: String
+}
+
+input ProjectCategoryUpdateInput {
+  name: String
+}
+
+input ProjectCategoryUpdateManyMutationInput {
+  name: String
+}
+
+input ProjectCategoryUpdateOneRequiredInput {
+  create: ProjectCategoryCreateInput
+  update: ProjectCategoryUpdateDataInput
+  upsert: ProjectCategoryUpsertNestedInput
+  connect: ProjectCategoryWhereUniqueInput
+}
+
+input ProjectCategoryUpsertNestedInput {
+  update: ProjectCategoryUpdateDataInput!
+  create: ProjectCategoryCreateInput!
+}
+
+input ProjectCategoryWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ProjectCategoryWhereInput!]
+  OR: [ProjectCategoryWhereInput!]
+  NOT: [ProjectCategoryWhereInput!]
+}
+
+input ProjectCategoryWhereUniqueInput {
+  id: ID
 }
 
 type ProjectConnection {
@@ -64,6 +219,7 @@ type ProjectConnection {
 input ProjectCreateInput {
   id: ID
   title: String!
+  category: ProjectCategoryCreateOneInput!
 }
 
 type ProjectEdge {
@@ -76,11 +232,17 @@ enum ProjectOrderByInput {
   id_DESC
   title_ASC
   title_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type ProjectPreviousValues {
   id: ID!
   title: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 type ProjectSubscriptionPayload {
@@ -103,6 +265,7 @@ input ProjectSubscriptionWhereInput {
 
 input ProjectUpdateInput {
   title: String
+  category: ProjectCategoryUpdateOneRequiredInput
 }
 
 input ProjectUpdateManyMutationInput {
@@ -138,6 +301,23 @@ input ProjectWhereInput {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
+  category: ProjectCategoryWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [ProjectWhereInput!]
   OR: [ProjectWhereInput!]
   NOT: [ProjectWhereInput!]
@@ -151,6 +331,9 @@ type Query {
   project(where: ProjectWhereUniqueInput!): Project
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
+  projectCategory(where: ProjectCategoryWhereUniqueInput!): ProjectCategory
+  projectCategories(where: ProjectCategoryWhereInput, orderBy: ProjectCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectCategory]!
+  projectCategoriesConnection(where: ProjectCategoryWhereInput, orderBy: ProjectCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectCategoryConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -159,6 +342,7 @@ type Query {
 
 type Subscription {
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
+  projectCategory(where: ProjectCategorySubscriptionWhereInput): ProjectCategorySubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 

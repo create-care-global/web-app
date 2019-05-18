@@ -15,4 +15,14 @@ type User {
 type Project {
   id: ID! @id @unique
   title: String!
+  category: ProjectCategory!
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type ProjectCategory {
+  id: ID! @id @unique
+  name: String!
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }

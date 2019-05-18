@@ -9,8 +9,13 @@ type Mutation {
   createProject(input: CreateProjectInput!): CreateProjectPayload!
 }
 
+type Query {
+  projectCategories: [ProjectCategory!]!
+}
+
 input CreateProjectInput {
   title: String!
+  categoryId: ID!
 }
 
 type CreateProjectPayload {
@@ -20,6 +25,12 @@ type CreateProjectPayload {
 type Project {
   id: ID!
   title: String!
+  category: ProjectCategory!
+}
+
+type ProjectCategory {
+  id: ID!
+  name: String!
 }
 
 type GetProjectFeedPayload {

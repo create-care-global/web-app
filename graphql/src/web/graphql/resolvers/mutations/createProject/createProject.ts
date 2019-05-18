@@ -6,29 +6,32 @@ import { Project as PrismaProject } from 'src/web/graphql/generated/prisma-clien
 type CreatePrismaProjectFn = (
   ctx: ResolverContext,
   input: MutationResolvers.CreateProjectInput
-) => Promise<{ result?: PrismaProject; error?: Error }>;
+) => Promise<{ project?: PrismaProject; error?: Error }>;
 
-const createPrismaProject: CreatePrismaProjectFn = async (ctx, input) => {
+const createPrismaProject: CreatePrismaProjectFn = async (ctx, { title, categoryId }) => {
   try {
-    const result = await ctx.prisma.createProject(input);
-    return { result };
+    const project = await ctx.prisma.createProject({
+      title,
+      category: {
+        connect: { id: categoryId }
+      }
+    });
+
+    return { project };
   } catch (error) {
     return { error };
   }
 };
 
 const createProject: MutationResolvers.CreateProjectResolver = async (parent, args, ctx) => {
-  const { result: project, error } = await createPrismaProject(ctx, args.input);
+  const { input } = args;
+  const { project, error } = await createPrismaProject(ctx, input);
 
   if (error || !project) {
     return throwDatabaseError('Unable to create new user');
   }
 
-  const { id, title } = project;
-
-  return {
-    project: { id, title }
-  };
+  return { project };
 };
 
 export default createProject;
