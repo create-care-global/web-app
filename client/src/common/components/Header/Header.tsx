@@ -21,6 +21,7 @@ const headerClassName = css`
   justify-content: center;
   background-color: ${primaryBackgroundColor};
   border-bottom: 1px solid ${borderColor};
+  z-index: 1000;
 
   ${mediaQuery.md} {
     padding: 0 2rem;

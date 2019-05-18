@@ -10,6 +10,20 @@ const PROJECT_QUERY = gql`
       project {
         id
         title
+        category {
+          id
+          name
+        }
+        sourceOfItems
+        amountOfKidsHelped
+        whyIsThisImportant
+        meaningToTheKids
+        microNeed
+        numberOfItems
+        characteristics {
+          id
+          name
+        }
       }
     }
   }
