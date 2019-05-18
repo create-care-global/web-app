@@ -1,24 +1,33 @@
 import Main from 'common/components/Main';
 import React, {Component} from 'react';
 
-class ProjectRegister extends Component {
+
+class ProjectRegister extends Component<{}, any>  {
   constructor(props: any) {
     super(props);
     this.state = {
         projectName: '',
         microNeed: '',
         itemAmount: '',
-        //choice: 
+        fundingChoice: '', 
         kidAmount: '',
         importance: '',
         meaning: ''
     }
   }
-  //TODO on change
+  //On change of input field, update the field
   onChange = (event: any)  => this.setState({ [event.target.name]: event.target.value });
-  //TODO on submit
+  
+  //On submit of form, send state to the back end to be stored
   onSubmit = () => {
     return this.state
+  }
+
+  //On clicking radio button choice, select the type of funding
+  onRadioChange = (event: any) => {
+      this.setState({
+          fundingChoice: event.target.value
+      });
   }
 
   render() {
@@ -46,10 +55,24 @@ class ProjectRegister extends Component {
       <h3>Are you looking for:</h3>
       {/* TODO add unordered list for the radio buttons
     https://magnusbenoni.com/radio-buttons-react/*/ }
-      <div>
-        <input type='radio' value="direct"/> Items to be sent directly
-        <input type='radio' value="local"/> Funding to source the item locally
-      </div>
+      <ul>
+        <li>
+            <input 
+                type='radio' 
+                value="direct"
+                onChange={this.onRadioChange}
+                checked={this.state.fundingChoice==="direct"}
+            /> Items to be sent directly
+        </li>
+        <li>
+            <input 
+                type='radio' 
+                value="local"
+                onChange={this.onRadioChange}
+                checked={this.state.fundingChoice==="local"}
+            /> Funding to source the item locally
+        </li>
+      </ul>
 
       <h3>How many kids will this help</h3>
       <input 
