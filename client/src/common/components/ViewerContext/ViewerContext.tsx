@@ -3,10 +3,11 @@ import {
   getViewerId,
   setViewerId
 } from 'common/helpers/sessions';
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 
 export interface Viewer {
   id: string;
+  userGroup: string | null;
 }
 export type SetViewerFn = (viewer: Viewer) => void;
 export type ClearViewerFn = () => void;
@@ -41,10 +42,12 @@ class ViewerProvider extends React.Component<ContextProps, ContextState> {
 
   componentWillMount() {
     const viewerId = getViewerId();
+    const userGroup = window.localStorage.getItem('userGroup');
 
     if (viewerId && !this.state.viewer) {
       const viewer: Viewer = {
-        id: viewerId
+        id: viewerId,
+        userGroup
       };
       this.setState({
         viewer
@@ -81,5 +84,31 @@ class ViewerProvider extends React.Component<ContextProps, ContextState> {
   }
 }
 
+interface UseViewerResult {
+  viewer: Viewer | null;
+  isDriver: boolean;
+  isSolver: boolean;
+  isLoggedIn: boolean;
+}
+const useViewer = (): UseViewerResult => {
+  const { viewer } = useContext(ViewerContext);
+  const isLoggedIn = useMemo<boolean>(() => !!viewer, [viewer]);
+  const isDriver = useMemo<boolean>(
+    () => !!viewer && !!viewer.userGroup && JSON.parse(viewer.userGroup).driver,
+    [viewer]
+  );
+  const isSolver = useMemo<boolean>(
+    () => !!viewer && !!viewer.userGroup && JSON.parse(viewer.userGroup).solver,
+    [viewer]
+  );
+
+  return {
+    viewer,
+    isLoggedIn,
+    isDriver,
+    isSolver
+  };
+};
+
 export default ViewerContext;
-export { ViewerProvider, ViewerConsumer };
+export { ViewerProvider, ViewerConsumer, useViewer };

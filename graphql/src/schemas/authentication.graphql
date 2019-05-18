@@ -10,6 +10,7 @@ type Mutation {
 
 type User {
   id: ID!
+  userGroup: String!
   email: String!
   firstName: String!
   lastName: String!

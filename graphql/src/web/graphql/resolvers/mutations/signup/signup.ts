@@ -27,7 +27,8 @@ const signup: MutationResolvers.SignupResolver = async (parent, args, ctx) => {
 
   try {
     const token = ctx.utils.jwt.sign({
-      id: newUser.id
+      id: newUser.id,
+      userGroup: newUser.userGroup
     });
     ctx.utils.headers.setTokenToResponse(ctx.response, token);
   } catch (e) {
@@ -40,7 +41,8 @@ const signup: MutationResolvers.SignupResolver = async (parent, args, ctx) => {
       firstName: newUser.firstName,
       lastName: newUser.lastName,
       email: newUser.email,
-      displayName: newUser.displayName
+      displayName: newUser.displayName,
+      userGroup: newUser.userGroup
     }
   };
 };

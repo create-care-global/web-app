@@ -33,7 +33,8 @@ const createHandleSignupFn: CreateHandleSignupFn = (
     const result = await signup(options);
     if (result && result.data) {
       setViewer({
-        id: result.data.signup.user.id
+        id: result.data.signup.user.id,
+        userGroup: result.data.signup.user.userGroup
       });
     } else {
       setGeneralError('Unexpected error occurred!');
