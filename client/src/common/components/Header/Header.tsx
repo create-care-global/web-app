@@ -81,6 +81,9 @@ const Header: React.FunctionComponent<{}> = () => {
           )}
           {viewer && (
             <>
+              <Link to="/project-registration">
+                <Button variant="text">Create a project</Button>
+              </Link>
               <Link to={linkgen(Paths.dashboard)}>
                 <Button variant="text">Dashboard</Button>
               </Link>
