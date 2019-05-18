@@ -3,19 +3,18 @@
 
 type Query {
   getProjectFeed: GetProjectFeedPayload!
+  projectCategories: [ProjectCategory!]!
+  projectCharacteristicGroups: [ProjectCharacteristicGroup!]!
 }
 
 type Mutation {
   createProject(input: CreateProjectInput!): CreateProjectPayload!
 }
 
-type Query {
-  projectCategories: [ProjectCategory!]!
-}
-
 input CreateProjectInput {
   title: String!
   categoryId: ID!
+  characteristicIds: [ID!]!
 }
 
 type CreateProjectPayload {
@@ -35,4 +34,15 @@ type ProjectCategory {
 
 type GetProjectFeedPayload {
   projects: [Project!]!
+}
+
+type ProjectCharacteristicGroup {
+  id: ID!
+  name: String!
+  items: [ProjectCharacteristic!]!
+}
+
+type ProjectCharacteristic {
+  id: ID!
+  name: String!
 }

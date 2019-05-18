@@ -12,4 +12,8 @@ export const Query: QueryResolvers.Type = {
   projectCategories: async (parent, args, ctx) => {
     return ctx.prisma.projectCategories();
   },
+
+  projectCharacteristicGroups: async (parent, args, ctx) => {
+    return ctx.prisma.projectCharacteristicGroups();
+  },
 };

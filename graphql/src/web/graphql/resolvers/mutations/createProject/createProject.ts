@@ -8,12 +8,15 @@ type CreatePrismaProjectFn = (
   input: MutationResolvers.CreateProjectInput
 ) => Promise<{ project?: PrismaProject; error?: Error }>;
 
-const createPrismaProject: CreatePrismaProjectFn = async (ctx, { title, categoryId }) => {
+const createPrismaProject: CreatePrismaProjectFn = async (ctx, { title, categoryId, characteristicIds }) => {
   try {
     const project = await ctx.prisma.createProject({
       title,
       category: {
         connect: { id: categoryId }
+      },
+      characteristics: {
+        connect: characteristicIds.map(id => ({ id }))
       }
     });
 

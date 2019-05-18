@@ -5,6 +5,8 @@ import { LoginPayload } from './LoginPayload';
 import { Mutation } from './Mutation';
 import { Project } from './Project';
 import { ProjectCategory } from './ProjectCategory';
+import { ProjectCharacteristicGroup } from './ProjectCharacteristicGroup';
+import { ProjectCharacteristic } from './ProjectCharacteristic';
 import { Query } from './Query';
 import { SignupPayload } from './SignupPayload';
 import { User } from './User';
@@ -18,5 +20,7 @@ export const resolvers: Resolvers = {
   CreateProjectPayload,
   Project,
   GetProjectFeedPayload,
-  ProjectCategory
+  ProjectCategory,
+  ProjectCharacteristicGroup,
+  ProjectCharacteristic,
 };

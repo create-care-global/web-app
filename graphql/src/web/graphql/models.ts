@@ -32,3 +32,14 @@ export interface ProjectCategory {
   id: string;
   name: string;
 }
+
+export interface ProjectCharacteristicGroup {
+  id: string;
+  name: string;
+}
+
+export interface ProjectCharacteristic {
+  id: string;
+  name: string;
+  group?: ProjectCharacteristicGroup;
+}

@@ -10,6 +10,14 @@ type AggregateProjectCategory {
   count: Int!
 }
 
+type AggregateProjectCharacteristic {
+  count: Int!
+}
+
+type AggregateProjectCharacteristicGroup {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -35,6 +43,18 @@ type Mutation {
   upsertProjectCategory(where: ProjectCategoryWhereUniqueInput!, create: ProjectCategoryCreateInput!, update: ProjectCategoryUpdateInput!): ProjectCategory!
   deleteProjectCategory(where: ProjectCategoryWhereUniqueInput!): ProjectCategory
   deleteManyProjectCategories(where: ProjectCategoryWhereInput): BatchPayload!
+  createProjectCharacteristic(data: ProjectCharacteristicCreateInput!): ProjectCharacteristic!
+  updateProjectCharacteristic(data: ProjectCharacteristicUpdateInput!, where: ProjectCharacteristicWhereUniqueInput!): ProjectCharacteristic
+  updateManyProjectCharacteristics(data: ProjectCharacteristicUpdateManyMutationInput!, where: ProjectCharacteristicWhereInput): BatchPayload!
+  upsertProjectCharacteristic(where: ProjectCharacteristicWhereUniqueInput!, create: ProjectCharacteristicCreateInput!, update: ProjectCharacteristicUpdateInput!): ProjectCharacteristic!
+  deleteProjectCharacteristic(where: ProjectCharacteristicWhereUniqueInput!): ProjectCharacteristic
+  deleteManyProjectCharacteristics(where: ProjectCharacteristicWhereInput): BatchPayload!
+  createProjectCharacteristicGroup(data: ProjectCharacteristicGroupCreateInput!): ProjectCharacteristicGroup!
+  updateProjectCharacteristicGroup(data: ProjectCharacteristicGroupUpdateInput!, where: ProjectCharacteristicGroupWhereUniqueInput!): ProjectCharacteristicGroup
+  updateManyProjectCharacteristicGroups(data: ProjectCharacteristicGroupUpdateManyMutationInput!, where: ProjectCharacteristicGroupWhereInput): BatchPayload!
+  upsertProjectCharacteristicGroup(where: ProjectCharacteristicGroupWhereUniqueInput!, create: ProjectCharacteristicGroupCreateInput!, update: ProjectCharacteristicGroupUpdateInput!): ProjectCharacteristicGroup!
+  deleteProjectCharacteristicGroup(where: ProjectCharacteristicGroupWhereUniqueInput!): ProjectCharacteristicGroup
+  deleteManyProjectCharacteristicGroups(where: ProjectCharacteristicGroupWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -64,6 +84,7 @@ type Project {
   id: ID!
   title: String!
   category: ProjectCategory!
+  characteristics(where: ProjectCharacteristicWhereInput, orderBy: ProjectCharacteristicOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectCharacteristic!]
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -210,6 +231,413 @@ input ProjectCategoryWhereUniqueInput {
   id: ID
 }
 
+type ProjectCharacteristic {
+  id: ID!
+  name: String!
+  group: ProjectCharacteristicGroup!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProjectCharacteristicConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectCharacteristicEdge]!
+  aggregate: AggregateProjectCharacteristic!
+}
+
+input ProjectCharacteristicCreateInput {
+  id: ID
+  name: String!
+  group: ProjectCharacteristicGroupCreateOneWithoutItemsInput!
+}
+
+input ProjectCharacteristicCreateManyInput {
+  create: [ProjectCharacteristicCreateInput!]
+  connect: [ProjectCharacteristicWhereUniqueInput!]
+}
+
+input ProjectCharacteristicCreateManyWithoutGroupInput {
+  create: [ProjectCharacteristicCreateWithoutGroupInput!]
+  connect: [ProjectCharacteristicWhereUniqueInput!]
+}
+
+input ProjectCharacteristicCreateWithoutGroupInput {
+  id: ID
+  name: String!
+}
+
+type ProjectCharacteristicEdge {
+  node: ProjectCharacteristic!
+  cursor: String!
+}
+
+type ProjectCharacteristicGroup {
+  id: ID!
+  name: String!
+  items(where: ProjectCharacteristicWhereInput, orderBy: ProjectCharacteristicOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectCharacteristic!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProjectCharacteristicGroupConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectCharacteristicGroupEdge]!
+  aggregate: AggregateProjectCharacteristicGroup!
+}
+
+input ProjectCharacteristicGroupCreateInput {
+  id: ID
+  name: String!
+  items: ProjectCharacteristicCreateManyWithoutGroupInput
+}
+
+input ProjectCharacteristicGroupCreateOneWithoutItemsInput {
+  create: ProjectCharacteristicGroupCreateWithoutItemsInput
+  connect: ProjectCharacteristicGroupWhereUniqueInput
+}
+
+input ProjectCharacteristicGroupCreateWithoutItemsInput {
+  id: ID
+  name: String!
+}
+
+type ProjectCharacteristicGroupEdge {
+  node: ProjectCharacteristicGroup!
+  cursor: String!
+}
+
+enum ProjectCharacteristicGroupOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ProjectCharacteristicGroupPreviousValues {
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type ProjectCharacteristicGroupSubscriptionPayload {
+  mutation: MutationType!
+  node: ProjectCharacteristicGroup
+  updatedFields: [String!]
+  previousValues: ProjectCharacteristicGroupPreviousValues
+}
+
+input ProjectCharacteristicGroupSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProjectCharacteristicGroupWhereInput
+  AND: [ProjectCharacteristicGroupSubscriptionWhereInput!]
+  OR: [ProjectCharacteristicGroupSubscriptionWhereInput!]
+  NOT: [ProjectCharacteristicGroupSubscriptionWhereInput!]
+}
+
+input ProjectCharacteristicGroupUpdateInput {
+  name: String
+  items: ProjectCharacteristicUpdateManyWithoutGroupInput
+}
+
+input ProjectCharacteristicGroupUpdateManyMutationInput {
+  name: String
+}
+
+input ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput {
+  create: ProjectCharacteristicGroupCreateWithoutItemsInput
+  update: ProjectCharacteristicGroupUpdateWithoutItemsDataInput
+  upsert: ProjectCharacteristicGroupUpsertWithoutItemsInput
+  connect: ProjectCharacteristicGroupWhereUniqueInput
+}
+
+input ProjectCharacteristicGroupUpdateWithoutItemsDataInput {
+  name: String
+}
+
+input ProjectCharacteristicGroupUpsertWithoutItemsInput {
+  update: ProjectCharacteristicGroupUpdateWithoutItemsDataInput!
+  create: ProjectCharacteristicGroupCreateWithoutItemsInput!
+}
+
+input ProjectCharacteristicGroupWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  items_every: ProjectCharacteristicWhereInput
+  items_some: ProjectCharacteristicWhereInput
+  items_none: ProjectCharacteristicWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ProjectCharacteristicGroupWhereInput!]
+  OR: [ProjectCharacteristicGroupWhereInput!]
+  NOT: [ProjectCharacteristicGroupWhereInput!]
+}
+
+input ProjectCharacteristicGroupWhereUniqueInput {
+  id: ID
+}
+
+enum ProjectCharacteristicOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ProjectCharacteristicPreviousValues {
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input ProjectCharacteristicScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ProjectCharacteristicScalarWhereInput!]
+  OR: [ProjectCharacteristicScalarWhereInput!]
+  NOT: [ProjectCharacteristicScalarWhereInput!]
+}
+
+type ProjectCharacteristicSubscriptionPayload {
+  mutation: MutationType!
+  node: ProjectCharacteristic
+  updatedFields: [String!]
+  previousValues: ProjectCharacteristicPreviousValues
+}
+
+input ProjectCharacteristicSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProjectCharacteristicWhereInput
+  AND: [ProjectCharacteristicSubscriptionWhereInput!]
+  OR: [ProjectCharacteristicSubscriptionWhereInput!]
+  NOT: [ProjectCharacteristicSubscriptionWhereInput!]
+}
+
+input ProjectCharacteristicUpdateDataInput {
+  name: String
+  group: ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput
+}
+
+input ProjectCharacteristicUpdateInput {
+  name: String
+  group: ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput
+}
+
+input ProjectCharacteristicUpdateManyDataInput {
+  name: String
+}
+
+input ProjectCharacteristicUpdateManyInput {
+  create: [ProjectCharacteristicCreateInput!]
+  update: [ProjectCharacteristicUpdateWithWhereUniqueNestedInput!]
+  upsert: [ProjectCharacteristicUpsertWithWhereUniqueNestedInput!]
+  delete: [ProjectCharacteristicWhereUniqueInput!]
+  connect: [ProjectCharacteristicWhereUniqueInput!]
+  set: [ProjectCharacteristicWhereUniqueInput!]
+  disconnect: [ProjectCharacteristicWhereUniqueInput!]
+  deleteMany: [ProjectCharacteristicScalarWhereInput!]
+  updateMany: [ProjectCharacteristicUpdateManyWithWhereNestedInput!]
+}
+
+input ProjectCharacteristicUpdateManyMutationInput {
+  name: String
+}
+
+input ProjectCharacteristicUpdateManyWithoutGroupInput {
+  create: [ProjectCharacteristicCreateWithoutGroupInput!]
+  delete: [ProjectCharacteristicWhereUniqueInput!]
+  connect: [ProjectCharacteristicWhereUniqueInput!]
+  set: [ProjectCharacteristicWhereUniqueInput!]
+  disconnect: [ProjectCharacteristicWhereUniqueInput!]
+  update: [ProjectCharacteristicUpdateWithWhereUniqueWithoutGroupInput!]
+  upsert: [ProjectCharacteristicUpsertWithWhereUniqueWithoutGroupInput!]
+  deleteMany: [ProjectCharacteristicScalarWhereInput!]
+  updateMany: [ProjectCharacteristicUpdateManyWithWhereNestedInput!]
+}
+
+input ProjectCharacteristicUpdateManyWithWhereNestedInput {
+  where: ProjectCharacteristicScalarWhereInput!
+  data: ProjectCharacteristicUpdateManyDataInput!
+}
+
+input ProjectCharacteristicUpdateWithoutGroupDataInput {
+  name: String
+}
+
+input ProjectCharacteristicUpdateWithWhereUniqueNestedInput {
+  where: ProjectCharacteristicWhereUniqueInput!
+  data: ProjectCharacteristicUpdateDataInput!
+}
+
+input ProjectCharacteristicUpdateWithWhereUniqueWithoutGroupInput {
+  where: ProjectCharacteristicWhereUniqueInput!
+  data: ProjectCharacteristicUpdateWithoutGroupDataInput!
+}
+
+input ProjectCharacteristicUpsertWithWhereUniqueNestedInput {
+  where: ProjectCharacteristicWhereUniqueInput!
+  update: ProjectCharacteristicUpdateDataInput!
+  create: ProjectCharacteristicCreateInput!
+}
+
+input ProjectCharacteristicUpsertWithWhereUniqueWithoutGroupInput {
+  where: ProjectCharacteristicWhereUniqueInput!
+  update: ProjectCharacteristicUpdateWithoutGroupDataInput!
+  create: ProjectCharacteristicCreateWithoutGroupInput!
+}
+
+input ProjectCharacteristicWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  group: ProjectCharacteristicGroupWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ProjectCharacteristicWhereInput!]
+  OR: [ProjectCharacteristicWhereInput!]
+  NOT: [ProjectCharacteristicWhereInput!]
+}
+
+input ProjectCharacteristicWhereUniqueInput {
+  id: ID
+}
+
 type ProjectConnection {
   pageInfo: PageInfo!
   edges: [ProjectEdge]!
@@ -220,6 +648,7 @@ input ProjectCreateInput {
   id: ID
   title: String!
   category: ProjectCategoryCreateOneInput!
+  characteristics: ProjectCharacteristicCreateManyInput
 }
 
 type ProjectEdge {
@@ -266,6 +695,7 @@ input ProjectSubscriptionWhereInput {
 input ProjectUpdateInput {
   title: String
   category: ProjectCategoryUpdateOneRequiredInput
+  characteristics: ProjectCharacteristicUpdateManyInput
 }
 
 input ProjectUpdateManyMutationInput {
@@ -302,6 +732,9 @@ input ProjectWhereInput {
   title_ends_with: String
   title_not_ends_with: String
   category: ProjectCategoryWhereInput
+  characteristics_every: ProjectCharacteristicWhereInput
+  characteristics_some: ProjectCharacteristicWhereInput
+  characteristics_none: ProjectCharacteristicWhereInput
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -334,6 +767,12 @@ type Query {
   projectCategory(where: ProjectCategoryWhereUniqueInput!): ProjectCategory
   projectCategories(where: ProjectCategoryWhereInput, orderBy: ProjectCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectCategory]!
   projectCategoriesConnection(where: ProjectCategoryWhereInput, orderBy: ProjectCategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectCategoryConnection!
+  projectCharacteristic(where: ProjectCharacteristicWhereUniqueInput!): ProjectCharacteristic
+  projectCharacteristics(where: ProjectCharacteristicWhereInput, orderBy: ProjectCharacteristicOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectCharacteristic]!
+  projectCharacteristicsConnection(where: ProjectCharacteristicWhereInput, orderBy: ProjectCharacteristicOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectCharacteristicConnection!
+  projectCharacteristicGroup(where: ProjectCharacteristicGroupWhereUniqueInput!): ProjectCharacteristicGroup
+  projectCharacteristicGroups(where: ProjectCharacteristicGroupWhereInput, orderBy: ProjectCharacteristicGroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectCharacteristicGroup]!
+  projectCharacteristicGroupsConnection(where: ProjectCharacteristicGroupWhereInput, orderBy: ProjectCharacteristicGroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectCharacteristicGroupConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -343,6 +782,8 @@ type Query {
 type Subscription {
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
   projectCategory(where: ProjectCategorySubscriptionWhereInput): ProjectCategorySubscriptionPayload
+  projectCharacteristic(where: ProjectCharacteristicSubscriptionWhereInput): ProjectCharacteristicSubscriptionPayload
+  projectCharacteristicGroup(where: ProjectCharacteristicGroupSubscriptionWhereInput): ProjectCharacteristicGroupSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 

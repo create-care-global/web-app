@@ -5,6 +5,8 @@ import {
   GetProjectFeedPayload,
   Project,
   ProjectCategory,
+  ProjectCharacteristicGroup,
+  ProjectCharacteristic,
   User,
   CreateProjectPayload,
   SignupPayload,
@@ -33,6 +35,13 @@ export namespace QueryResolvers {
     info: GraphQLResolveInfo
   ) => ProjectCategory[] | Promise<ProjectCategory[]>;
 
+  export type ProjectCharacteristicGroupsResolver = (
+    parent: undefined,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => ProjectCharacteristicGroup[] | Promise<ProjectCharacteristicGroup[]>;
+
   export type UserResolver = (
     parent: undefined,
     args: ArgsUser,
@@ -54,6 +63,13 @@ export namespace QueryResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => ProjectCategory[] | Promise<ProjectCategory[]>;
+
+    projectCharacteristicGroups: (
+      parent: undefined,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => ProjectCharacteristicGroup[] | Promise<ProjectCharacteristicGroup[]>;
 
     user: (
       parent: undefined,
@@ -174,6 +190,94 @@ export namespace ProjectCategoryResolvers {
   }
 }
 
+export namespace ProjectCharacteristicGroupResolvers {
+  export const defaultResolvers = {
+    id: (parent: ProjectCharacteristicGroup) => parent.id,
+    name: (parent: ProjectCharacteristicGroup) => parent.name
+  };
+
+  export type IdResolver = (
+    parent: ProjectCharacteristicGroup,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver = (
+    parent: ProjectCharacteristicGroup,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type ItemsResolver = (
+    parent: ProjectCharacteristicGroup,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => ProjectCharacteristic[] | Promise<ProjectCharacteristic[]>;
+
+  export interface Type {
+    id: (
+      parent: ProjectCharacteristicGroup,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    name: (
+      parent: ProjectCharacteristicGroup,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    items: (
+      parent: ProjectCharacteristicGroup,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => ProjectCharacteristic[] | Promise<ProjectCharacteristic[]>;
+  }
+}
+
+export namespace ProjectCharacteristicResolvers {
+  export const defaultResolvers = {
+    id: (parent: ProjectCharacteristic) => parent.id,
+    name: (parent: ProjectCharacteristic) => parent.name
+  };
+
+  export type IdResolver = (
+    parent: ProjectCharacteristic,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type NameResolver = (
+    parent: ProjectCharacteristic,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export interface Type {
+    id: (
+      parent: ProjectCharacteristic,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    name: (
+      parent: ProjectCharacteristic,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+  }
+}
+
 export namespace UserResolvers {
   export const defaultResolvers = {
     id: (parent: User) => parent.id,
@@ -263,6 +367,7 @@ export namespace MutationResolvers {
   export interface CreateProjectInput {
     title: string;
     categoryId: string;
+    characteristicIds: string[];
   }
   export interface SignupInput {
     email: string;
@@ -418,6 +523,8 @@ export interface Resolvers {
   GetProjectFeedPayload: GetProjectFeedPayloadResolvers.Type;
   Project: ProjectResolvers.Type;
   ProjectCategory: ProjectCategoryResolvers.Type;
+  ProjectCharacteristicGroup: ProjectCharacteristicGroupResolvers.Type;
+  ProjectCharacteristic: ProjectCharacteristicResolvers.Type;
   User: UserResolvers.Type;
   Mutation: MutationResolvers.Type;
   CreateProjectPayload: CreateProjectPayloadResolvers.Type;

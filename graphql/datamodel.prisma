@@ -16,6 +16,7 @@ type Project {
   id: ID! @id @unique
   title: String!
   category: ProjectCategory!
+  characteristics: [ProjectCharacteristic!]!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
@@ -23,6 +24,22 @@ type Project {
 type ProjectCategory {
   id: ID! @id @unique
   name: String!
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type ProjectCharacteristicGroup {
+  id: ID! @id @unique
+  name: String!
+  items: [ProjectCharacteristic!]!
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type ProjectCharacteristic {
+  id: ID! @id @unique
+  name: String!
+  group: ProjectCharacteristicGroup!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
