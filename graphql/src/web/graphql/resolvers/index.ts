@@ -1,6 +1,7 @@
 import { Resolvers } from 'src/web/graphql/generated/graphqlgen';
 import { CreateProjectPayload } from './CreateProjectPayload';
 import { GetProjectFeedPayload } from './GetProjectFeedPayload';
+import { GetProjectPayload } from 'src/web/graphql/resolvers/GetProjectPayload';
 import { LoginPayload } from './LoginPayload';
 import { Mutation } from './Mutation';
 import { Project } from './Project';
@@ -23,4 +24,5 @@ export const resolvers: Resolvers = {
   ProjectCategory,
   ProjectCharacteristicGroup,
   ProjectCharacteristic,
+  GetProjectPayload
 };

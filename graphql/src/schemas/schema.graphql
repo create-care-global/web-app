@@ -5,6 +5,7 @@ type Query {
   getProjectFeed: GetProjectFeedPayload!
   projectCategories: [ProjectCategory!]!
   projectCharacteristicGroups: [ProjectCharacteristicGroup!]!
+  getProject(input: GetProjectInput!): GetProjectPayload!
 }
 
 type Mutation {
@@ -45,4 +46,12 @@ type ProjectCharacteristicGroup {
 type ProjectCharacteristic {
   id: ID!
   name: String!
+}
+
+input GetProjectInput {
+  id: ID!
+}
+
+type GetProjectPayload {
+  project: Project!
 }

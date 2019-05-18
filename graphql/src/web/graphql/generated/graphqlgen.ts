@@ -7,6 +7,7 @@ import {
   ProjectCategory,
   ProjectCharacteristicGroup,
   ProjectCharacteristic,
+  GetProjectPayload,
   User,
   CreateProjectPayload,
   SignupPayload,
@@ -16,6 +17,14 @@ import { ResolverContext } from '../../../types';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
+
+  export interface GetProjectInput {
+    id: string;
+  }
+
+  export interface ArgsGetProject {
+    input: GetProjectInput;
+  }
 
   export interface ArgsUser {
     id: string;
@@ -41,6 +50,13 @@ export namespace QueryResolvers {
     ctx: ResolverContext,
     info: GraphQLResolveInfo
   ) => ProjectCharacteristicGroup[] | Promise<ProjectCharacteristicGroup[]>;
+
+  export type GetProjectResolver = (
+    parent: undefined,
+    args: ArgsGetProject,
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => GetProjectPayload | Promise<GetProjectPayload>;
 
   export type UserResolver = (
     parent: undefined,
@@ -70,6 +86,13 @@ export namespace QueryResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => ProjectCharacteristicGroup[] | Promise<ProjectCharacteristicGroup[]>;
+
+    getProject: (
+      parent: undefined,
+      args: ArgsGetProject,
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => GetProjectPayload | Promise<GetProjectPayload>;
 
     user: (
       parent: undefined,
@@ -275,6 +298,28 @@ export namespace ProjectCharacteristicResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
+  }
+}
+
+export namespace GetProjectPayloadResolvers {
+  export const defaultResolvers = {
+    project: (parent: GetProjectPayload) => parent.project
+  };
+
+  export type ProjectResolver = (
+    parent: GetProjectPayload,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => Project | Promise<Project>;
+
+  export interface Type {
+    project: (
+      parent: GetProjectPayload,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => Project | Promise<Project>;
   }
 }
 
@@ -525,6 +570,7 @@ export interface Resolvers {
   ProjectCategory: ProjectCategoryResolvers.Type;
   ProjectCharacteristicGroup: ProjectCharacteristicGroupResolvers.Type;
   ProjectCharacteristic: ProjectCharacteristicResolvers.Type;
+  GetProjectPayload: GetProjectPayloadResolvers.Type;
   User: UserResolvers.Type;
   Mutation: MutationResolvers.Type;
   CreateProjectPayload: CreateProjectPayloadResolvers.Type;

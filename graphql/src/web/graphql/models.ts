@@ -33,6 +33,10 @@ export interface ProjectCategory {
   name: string;
 }
 
+export interface GetProjectPayload {
+  project: Project;
+}
+
 export interface ProjectCharacteristicGroup {
   id: string;
   name: string;
