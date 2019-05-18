@@ -6,6 +6,10 @@
 // START Enums and Input Objects
 //==============================================================
 
+export interface GetProjectInput {
+  id: string;
+}
+
 export interface LoginInput {
   email: string;
   password: string;
