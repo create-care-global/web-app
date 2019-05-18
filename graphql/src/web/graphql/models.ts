@@ -13,3 +13,12 @@ export interface SignupPayload {
 export interface LoginPayload {
   user: User;
 }
+
+export interface CreateProjectPayload {
+    project: Project;
+}
+
+export interface Project {
+    id: string;
+    title: string;
+}
