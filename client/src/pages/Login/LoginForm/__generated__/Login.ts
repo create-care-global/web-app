@@ -11,6 +11,7 @@ import { LoginInput } from "./../../../../__generated__/globalTypes";
 export interface Login_login_user {
   __typename: "User";
   id: string;
+  userGroup: string;
   email: string;
   firstName: string;
   lastName: string;

@@ -23,7 +23,8 @@ const login: MutationResolvers.LoginResolver = async (parent, args, ctx) => {
 
   try {
     const token = ctx.utils.jwt.sign({
-      id: user.id
+      id: user.id,
+      userGroup: user.userGroup
     });
     ctx.utils.headers.setTokenToResponse(ctx.response, token);
   } catch (e) {

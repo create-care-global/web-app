@@ -12,6 +12,7 @@ export interface Signup_signup_user {
   __typename: "User";
   id: string;
   email: string;
+  userGroup: string;
   firstName: string;
   lastName: string;
   displayName: string | null;

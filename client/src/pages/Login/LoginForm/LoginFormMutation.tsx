@@ -21,6 +21,7 @@ const LOGIN_MUTATION = gql`
     login(input: $input) {
       user {
         id
+        userGroup
         email
         firstName
         lastName

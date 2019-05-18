@@ -436,10 +436,18 @@ export namespace UserResolvers {
     firstName: (parent: User) => parent.firstName,
     lastName: (parent: User) => parent.lastName,
     displayName: (parent: User) =>
-      parent.displayName === undefined ? null : parent.displayName
+      parent.displayName === undefined ? null : parent.displayName,
+    userGroup: (parent: User) => parent.userGroup
   };
 
   export type IdResolver = (
+    parent: User,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type UserGroupResolver = (
     parent: User,
     args: {},
     ctx: ResolverContext,
@@ -476,6 +484,13 @@ export namespace UserResolvers {
 
   export interface Type {
     id: (
+      parent: User,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    userGroup: (
       parent: User,
       args: {},
       ctx: ResolverContext,

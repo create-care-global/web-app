@@ -1,14 +1,13 @@
-import { css } from 'emotion';
-import React, { useContext } from 'react';
-
 import Button from 'common/components/Button';
 import Link from 'common/components/Link';
 import Logo from 'common/components/Logo';
-import ViewerContext from 'common/components/ViewerContext';
+import { useViewer } from 'common/components/ViewerContext';
 import { linkgen, Paths } from 'common/helpers/pathing';
 import { borderColor, primaryBackgroundColor } from 'common/styles/color';
 import { breakpoints, mediaQuery } from 'common/styles/media';
 import { headerHeight } from 'common/styles/size';
+import { css } from 'emotion';
+import React from 'react';
 
 const headerClassName = css`
   width: 100%;
@@ -59,7 +58,7 @@ const logoClassName = css`
 `;
 
 const Header: React.FunctionComponent<{}> = () => {
-  const { viewer } = useContext(ViewerContext);
+  const { viewer, isDriver } = useViewer();
   return (
     <header className={headerClassName}>
       <div className={headerContentClassName}>
@@ -82,9 +81,11 @@ const Header: React.FunctionComponent<{}> = () => {
           )}
           {viewer && (
             <>
-              <Link to="/project-registration">
-                <Button variant="text">Create a project</Button>
-              </Link>
+              {isDriver && (
+                <Link to="/project-registration">
+                  <Button variant="text">Create a project</Button>
+                </Link>
+              )}
               <Link to={linkgen(Paths.dashboard)}>
                 <Button variant="text">Dashboard</Button>
               </Link>

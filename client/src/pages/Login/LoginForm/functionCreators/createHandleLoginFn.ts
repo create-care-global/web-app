@@ -33,7 +33,10 @@ const createHandleLoginFn: CreateHandleLoginFn = (
       fetchResult.data.login &&
       fetchResult.data.login.user
     ) {
-      setViewer({ id: fetchResult.data.login.user.id });
+      setViewer({
+        id: fetchResult.data.login.user.id,
+        userGroup: fetchResult.data.login.user.userGroup
+      });
     } else {
       setGeneralError(
         'The email/password combination you entered is incorrect.'

@@ -2,6 +2,7 @@ export const expiresIn = 60 * 60 * 24 * 7; // equivalent of 7 days in seconds
 
 export interface JWTPayload {
   id: string;
+  userGroup: string;
 }
 
 export interface JWTObject {

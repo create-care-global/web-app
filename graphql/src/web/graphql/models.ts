@@ -4,6 +4,7 @@ export interface User {
   firstName: string;
   lastName: string;
   displayName?: string;
+  userGroup: string;
 }
 
 export interface SignupPayload {
