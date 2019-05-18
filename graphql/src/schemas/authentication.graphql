@@ -21,6 +21,7 @@ input SignupInput {
   firstName: String!
   lastName: String!
   password: String!
+  group: String!
 }
 
 input LoginInput {

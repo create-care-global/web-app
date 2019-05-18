@@ -11,3 +11,8 @@ type User {
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
+
+type Project {
+  id: ID! @id @unique
+  title: String!
+}
