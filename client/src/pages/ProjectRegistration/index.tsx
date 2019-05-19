@@ -10,6 +10,9 @@ import Text from 'common/components/Text';
 import TextArea from 'common/components/TextArea';
 import TextInput from 'common/components/TextInput';
 import React, { Component } from 'react';
+import CreateProjectMutation, {
+  CreateProjectMutationFn
+} from './CreateProjectMutation';
 import GetProjectCategoriesAndCharacteristicGroupsQuery from './GetProjectCategoriesAndCharacteristicGroupsQuery';
 
 class ProjectRegister extends Component<{}, any> {
@@ -26,7 +29,7 @@ class ProjectRegister extends Component<{}, any> {
       meaningToTheKids: '',
       personalMessage: '',
       categoryId: '',
-      characteristics: []
+      characteristicIds: []
     };
   }
   // On change of input field, update the field
@@ -34,9 +37,51 @@ class ProjectRegister extends Component<{}, any> {
     this.setState({ [event.target.name]: event.target.value })
 
   // On submit of form, send state to the back end to be stored
-  onSubmit = () => {
-    // console.log(this.state);
-    // return this.state;
+  onSubmit = async (createProjectFn: CreateProjectMutationFn) => {
+    const {
+      title,
+      microNeed,
+      numberOfItems,
+      sourceOfItems,
+      estimatedCost,
+      amountOfKidsHelped,
+      whyIsThisImportant,
+      meaningToTheKids,
+      personalMessage,
+      categoryId,
+      characteristicIds
+    } = this.state;
+
+    // Hacking type
+    /* tslint:disable */
+    try {
+      const result = await createProjectFn({
+        variables: {
+          input: {
+            title,
+            microNeed,
+            numberOfItems: parseInt(numberOfItems),
+            sourceOfItems,
+            estimatedCost: parseInt(estimatedCost),
+            amountOfKidsHelped: parseInt(amountOfKidsHelped),
+            whyIsThisImportant,
+            meaningToTheKids,
+            personalMessage,
+            categoryId,
+            characteristicIds
+          }
+        }
+      });
+      // Ignore this type for maximum hack.
+      // This should be typed in the component props
+      // @ts-ignore
+      const destination = '/projects/' + result.data.createProject.project.id;
+      // @ts-ignore
+      this.props.history.push(destination);
+    } catch (e) {
+      alert('Something has gone wrong!');
+    }
+    /* tslint:enable */
   }
 
   render() {
@@ -51,7 +96,7 @@ class ProjectRegister extends Component<{}, any> {
       meaningToTheKids,
       personalMessage,
       categoryId,
-      characteristics
+      characteristicIds
     } = this.state;
 
     return (
@@ -105,7 +150,7 @@ class ProjectRegister extends Component<{}, any> {
             />
             <TextInput
               name="amountOfKidsHelped"
-              label="How many of those items do you need?"
+              label="How many of your kids will this help?"
               onChange={this.onChange}
               type="number"
               value={amountOfKidsHelped}
@@ -196,18 +241,18 @@ class ProjectRegister extends Component<{}, any> {
                             options={itemOptions}
                             onChange={e => {
                               if (
-                                characteristics.indexOf(e.target.value) ===
+                                characteristicIds.indexOf(e.target.value) ===
                                   -1 &&
                                 e.target.value !== ''
                               ) {
                                 // This is buggy, if there is more than one of the same group selected
                                 // It's adding it to the array, this is behaving like a checkbox !
-                                const newCharacteristics = [
-                                  ...characteristics,
+                                const newcharacteristicIds = [
+                                  ...characteristicIds,
                                   e.target.value
                                 ];
                                 this.setState({
-                                  characteristics: newCharacteristics
+                                  characteristicIds: newcharacteristicIds
                                 });
                               }
                             }}
@@ -220,7 +265,17 @@ class ProjectRegister extends Component<{}, any> {
               }}
             </GetProjectCategoriesAndCharacteristicGroupsQuery>
 
-            <Button onClick={this.onSubmit}>Submit</Button>
+            <CreateProjectMutation>
+              {(createProjectFn, { loading }) => (
+                <Button
+                  onClick={e => this.onSubmit(createProjectFn)}
+                  disabled={loading}
+                  showSpinner={loading}
+                >
+                  Submit
+                </Button>
+              )}
+            </CreateProjectMutation>
           </Paper>
         </Block>
       </Main>
