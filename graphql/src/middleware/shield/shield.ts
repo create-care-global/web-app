@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { not, rule, shield } from 'graphql-shield';
+import { rule, shield } from 'graphql-shield';
 import { getTokenFromRequest } from 'src/helpers/headers';
 import { verify } from 'src/helpers/utils/jwt';
 import { ResolverContext } from 'src/types';
@@ -22,11 +22,11 @@ export const getViewerFromRequest: GetViewerFromRequest = async (
   return await prisma.user({ id: verifiedToken.viewer.id });
 };
 
-const isAuthenticated = rule()(
-  async (parent: any, args: any, ctx: ResolverContext, info: any) => {
-    return ctx.viewer !== null;
-  }
-);
+// const isAuthenticated = rule()(
+//   async (parent: any, args: any, ctx: ResolverContext, info: any) => {
+//     return ctx.viewer !== null;
+//   }
+// );
 
 // const isAdmin = rule()(
 //   async (parent: any, args: any, ctx: ResolverContext, info: any) =>
@@ -44,11 +44,8 @@ const isAnyone = rule()(
 
 export default shield(
   {
-    Mutation: {
-      signup: not(isAuthenticated),
-      login: not(isAuthenticated)
-    },
-    Query: isAnyone,
+    Mutation: isAnyone,
+    Query: isAnyone
   },
   { allowExternalErrors: true }
 );
