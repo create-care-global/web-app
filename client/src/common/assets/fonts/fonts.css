@@ -40,10 +40,10 @@ font-display: block;
 
 @font-face {
 font-family: "OpenSans";
-src: url(./ProximaNova/OpenSans-Regular.ttf) format('truetype'),
+src: url(./Open_Sans/OpenSans-Regular.ttf) format('truetype'),
 }
 
 @font-face {
       font-family: "Quicksand";
-      src: url(./ProximaNova/Quicksand-Regular.ttf) format('truetype'),
+      src: url(./Quicksand/Quicksand-Regular.ttf) format('truetype'),
 }
