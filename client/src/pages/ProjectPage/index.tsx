@@ -5,7 +5,13 @@ import Paper from 'common/components/Paper';
 import useParams from 'common/hooks/useParams';
 import React from 'react';
 import GetProjectQuery from './GetProjectQuery';
-
+import H1 from "../../common/components/H1";
+import H2 from "../../common/components/H2";
+import InfoCard from 'common/components/InfoCard';
+import { Grid } from '@material-ui/core';
+import MetricsCard from 'common/components/MetricsCard/MetricsCard';
+import HelpsTriangle from 'common/components/HelpsTriangle';
+import ImpactCard from "common/components/ImpactCard/ImpactCard"; 
 const ProjectPage = () => {
   const { id } = useParams();
 
@@ -15,12 +21,12 @@ const ProjectPage = () => {
         <Paper>
           <GetProjectQuery variables={{ input: { id } }}>
             {({ data, loading, error }) => {
-              if (error || !data) {
-                return <div>Unable to display project</div>;
-              }
-              if (loading) {
-                return <div>Loading...</div>;
-              }
+              // if (error || !data) {
+              //   return <div>Unable to display project</div>;
+              // }
+              // if (loading) {
+              //   return <div>Loading...</div>;
+              // }
 
               const {
                 title,
@@ -31,27 +37,75 @@ const ProjectPage = () => {
                 meaningToTheKids,
                 microNeed,
                 numberOfItems,
-                characteristics
-              } = data.getProject.project;
+                characteristics,
+                personalMessage,
+              } = //data.getProject.project;
+              {
+                title: "foo",
+                category: {
+                  name: "cat",
+                },
+                sourceOfItems: "aa",
+                amountOfKidsHelped: 10,
+                whyIsThisImportant: "aaaaa",
+                meaningToTheKids: "aaaa",
+                personalMessage: "message to solvers",
+                microNeed: "aaa",
+                numberOfItems: 10,
+                characteristics: [{
+                  name: "aaa"
+                }
+                ]
+              };
 
               return (
                 <>
-                  <h1>Project Page</h1>
-                  <h2>{id}</h2>
+                  <H1>Project Page {title}</H1>
+                  <H2>{id}</H2>
                   <Link to="/projects">Home</Link>
-                  <div>Project title: {title}</div>
-                  <div>Category: {categoryName}</div>
-                  <div>Source: {sourceOfItems}</div>
-                  <div>
-                    MicroNeed: {microNeed} for {numberOfItems} for{' '}
-                    {amountOfKidsHelped} kids
-                  </div>
-                  <div>Why is this important: {whyIsThisImportant}</div>
-                  <div>What this means to the kid: {meaningToTheKids}</div>
-                  <div>Characteristics:</div>
-                  {characteristics.map(characteristic => (
-                    <div>{characteristic.name}</div>
-                  ))}
+                  {categoryName} {microNeed} {JSON.stringify(characteristics)}
+                  <Grid container spacing={8} alignContent="stretch">
+                    
+                    <Grid item xs={12} md={6}>
+                      <MetricsCard 
+                      number = {numberOfItems}
+                      text = {sourceOfItems}
+                      />
+                      {/* <FundCard> */}
+                    </Grid>
+
+                    <Grid item md={2}>
+                      <HelpsTriangle />
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+                      <ImpactCard
+                        nChildren = {amountOfKidsHelped}
+                        dollarValue = {350}/>
+                    </Grid>
+                  </Grid>
+
+                  <Grid container spacing={8} alignContent="stretch">
+                    <Grid item xs={12} md={4}>
+                      <InfoCard title="Why is this important:">
+                        {whyIsThisImportant}
+                      </InfoCard>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <InfoCard title="The difference it will make">
+                        {meaningToTheKids}
+                      </InfoCard>
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+
+                      <InfoCard title="Message for the solvers!">
+                        {personalMessage}
+                      </InfoCard>
+                    </Grid>
+
+                  </Grid>
+  
                 </>
               );
             }}
