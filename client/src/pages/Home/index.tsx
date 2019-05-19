@@ -1,14 +1,21 @@
+
+import { Grid } from '@material-ui/core';
+import Main from 'common/components/Main';
 // import Link from 'common/components/Link';
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import ProjectsQuery from '../Projects/ProjectsQuery';
+// import ProjectsQuery from '../Projects/GetProjectsQuery';
+
 
 //Images
-import frontPageFooterImage from '../../common/assets/footerImage.jpg';
-import speech from '../../common/assets/speech.png';
-import makeADifference from '../../common/assets/make-a-difference.jpeg';
-import smallActBigImpact from '../../common/assets/smallActBigImpact.png';
-import jenny from '../../common/assets/jenny.jpg';
+
+
+// import jenny from '../../common/assets/jenny.jpg';
+
+// Images
+// import frontPageFooterImage from '../../common/assets/front-page-footer-image.png';
+// import speech from '../../common/assets/speech.png';
+// import makeADifference from '../../common/assets/makeADifference.png';
+// import smallActBigImpact from '../../common/assets/smallActBigImpact.png';
 
 import './Home.css';
 
@@ -17,48 +24,14 @@ const Home = () => {
   return (
     <div style={{marginTop: '5rem'}}>
       {/* Header Section */}
-      <Grid container
-        direction='row'
-        justify='center'
-        alignItems='center'
-      >
-          <ProjectsQuery>
-          {({ data, loading, error }) => {
-            if (error) {
-              return <div>Error...</div>;
-            }
-            if (loading) {
-              return <div>Loading...</div>;
-            }
 
-            if (!data || !data.getProjectFeed) {
-              return <div>Empty...</div>;
-            }
-
-            return data.getProjectFeed.projects.slice(0,6).map(project => (
-              // <Link to={`/projects/${project.id}`}>
-                <Grid item xs={4}>
-                  {/* <div key={String(project.id) + project.title}> */}
-                    <h2>A</h2>
-                  {/* </div> */}
-                </Grid>
-              // </Link>
-            ));
-          }}
-        </ProjectsQuery>
-      </Grid>
-
-      <Grid container>
-          {/* How it works */}
-      </Grid>
-      
       {/* Small act big impact */}
       <Grid 
         container
       >
         <div style={{marginLeft: 'auto', marginRight: 'auto'}}>
         <img 
-          src={smallActBigImpact}
+          // src={smallActBigImpact}
           style={{
                   maxWidth: '100%',
                   height: 'auto',
@@ -142,7 +115,7 @@ const Home = () => {
                     marginRight: 'auto',
                     padding: '0px',
                     margin:'0px'}}
-                    src={jenny}
+                    // src={jenny}
                     alt={'success'}/>
                   </div>
                 </Grid>
@@ -154,15 +127,14 @@ const Home = () => {
               </Grid>  
           </Grid>
       </Grid>
-
       {/* What makes this different? */}
-      <Grid 
+      <Grid
         container
-        style={{backgroundImage:`url(${makeADifference}`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        height: '500px'}}
+        // style={{backgroundImage:`url(${makeADifference}`,
+        // backgroundSize: 'cover',
+        // backgroundRepeat: 'no-repeat',
+        // backgroundPosition: 'center',
+        // height: '500px'}}
         direction="row"
         justify="center"
         alignItems="center"
@@ -188,7 +160,7 @@ const Home = () => {
             xs={5}
           >
             <img 
-              src={speech} 
+              // src={speech} 
               style={{
                       maxWidth:'100%',
                       height:'auto',
@@ -199,23 +171,33 @@ const Home = () => {
           </Grid>
       </Grid>
       {/* Footer section */}
-      <Grid 
+      <Grid
         container
-        style={{backgroundColor:'#00b4cb',
-                color: 'white',
-                margin:0,
-                padding:0
-                }}
+        style={{
+          backgroundColor: '#00b4cb',
+          color: 'white',
+          margin: 0,
+          padding: 0
+        }}
       >
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <h3 style={{padding:'0px', margin:'0px'}}>Get help for your kids!</h3>
-            <h5 style={{padding:'0px', margin:'0px'}}>Are you a grassroots organisation looking after kids?</h5>
-            <h5 style={{padding:'0px', margin:'0px'}}>Is there a specific MicroNeed that would make a big difference in their lives?</h5>
+        <Grid container direction="column" justify="center" alignItems="center">
+          <h3 style={{ padding: '0px', margin: '0px' }}>
+            Get help for your kids!
+          </h3>
+          <h5 style={{ padding: '0px', margin: '0px' }}>
+            Are you a grassroots organisation looking after kids?
+          </h5>
+          <h5 style={{ padding: '0px', margin: '0px' }}>
+            Is there a specific MicroNeed that would make a big difference in
+            their lives?
+          </h5>
+        </Grid>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={4}>
+            <img
+              // src={frontPageFooterImage}
+              alt="greatful people"
+            />
           </Grid>
           <Grid
             container
@@ -243,7 +225,7 @@ const Home = () => {
       <Grid container>
           {/* Footer navigation */}
       </Grid>
-
+    </Grid>
     </div>
   );
 };

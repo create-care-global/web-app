@@ -12,6 +12,20 @@ export enum SourceOfItems {
   OTHER = "OTHER",
 }
 
+export interface CreateProjectInput {
+  title: string;
+  categoryId: string;
+  sourceOfItems: SourceOfItems;
+  amountOfKidsHelped: number;
+  whyIsThisImportant: string;
+  meaningToTheKids: string;
+  microNeed: string;
+  numberOfItems: number;
+  characteristicIds: string[];
+  estimatedCost: number;
+  personalMessage: string;
+}
+
 export interface GetProjectInput {
   id: string;
 }

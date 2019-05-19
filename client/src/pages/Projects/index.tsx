@@ -1,7 +1,7 @@
 import Link from 'common/components/Link';
 import Main from 'common/components/Main';
 import React from 'react';
-import ProjectsQuery from './ProjectsQuery';
+import GetProjectsQuery from './GetProjectsQuery';
 
 // const mockArray = [
 //   { id: 1, title: 'asdf', desc: 'aaaa' },
@@ -12,7 +12,7 @@ const Projects = () => {
   return (
     <Main>
       <h1>Projects</h1>
-      <ProjectsQuery>
+      <GetProjectsQuery>
         {({ data, loading, error }) => {
           if (error) {
             return <div>Error...</div>;
@@ -33,20 +33,9 @@ const Projects = () => {
             </Link>
           ));
         }}
-      </ProjectsQuery>
+      </GetProjectsQuery>
     </Main>
   );
 };
 
 export default Projects;
-
-// {mockArray.map(project => {
-//     return (
-//       <Link to={`/projects/${project.id}`}>
-//         <div key={String(project.id) + project.title}>
-//           <h2>{project.title}</h2>
-//           <p>{project.desc}</p>
-//         </div>
-//       </Link>
-//     );
-//   })}

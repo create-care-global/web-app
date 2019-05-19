@@ -23,6 +23,8 @@ type Project {
   meaningToTheKids: String!
   microNeed: String!
   numberOfItems: Int!
+  estimatedCost: Int!
+  personalMessage: String!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
@@ -45,7 +47,7 @@ type ProjectCharacteristicGroup {
 type ProjectCharacteristic {
   id: ID! @id @unique
   name: String!
-  group: ProjectCharacteristicGroup!
+  group: ProjectCharacteristicGroup
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }

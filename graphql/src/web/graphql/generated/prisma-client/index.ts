@@ -314,6 +314,10 @@ export type ProjectOrderByInput =
   | "microNeed_DESC"
   | "numberOfItems_ASC"
   | "numberOfItems_DESC"
+  | "estimatedCost_ASC"
+  | "estimatedCost_DESC"
+  | "personalMessage_ASC"
+  | "personalMessage_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -361,11 +365,20 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
+export interface ProjectCharacteristicGroupCreateWithoutItemsInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+}
+
 export type ProjectWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface ProjectCharacteristicWhereInput {
+export interface ProjectCharacteristicUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface ProjectCharacteristicScalarWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -394,7 +407,6 @@ export interface ProjectCharacteristicWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  group?: Maybe<ProjectCharacteristicGroupWhereInput>;
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
   updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -412,260 +424,18 @@ export interface ProjectCharacteristicWhereInput {
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<
-    ProjectCharacteristicWhereInput[] | ProjectCharacteristicWhereInput
+    | ProjectCharacteristicScalarWhereInput[]
+    | ProjectCharacteristicScalarWhereInput
   >;
   OR?: Maybe<
-    ProjectCharacteristicWhereInput[] | ProjectCharacteristicWhereInput
+    | ProjectCharacteristicScalarWhereInput[]
+    | ProjectCharacteristicScalarWhereInput
   >;
   NOT?: Maybe<
-    ProjectCharacteristicWhereInput[] | ProjectCharacteristicWhereInput
+    | ProjectCharacteristicScalarWhereInput[]
+    | ProjectCharacteristicScalarWhereInput
   >;
 }
-
-export interface ProjectCharacteristicGroupWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  items_every?: Maybe<ProjectCharacteristicWhereInput>;
-  items_some?: Maybe<ProjectCharacteristicWhereInput>;
-  items_none?: Maybe<ProjectCharacteristicWhereInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<
-    | ProjectCharacteristicGroupWhereInput[]
-    | ProjectCharacteristicGroupWhereInput
-  >;
-  OR?: Maybe<
-    | ProjectCharacteristicGroupWhereInput[]
-    | ProjectCharacteristicGroupWhereInput
-  >;
-  NOT?: Maybe<
-    | ProjectCharacteristicGroupWhereInput[]
-    | ProjectCharacteristicGroupWhereInput
-  >;
-}
-
-export interface ProjectWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  category?: Maybe<ProjectCategoryWhereInput>;
-  characteristics_every?: Maybe<ProjectCharacteristicWhereInput>;
-  characteristics_some?: Maybe<ProjectCharacteristicWhereInput>;
-  characteristics_none?: Maybe<ProjectCharacteristicWhereInput>;
-  sourceOfItems?: Maybe<SourceOfItems>;
-  sourceOfItems_not?: Maybe<SourceOfItems>;
-  sourceOfItems_in?: Maybe<SourceOfItems[] | SourceOfItems>;
-  sourceOfItems_not_in?: Maybe<SourceOfItems[] | SourceOfItems>;
-  amountOfKidsHelped?: Maybe<Int>;
-  amountOfKidsHelped_not?: Maybe<Int>;
-  amountOfKidsHelped_in?: Maybe<Int[] | Int>;
-  amountOfKidsHelped_not_in?: Maybe<Int[] | Int>;
-  amountOfKidsHelped_lt?: Maybe<Int>;
-  amountOfKidsHelped_lte?: Maybe<Int>;
-  amountOfKidsHelped_gt?: Maybe<Int>;
-  amountOfKidsHelped_gte?: Maybe<Int>;
-  whyIsThisImportant?: Maybe<String>;
-  whyIsThisImportant_not?: Maybe<String>;
-  whyIsThisImportant_in?: Maybe<String[] | String>;
-  whyIsThisImportant_not_in?: Maybe<String[] | String>;
-  whyIsThisImportant_lt?: Maybe<String>;
-  whyIsThisImportant_lte?: Maybe<String>;
-  whyIsThisImportant_gt?: Maybe<String>;
-  whyIsThisImportant_gte?: Maybe<String>;
-  whyIsThisImportant_contains?: Maybe<String>;
-  whyIsThisImportant_not_contains?: Maybe<String>;
-  whyIsThisImportant_starts_with?: Maybe<String>;
-  whyIsThisImportant_not_starts_with?: Maybe<String>;
-  whyIsThisImportant_ends_with?: Maybe<String>;
-  whyIsThisImportant_not_ends_with?: Maybe<String>;
-  meaningToTheKids?: Maybe<String>;
-  meaningToTheKids_not?: Maybe<String>;
-  meaningToTheKids_in?: Maybe<String[] | String>;
-  meaningToTheKids_not_in?: Maybe<String[] | String>;
-  meaningToTheKids_lt?: Maybe<String>;
-  meaningToTheKids_lte?: Maybe<String>;
-  meaningToTheKids_gt?: Maybe<String>;
-  meaningToTheKids_gte?: Maybe<String>;
-  meaningToTheKids_contains?: Maybe<String>;
-  meaningToTheKids_not_contains?: Maybe<String>;
-  meaningToTheKids_starts_with?: Maybe<String>;
-  meaningToTheKids_not_starts_with?: Maybe<String>;
-  meaningToTheKids_ends_with?: Maybe<String>;
-  meaningToTheKids_not_ends_with?: Maybe<String>;
-  microNeed?: Maybe<String>;
-  microNeed_not?: Maybe<String>;
-  microNeed_in?: Maybe<String[] | String>;
-  microNeed_not_in?: Maybe<String[] | String>;
-  microNeed_lt?: Maybe<String>;
-  microNeed_lte?: Maybe<String>;
-  microNeed_gt?: Maybe<String>;
-  microNeed_gte?: Maybe<String>;
-  microNeed_contains?: Maybe<String>;
-  microNeed_not_contains?: Maybe<String>;
-  microNeed_starts_with?: Maybe<String>;
-  microNeed_not_starts_with?: Maybe<String>;
-  microNeed_ends_with?: Maybe<String>;
-  microNeed_not_ends_with?: Maybe<String>;
-  numberOfItems?: Maybe<Int>;
-  numberOfItems_not?: Maybe<Int>;
-  numberOfItems_in?: Maybe<Int[] | Int>;
-  numberOfItems_not_in?: Maybe<Int[] | Int>;
-  numberOfItems_lt?: Maybe<Int>;
-  numberOfItems_lte?: Maybe<Int>;
-  numberOfItems_gt?: Maybe<Int>;
-  numberOfItems_gte?: Maybe<Int>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-  OR?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-  NOT?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-}
-
-export interface ProjectCategoryWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ProjectCategoryWhereInput[] | ProjectCategoryWhereInput>;
-  OR?: Maybe<ProjectCategoryWhereInput[] | ProjectCategoryWhereInput>;
-  NOT?: Maybe<ProjectCategoryWhereInput[] | ProjectCategoryWhereInput>;
-}
-
-export type ProjectCategoryWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type ProjectCharacteristicWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type ProjectCharacteristicGroupWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  email?: Maybe<String>;
-}>;
 
 export interface UserWhereInput {
   id?: Maybe<ID_Input>;
@@ -787,83 +557,6 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
-export interface ProjectCreateInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-  category: ProjectCategoryCreateOneInput;
-  characteristics?: Maybe<ProjectCharacteristicCreateManyInput>;
-  sourceOfItems: SourceOfItems;
-  amountOfKidsHelped: Int;
-  whyIsThisImportant: String;
-  meaningToTheKids: String;
-  microNeed: String;
-  numberOfItems: Int;
-}
-
-export interface ProjectCategoryCreateOneInput {
-  create?: Maybe<ProjectCategoryCreateInput>;
-  connect?: Maybe<ProjectCategoryWhereUniqueInput>;
-}
-
-export interface ProjectCategoryCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-}
-
-export interface ProjectCharacteristicCreateManyInput {
-  create?: Maybe<
-    ProjectCharacteristicCreateInput[] | ProjectCharacteristicCreateInput
-  >;
-  connect?: Maybe<
-    | ProjectCharacteristicWhereUniqueInput[]
-    | ProjectCharacteristicWhereUniqueInput
-  >;
-}
-
-export interface ProjectCharacteristicCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  group: ProjectCharacteristicGroupCreateOneWithoutItemsInput;
-}
-
-export interface ProjectCharacteristicGroupCreateOneWithoutItemsInput {
-  create?: Maybe<ProjectCharacteristicGroupCreateWithoutItemsInput>;
-  connect?: Maybe<ProjectCharacteristicGroupWhereUniqueInput>;
-}
-
-export interface ProjectCharacteristicGroupCreateWithoutItemsInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-}
-
-export interface ProjectUpdateInput {
-  title?: Maybe<String>;
-  category?: Maybe<ProjectCategoryUpdateOneRequiredInput>;
-  characteristics?: Maybe<ProjectCharacteristicUpdateManyInput>;
-  sourceOfItems?: Maybe<SourceOfItems>;
-  amountOfKidsHelped?: Maybe<Int>;
-  whyIsThisImportant?: Maybe<String>;
-  meaningToTheKids?: Maybe<String>;
-  microNeed?: Maybe<String>;
-  numberOfItems?: Maybe<Int>;
-}
-
-export interface ProjectCategoryUpdateOneRequiredInput {
-  create?: Maybe<ProjectCategoryCreateInput>;
-  update?: Maybe<ProjectCategoryUpdateDataInput>;
-  upsert?: Maybe<ProjectCategoryUpsertNestedInput>;
-  connect?: Maybe<ProjectCategoryWhereUniqueInput>;
-}
-
-export interface ProjectCategoryUpdateDataInput {
-  name?: Maybe<String>;
-}
-
-export interface ProjectCategoryUpsertNestedInput {
-  update: ProjectCategoryUpdateDataInput;
-  create: ProjectCategoryCreateInput;
-}
-
 export interface ProjectCharacteristicUpdateManyInput {
   create?: Maybe<
     ProjectCharacteristicCreateInput[] | ProjectCharacteristicCreateInput
@@ -902,39 +595,78 @@ export interface ProjectCharacteristicUpdateManyInput {
   >;
 }
 
-export interface ProjectCharacteristicUpdateWithWhereUniqueNestedInput {
-  where: ProjectCharacteristicWhereUniqueInput;
-  data: ProjectCharacteristicUpdateDataInput;
-}
-
-export interface ProjectCharacteristicUpdateDataInput {
+export interface ProjectCharacteristicUpdateInput {
   name?: Maybe<String>;
-  group?: Maybe<ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput>;
+  group?: Maybe<ProjectCharacteristicGroupUpdateOneWithoutItemsInput>;
 }
 
-export interface ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput {
-  create?: Maybe<ProjectCharacteristicGroupCreateWithoutItemsInput>;
-  update?: Maybe<ProjectCharacteristicGroupUpdateWithoutItemsDataInput>;
-  upsert?: Maybe<ProjectCharacteristicGroupUpsertWithoutItemsInput>;
-  connect?: Maybe<ProjectCharacteristicGroupWhereUniqueInput>;
+export interface ProjectCharacteristicGroupWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  items_every?: Maybe<ProjectCharacteristicWhereInput>;
+  items_some?: Maybe<ProjectCharacteristicWhereInput>;
+  items_none?: Maybe<ProjectCharacteristicWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<
+    | ProjectCharacteristicGroupWhereInput[]
+    | ProjectCharacteristicGroupWhereInput
+  >;
+  OR?: Maybe<
+    | ProjectCharacteristicGroupWhereInput[]
+    | ProjectCharacteristicGroupWhereInput
+  >;
+  NOT?: Maybe<
+    | ProjectCharacteristicGroupWhereInput[]
+    | ProjectCharacteristicGroupWhereInput
+  >;
 }
 
-export interface ProjectCharacteristicGroupUpdateWithoutItemsDataInput {
+export interface ProjectCategoryUpdateManyMutationInput {
   name?: Maybe<String>;
 }
 
-export interface ProjectCharacteristicGroupUpsertWithoutItemsInput {
-  update: ProjectCharacteristicGroupUpdateWithoutItemsDataInput;
-  create: ProjectCharacteristicGroupCreateWithoutItemsInput;
-}
-
-export interface ProjectCharacteristicUpsertWithWhereUniqueNestedInput {
-  where: ProjectCharacteristicWhereUniqueInput;
-  update: ProjectCharacteristicUpdateDataInput;
-  create: ProjectCharacteristicCreateInput;
-}
-
-export interface ProjectCharacteristicScalarWhereInput {
+export interface ProjectCategoryWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -979,27 +711,33 @@ export interface ProjectCharacteristicScalarWhereInput {
   createdAt_lte?: Maybe<DateTimeInput>;
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ProjectCategoryWhereInput[] | ProjectCategoryWhereInput>;
+  OR?: Maybe<ProjectCategoryWhereInput[] | ProjectCategoryWhereInput>;
+  NOT?: Maybe<ProjectCategoryWhereInput[] | ProjectCategoryWhereInput>;
+}
+
+export interface ProjectCategoryUpdateInput {
+  name?: Maybe<String>;
+}
+
+export interface ProjectCharacteristicGroupSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ProjectCharacteristicGroupWhereInput>;
   AND?: Maybe<
-    | ProjectCharacteristicScalarWhereInput[]
-    | ProjectCharacteristicScalarWhereInput
+    | ProjectCharacteristicGroupSubscriptionWhereInput[]
+    | ProjectCharacteristicGroupSubscriptionWhereInput
   >;
   OR?: Maybe<
-    | ProjectCharacteristicScalarWhereInput[]
-    | ProjectCharacteristicScalarWhereInput
+    | ProjectCharacteristicGroupSubscriptionWhereInput[]
+    | ProjectCharacteristicGroupSubscriptionWhereInput
   >;
   NOT?: Maybe<
-    | ProjectCharacteristicScalarWhereInput[]
-    | ProjectCharacteristicScalarWhereInput
+    | ProjectCharacteristicGroupSubscriptionWhereInput[]
+    | ProjectCharacteristicGroupSubscriptionWhereInput
   >;
-}
-
-export interface ProjectCharacteristicUpdateManyWithWhereNestedInput {
-  where: ProjectCharacteristicScalarWhereInput;
-  data: ProjectCharacteristicUpdateManyDataInput;
-}
-
-export interface ProjectCharacteristicUpdateManyDataInput {
-  name?: Maybe<String>;
 }
 
 export interface ProjectUpdateManyMutationInput {
@@ -1010,29 +748,458 @@ export interface ProjectUpdateManyMutationInput {
   meaningToTheKids?: Maybe<String>;
   microNeed?: Maybe<String>;
   numberOfItems?: Maybe<Int>;
+  estimatedCost?: Maybe<Int>;
+  personalMessage?: Maybe<String>;
 }
 
-export interface ProjectCategoryUpdateInput {
+export interface ProjectCategorySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ProjectCategoryWhereInput>;
+  AND?: Maybe<
+    | ProjectCategorySubscriptionWhereInput[]
+    | ProjectCategorySubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | ProjectCategorySubscriptionWhereInput[]
+    | ProjectCategorySubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | ProjectCategorySubscriptionWhereInput[]
+    | ProjectCategorySubscriptionWhereInput
+  >;
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: Maybe<String>;
+  displayName?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  password?: Maybe<String>;
+  userGroup?: Maybe<String>;
+}
+
+export interface UserUpdateInput {
+  email?: Maybe<String>;
+  displayName?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  password?: Maybe<String>;
+  userGroup?: Maybe<String>;
+}
+
+export interface ProjectCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  category: ProjectCategoryCreateOneInput;
+  characteristics?: Maybe<ProjectCharacteristicCreateManyInput>;
+  sourceOfItems: SourceOfItems;
+  amountOfKidsHelped: Int;
+  whyIsThisImportant: String;
+  meaningToTheKids: String;
+  microNeed: String;
+  numberOfItems: Int;
+  estimatedCost: Int;
+  personalMessage: String;
+}
+
+export interface ProjectCharacteristicGroupUpdateManyMutationInput {
   name?: Maybe<String>;
 }
 
-export interface ProjectCategoryUpdateManyMutationInput {
-  name?: Maybe<String>;
+export interface ProjectCategoryCreateOneInput {
+  create?: Maybe<ProjectCategoryCreateInput>;
+  connect?: Maybe<ProjectCategoryWhereUniqueInput>;
 }
 
-export interface ProjectCharacteristicUpdateInput {
-  name?: Maybe<String>;
-  group?: Maybe<ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput>;
+export type ProjectCharacteristicWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ProjectCategoryCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
 }
 
-export interface ProjectCharacteristicUpdateManyMutationInput {
-  name?: Maybe<String>;
+export interface ProjectCharacteristicUpdateWithWhereUniqueWithoutGroupInput {
+  where: ProjectCharacteristicWhereUniqueInput;
+  data: ProjectCharacteristicUpdateWithoutGroupDataInput;
+}
+
+export interface ProjectCharacteristicCreateManyInput {
+  create?: Maybe<
+    ProjectCharacteristicCreateInput[] | ProjectCharacteristicCreateInput
+  >;
+  connect?: Maybe<
+    | ProjectCharacteristicWhereUniqueInput[]
+    | ProjectCharacteristicWhereUniqueInput
+  >;
+}
+
+export type ProjectCharacteristicGroupWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ProjectCharacteristicCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  group?: Maybe<ProjectCharacteristicGroupCreateOneWithoutItemsInput>;
+}
+
+export interface ProjectCharacteristicCreateWithoutGroupInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+}
+
+export interface ProjectCharacteristicGroupCreateOneWithoutItemsInput {
+  create?: Maybe<ProjectCharacteristicGroupCreateWithoutItemsInput>;
+  connect?: Maybe<ProjectCharacteristicGroupWhereUniqueInput>;
 }
 
 export interface ProjectCharacteristicGroupCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
   items?: Maybe<ProjectCharacteristicCreateManyWithoutGroupInput>;
+}
+
+export interface ProjectCharacteristicUpdateManyDataInput {
+  name?: Maybe<String>;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<UserWhereInput>;
+  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+}
+
+export interface ProjectUpdateInput {
+  title?: Maybe<String>;
+  category?: Maybe<ProjectCategoryUpdateOneRequiredInput>;
+  characteristics?: Maybe<ProjectCharacteristicUpdateManyInput>;
+  sourceOfItems?: Maybe<SourceOfItems>;
+  amountOfKidsHelped?: Maybe<Int>;
+  whyIsThisImportant?: Maybe<String>;
+  meaningToTheKids?: Maybe<String>;
+  microNeed?: Maybe<String>;
+  numberOfItems?: Maybe<Int>;
+  estimatedCost?: Maybe<Int>;
+  personalMessage?: Maybe<String>;
+}
+
+export interface ProjectCharacteristicWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  group?: Maybe<ProjectCharacteristicGroupWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<
+    ProjectCharacteristicWhereInput[] | ProjectCharacteristicWhereInput
+  >;
+  OR?: Maybe<
+    ProjectCharacteristicWhereInput[] | ProjectCharacteristicWhereInput
+  >;
+  NOT?: Maybe<
+    ProjectCharacteristicWhereInput[] | ProjectCharacteristicWhereInput
+  >;
+}
+
+export interface ProjectCategoryUpdateOneRequiredInput {
+  create?: Maybe<ProjectCategoryCreateInput>;
+  update?: Maybe<ProjectCategoryUpdateDataInput>;
+  upsert?: Maybe<ProjectCategoryUpsertNestedInput>;
+  connect?: Maybe<ProjectCategoryWhereUniqueInput>;
+}
+
+export interface ProjectSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ProjectWhereInput>;
+  AND?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
+  OR?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
+  NOT?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
+}
+
+export interface ProjectCategoryUpdateDataInput {
+  name?: Maybe<String>;
+}
+
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  email: String;
+  displayName?: Maybe<String>;
+  firstName: String;
+  lastName: String;
+  password: String;
+  userGroup: String;
+}
+
+export interface ProjectCategoryUpsertNestedInput {
+  update: ProjectCategoryUpdateDataInput;
+  create: ProjectCategoryCreateInput;
+}
+
+export interface ProjectCharacteristicUpdateWithoutGroupDataInput {
+  name?: Maybe<String>;
+}
+
+export interface ProjectCharacteristicUpdateManyWithWhereNestedInput {
+  where: ProjectCharacteristicScalarWhereInput;
+  data: ProjectCharacteristicUpdateManyDataInput;
+}
+
+export interface ProjectCharacteristicGroupUpdateInput {
+  name?: Maybe<String>;
+  items?: Maybe<ProjectCharacteristicUpdateManyWithoutGroupInput>;
+}
+
+export interface ProjectCharacteristicUpdateWithWhereUniqueNestedInput {
+  where: ProjectCharacteristicWhereUniqueInput;
+  data: ProjectCharacteristicUpdateDataInput;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  email?: Maybe<String>;
+}>;
+
+export interface ProjectCharacteristicUpdateDataInput {
+  name?: Maybe<String>;
+  group?: Maybe<ProjectCharacteristicGroupUpdateOneWithoutItemsInput>;
+}
+
+export interface ProjectCharacteristicSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ProjectCharacteristicWhereInput>;
+  AND?: Maybe<
+    | ProjectCharacteristicSubscriptionWhereInput[]
+    | ProjectCharacteristicSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | ProjectCharacteristicSubscriptionWhereInput[]
+    | ProjectCharacteristicSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | ProjectCharacteristicSubscriptionWhereInput[]
+    | ProjectCharacteristicSubscriptionWhereInput
+  >;
+}
+
+export interface ProjectCharacteristicUpsertWithWhereUniqueNestedInput {
+  where: ProjectCharacteristicWhereUniqueInput;
+  update: ProjectCharacteristicUpdateDataInput;
+  create: ProjectCharacteristicCreateInput;
+}
+
+export interface ProjectCharacteristicGroupUpsertWithoutItemsInput {
+  update: ProjectCharacteristicGroupUpdateWithoutItemsDataInput;
+  create: ProjectCharacteristicGroupCreateWithoutItemsInput;
+}
+
+export interface ProjectCharacteristicGroupUpdateWithoutItemsDataInput {
+  name?: Maybe<String>;
+}
+
+export interface ProjectCharacteristicGroupUpdateOneWithoutItemsInput {
+  create?: Maybe<ProjectCharacteristicGroupCreateWithoutItemsInput>;
+  update?: Maybe<ProjectCharacteristicGroupUpdateWithoutItemsDataInput>;
+  upsert?: Maybe<ProjectCharacteristicGroupUpsertWithoutItemsInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<ProjectCharacteristicGroupWhereUniqueInput>;
+}
+
+export type ProjectCategoryWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ProjectWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  category?: Maybe<ProjectCategoryWhereInput>;
+  characteristics_every?: Maybe<ProjectCharacteristicWhereInput>;
+  characteristics_some?: Maybe<ProjectCharacteristicWhereInput>;
+  characteristics_none?: Maybe<ProjectCharacteristicWhereInput>;
+  sourceOfItems?: Maybe<SourceOfItems>;
+  sourceOfItems_not?: Maybe<SourceOfItems>;
+  sourceOfItems_in?: Maybe<SourceOfItems[] | SourceOfItems>;
+  sourceOfItems_not_in?: Maybe<SourceOfItems[] | SourceOfItems>;
+  amountOfKidsHelped?: Maybe<Int>;
+  amountOfKidsHelped_not?: Maybe<Int>;
+  amountOfKidsHelped_in?: Maybe<Int[] | Int>;
+  amountOfKidsHelped_not_in?: Maybe<Int[] | Int>;
+  amountOfKidsHelped_lt?: Maybe<Int>;
+  amountOfKidsHelped_lte?: Maybe<Int>;
+  amountOfKidsHelped_gt?: Maybe<Int>;
+  amountOfKidsHelped_gte?: Maybe<Int>;
+  whyIsThisImportant?: Maybe<String>;
+  whyIsThisImportant_not?: Maybe<String>;
+  whyIsThisImportant_in?: Maybe<String[] | String>;
+  whyIsThisImportant_not_in?: Maybe<String[] | String>;
+  whyIsThisImportant_lt?: Maybe<String>;
+  whyIsThisImportant_lte?: Maybe<String>;
+  whyIsThisImportant_gt?: Maybe<String>;
+  whyIsThisImportant_gte?: Maybe<String>;
+  whyIsThisImportant_contains?: Maybe<String>;
+  whyIsThisImportant_not_contains?: Maybe<String>;
+  whyIsThisImportant_starts_with?: Maybe<String>;
+  whyIsThisImportant_not_starts_with?: Maybe<String>;
+  whyIsThisImportant_ends_with?: Maybe<String>;
+  whyIsThisImportant_not_ends_with?: Maybe<String>;
+  meaningToTheKids?: Maybe<String>;
+  meaningToTheKids_not?: Maybe<String>;
+  meaningToTheKids_in?: Maybe<String[] | String>;
+  meaningToTheKids_not_in?: Maybe<String[] | String>;
+  meaningToTheKids_lt?: Maybe<String>;
+  meaningToTheKids_lte?: Maybe<String>;
+  meaningToTheKids_gt?: Maybe<String>;
+  meaningToTheKids_gte?: Maybe<String>;
+  meaningToTheKids_contains?: Maybe<String>;
+  meaningToTheKids_not_contains?: Maybe<String>;
+  meaningToTheKids_starts_with?: Maybe<String>;
+  meaningToTheKids_not_starts_with?: Maybe<String>;
+  meaningToTheKids_ends_with?: Maybe<String>;
+  meaningToTheKids_not_ends_with?: Maybe<String>;
+  microNeed?: Maybe<String>;
+  microNeed_not?: Maybe<String>;
+  microNeed_in?: Maybe<String[] | String>;
+  microNeed_not_in?: Maybe<String[] | String>;
+  microNeed_lt?: Maybe<String>;
+  microNeed_lte?: Maybe<String>;
+  microNeed_gt?: Maybe<String>;
+  microNeed_gte?: Maybe<String>;
+  microNeed_contains?: Maybe<String>;
+  microNeed_not_contains?: Maybe<String>;
+  microNeed_starts_with?: Maybe<String>;
+  microNeed_not_starts_with?: Maybe<String>;
+  microNeed_ends_with?: Maybe<String>;
+  microNeed_not_ends_with?: Maybe<String>;
+  numberOfItems?: Maybe<Int>;
+  numberOfItems_not?: Maybe<Int>;
+  numberOfItems_in?: Maybe<Int[] | Int>;
+  numberOfItems_not_in?: Maybe<Int[] | Int>;
+  numberOfItems_lt?: Maybe<Int>;
+  numberOfItems_lte?: Maybe<Int>;
+  numberOfItems_gt?: Maybe<Int>;
+  numberOfItems_gte?: Maybe<Int>;
+  estimatedCost?: Maybe<Int>;
+  estimatedCost_not?: Maybe<Int>;
+  estimatedCost_in?: Maybe<Int[] | Int>;
+  estimatedCost_not_in?: Maybe<Int[] | Int>;
+  estimatedCost_lt?: Maybe<Int>;
+  estimatedCost_lte?: Maybe<Int>;
+  estimatedCost_gt?: Maybe<Int>;
+  estimatedCost_gte?: Maybe<Int>;
+  personalMessage?: Maybe<String>;
+  personalMessage_not?: Maybe<String>;
+  personalMessage_in?: Maybe<String[] | String>;
+  personalMessage_not_in?: Maybe<String[] | String>;
+  personalMessage_lt?: Maybe<String>;
+  personalMessage_lte?: Maybe<String>;
+  personalMessage_gt?: Maybe<String>;
+  personalMessage_gte?: Maybe<String>;
+  personalMessage_contains?: Maybe<String>;
+  personalMessage_not_contains?: Maybe<String>;
+  personalMessage_starts_with?: Maybe<String>;
+  personalMessage_not_starts_with?: Maybe<String>;
+  personalMessage_ends_with?: Maybe<String>;
+  personalMessage_not_ends_with?: Maybe<String>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
+  OR?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
+  NOT?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
 }
 
 export interface ProjectCharacteristicCreateManyWithoutGroupInput {
@@ -1044,16 +1211,6 @@ export interface ProjectCharacteristicCreateManyWithoutGroupInput {
     | ProjectCharacteristicWhereUniqueInput[]
     | ProjectCharacteristicWhereUniqueInput
   >;
-}
-
-export interface ProjectCharacteristicCreateWithoutGroupInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-}
-
-export interface ProjectCharacteristicGroupUpdateInput {
-  name?: Maybe<String>;
-  items?: Maybe<ProjectCharacteristicUpdateManyWithoutGroupInput>;
 }
 
 export interface ProjectCharacteristicUpdateManyWithoutGroupInput {
@@ -1095,259 +1252,75 @@ export interface ProjectCharacteristicUpdateManyWithoutGroupInput {
   >;
 }
 
-export interface ProjectCharacteristicUpdateWithWhereUniqueWithoutGroupInput {
-  where: ProjectCharacteristicWhereUniqueInput;
-  data: ProjectCharacteristicUpdateWithoutGroupDataInput;
-}
-
-export interface ProjectCharacteristicUpdateWithoutGroupDataInput {
-  name?: Maybe<String>;
-}
-
 export interface ProjectCharacteristicUpsertWithWhereUniqueWithoutGroupInput {
   where: ProjectCharacteristicWhereUniqueInput;
   update: ProjectCharacteristicUpdateWithoutGroupDataInput;
   create: ProjectCharacteristicCreateWithoutGroupInput;
 }
 
-export interface ProjectCharacteristicGroupUpdateManyMutationInput {
-  name?: Maybe<String>;
-}
-
-export interface UserCreateInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-  displayName?: Maybe<String>;
-  firstName: String;
-  lastName: String;
-  password: String;
-  userGroup: String;
-}
-
-export interface UserUpdateInput {
-  email?: Maybe<String>;
-  displayName?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  password?: Maybe<String>;
-  userGroup?: Maybe<String>;
-}
-
-export interface UserUpdateManyMutationInput {
-  email?: Maybe<String>;
-  displayName?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  password?: Maybe<String>;
-  userGroup?: Maybe<String>;
-}
-
-export interface ProjectSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ProjectWhereInput>;
-  AND?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
-  OR?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
-  NOT?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
-}
-
-export interface ProjectCategorySubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ProjectCategoryWhereInput>;
-  AND?: Maybe<
-    | ProjectCategorySubscriptionWhereInput[]
-    | ProjectCategorySubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    | ProjectCategorySubscriptionWhereInput[]
-    | ProjectCategorySubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    | ProjectCategorySubscriptionWhereInput[]
-    | ProjectCategorySubscriptionWhereInput
-  >;
-}
-
-export interface ProjectCharacteristicSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ProjectCharacteristicWhereInput>;
-  AND?: Maybe<
-    | ProjectCharacteristicSubscriptionWhereInput[]
-    | ProjectCharacteristicSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    | ProjectCharacteristicSubscriptionWhereInput[]
-    | ProjectCharacteristicSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    | ProjectCharacteristicSubscriptionWhereInput[]
-    | ProjectCharacteristicSubscriptionWhereInput
-  >;
-}
-
-export interface ProjectCharacteristicGroupSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ProjectCharacteristicGroupWhereInput>;
-  AND?: Maybe<
-    | ProjectCharacteristicGroupSubscriptionWhereInput[]
-    | ProjectCharacteristicGroupSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    | ProjectCharacteristicGroupSubscriptionWhereInput[]
-    | ProjectCharacteristicGroupSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    | ProjectCharacteristicGroupSubscriptionWhereInput[]
-    | ProjectCharacteristicGroupSubscriptionWhereInput
-  >;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-}
-
 export interface NodeNode {
   id: ID_Output;
 }
 
-export interface Project {
+export interface UserPreviousValues {
   id: ID_Output;
-  title: String;
-  sourceOfItems: SourceOfItems;
-  amountOfKidsHelped: Int;
-  whyIsThisImportant: String;
-  meaningToTheKids: String;
-  microNeed: String;
-  numberOfItems: Int;
+  email: String;
+  displayName?: String;
+  firstName: String;
+  lastName: String;
+  password: String;
+  userGroup: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
 
-export interface ProjectPromise extends Promise<Project>, Fragmentable {
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  category: <T = ProjectCategoryPromise>() => T;
-  characteristics: <T = FragmentableArray<ProjectCharacteristic>>(args?: {
-    where?: ProjectCharacteristicWhereInput;
-    orderBy?: ProjectCharacteristicOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  sourceOfItems: () => Promise<SourceOfItems>;
-  amountOfKidsHelped: () => Promise<Int>;
-  whyIsThisImportant: () => Promise<String>;
-  meaningToTheKids: () => Promise<String>;
-  microNeed: () => Promise<String>;
-  numberOfItems: () => Promise<Int>;
+  email: () => Promise<String>;
+  displayName: () => Promise<String>;
+  firstName: () => Promise<String>;
+  lastName: () => Promise<String>;
+  password: () => Promise<String>;
+  userGroup: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ProjectSubscription
-  extends Promise<AsyncIterator<Project>>,
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  category: <T = ProjectCategorySubscription>() => T;
-  characteristics: <
-    T = Promise<AsyncIterator<ProjectCharacteristicSubscription>>
-  >(args?: {
-    where?: ProjectCharacteristicWhereInput;
-    orderBy?: ProjectCharacteristicOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  sourceOfItems: () => Promise<AsyncIterator<SourceOfItems>>;
-  amountOfKidsHelped: () => Promise<AsyncIterator<Int>>;
-  whyIsThisImportant: () => Promise<AsyncIterator<String>>;
-  meaningToTheKids: () => Promise<AsyncIterator<String>>;
-  microNeed: () => Promise<AsyncIterator<String>>;
-  numberOfItems: () => Promise<AsyncIterator<Int>>;
+  email: () => Promise<AsyncIterator<String>>;
+  displayName: () => Promise<AsyncIterator<String>>;
+  firstName: () => Promise<AsyncIterator<String>>;
+  lastName: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  userGroup: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface ProjectNullablePromise
-  extends Promise<Project | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  category: <T = ProjectCategoryPromise>() => T;
-  characteristics: <T = FragmentableArray<ProjectCharacteristic>>(args?: {
-    where?: ProjectCharacteristicWhereInput;
-    orderBy?: ProjectCharacteristicOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  sourceOfItems: () => Promise<SourceOfItems>;
-  amountOfKidsHelped: () => Promise<Int>;
-  whyIsThisImportant: () => Promise<String>;
-  meaningToTheKids: () => Promise<String>;
-  microNeed: () => Promise<String>;
-  numberOfItems: () => Promise<Int>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
+export interface ProjectCategoryConnection {
+  pageInfo: PageInfo;
+  edges: ProjectCategoryEdge[];
 }
 
-export interface ProjectCategory {
-  id: ID_Output;
-  name: String;
-  updatedAt: DateTimeOutput;
-  createdAt: DateTimeOutput;
+export interface ProjectCategoryConnectionPromise
+  extends Promise<ProjectCategoryConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProjectCategoryEdge>>() => T;
+  aggregate: <T = AggregateProjectCategoryPromise>() => T;
 }
 
-export interface ProjectCategoryPromise
-  extends Promise<ProjectCategory>,
+export interface ProjectCategoryConnectionSubscription
+  extends Promise<AsyncIterator<ProjectCategoryConnection>>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProjectCategorySubscription
-  extends Promise<AsyncIterator<ProjectCategory>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProjectCategoryNullablePromise
-  extends Promise<ProjectCategory | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProjectCategoryEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProjectCategorySubscription>() => T;
 }
 
 export interface ProjectCharacteristic {
@@ -1385,6 +1358,136 @@ export interface ProjectCharacteristicNullablePromise
   group: <T = ProjectCharacteristicGroupPromise>() => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectCategoryEdge {
+  node: ProjectCategory;
+  cursor: String;
+}
+
+export interface ProjectCategoryEdgePromise
+  extends Promise<ProjectCategoryEdge>,
+    Fragmentable {
+  node: <T = ProjectCategoryPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProjectCategoryEdgeSubscription
+  extends Promise<AsyncIterator<ProjectCategoryEdge>>,
+    Fragmentable {
+  node: <T = ProjectCategorySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ProjectConnection {
+  pageInfo: PageInfo;
+  edges: ProjectEdge[];
+}
+
+export interface ProjectConnectionPromise
+  extends Promise<ProjectConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProjectEdge>>() => T;
+  aggregate: <T = AggregateProjectPromise>() => T;
+}
+
+export interface ProjectConnectionSubscription
+  extends Promise<AsyncIterator<ProjectConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProjectEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProjectSubscription>() => T;
+}
+
+export interface ProjectCharacteristicGroupPreviousValues {
+  id: ID_Output;
+  name: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface ProjectCharacteristicGroupPreviousValuesPromise
+  extends Promise<ProjectCharacteristicGroupPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectCharacteristicGroupPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProjectCharacteristicGroupPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateProject {
+  count: Int;
+}
+
+export interface AggregateProjectPromise
+  extends Promise<AggregateProject>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateProjectSubscription
+  extends Promise<AsyncIterator<AggregateProject>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface ProjectCharacteristicGroup {
@@ -1450,50 +1553,6 @@ export interface ProjectCharacteristicGroupNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ProjectConnection {
-  pageInfo: PageInfo;
-  edges: ProjectEdge[];
-}
-
-export interface ProjectConnectionPromise
-  extends Promise<ProjectConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProjectEdge>>() => T;
-  aggregate: <T = AggregateProjectPromise>() => T;
-}
-
-export interface ProjectConnectionSubscription
-  extends Promise<AsyncIterator<ProjectConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProjectEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProjectSubscription>() => T;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
-
 export interface ProjectEdge {
   node: Project;
   cursor: String;
@@ -1511,134 +1570,116 @@ export interface ProjectEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateProject {
+export interface AggregateProjectCharacteristicGroup {
   count: Int;
 }
 
-export interface AggregateProjectPromise
-  extends Promise<AggregateProject>,
+export interface AggregateProjectCharacteristicGroupPromise
+  extends Promise<AggregateProjectCharacteristicGroup>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateProjectSubscription
-  extends Promise<AsyncIterator<AggregateProject>>,
+export interface AggregateProjectCharacteristicGroupSubscription
+  extends Promise<AsyncIterator<AggregateProjectCharacteristicGroup>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface ProjectCategoryConnection {
-  pageInfo: PageInfo;
-  edges: ProjectCategoryEdge[];
+export interface Project {
+  id: ID_Output;
+  title: String;
+  sourceOfItems: SourceOfItems;
+  amountOfKidsHelped: Int;
+  whyIsThisImportant: String;
+  meaningToTheKids: String;
+  microNeed: String;
+  numberOfItems: Int;
+  estimatedCost: Int;
+  personalMessage: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
 }
 
-export interface ProjectCategoryConnectionPromise
-  extends Promise<ProjectCategoryConnection>,
+export interface ProjectPromise extends Promise<Project>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  category: <T = ProjectCategoryPromise>() => T;
+  characteristics: <T = FragmentableArray<ProjectCharacteristic>>(args?: {
+    where?: ProjectCharacteristicWhereInput;
+    orderBy?: ProjectCharacteristicOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  sourceOfItems: () => Promise<SourceOfItems>;
+  amountOfKidsHelped: () => Promise<Int>;
+  whyIsThisImportant: () => Promise<String>;
+  meaningToTheKids: () => Promise<String>;
+  microNeed: () => Promise<String>;
+  numberOfItems: () => Promise<Int>;
+  estimatedCost: () => Promise<Int>;
+  personalMessage: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectSubscription
+  extends Promise<AsyncIterator<Project>>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProjectCategoryEdge>>() => T;
-  aggregate: <T = AggregateProjectCategoryPromise>() => T;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  category: <T = ProjectCategorySubscription>() => T;
+  characteristics: <
+    T = Promise<AsyncIterator<ProjectCharacteristicSubscription>>
+  >(args?: {
+    where?: ProjectCharacteristicWhereInput;
+    orderBy?: ProjectCharacteristicOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  sourceOfItems: () => Promise<AsyncIterator<SourceOfItems>>;
+  amountOfKidsHelped: () => Promise<AsyncIterator<Int>>;
+  whyIsThisImportant: () => Promise<AsyncIterator<String>>;
+  meaningToTheKids: () => Promise<AsyncIterator<String>>;
+  microNeed: () => Promise<AsyncIterator<String>>;
+  numberOfItems: () => Promise<AsyncIterator<Int>>;
+  estimatedCost: () => Promise<AsyncIterator<Int>>;
+  personalMessage: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface ProjectCategoryConnectionSubscription
-  extends Promise<AsyncIterator<ProjectCategoryConnection>>,
+export interface ProjectNullablePromise
+  extends Promise<Project | null>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProjectCategoryEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProjectCategorySubscription>() => T;
-}
-
-export interface ProjectCategoryEdge {
-  node: ProjectCategory;
-  cursor: String;
-}
-
-export interface ProjectCategoryEdgePromise
-  extends Promise<ProjectCategoryEdge>,
-    Fragmentable {
-  node: <T = ProjectCategoryPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProjectCategoryEdgeSubscription
-  extends Promise<AsyncIterator<ProjectCategoryEdge>>,
-    Fragmentable {
-  node: <T = ProjectCategorySubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateProjectCategory {
-  count: Int;
-}
-
-export interface AggregateProjectCategoryPromise
-  extends Promise<AggregateProjectCategory>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProjectCategorySubscription
-  extends Promise<AsyncIterator<AggregateProjectCategory>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ProjectCharacteristicConnection {
-  pageInfo: PageInfo;
-  edges: ProjectCharacteristicEdge[];
-}
-
-export interface ProjectCharacteristicConnectionPromise
-  extends Promise<ProjectCharacteristicConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProjectCharacteristicEdge>>() => T;
-  aggregate: <T = AggregateProjectCharacteristicPromise>() => T;
-}
-
-export interface ProjectCharacteristicConnectionSubscription
-  extends Promise<AsyncIterator<ProjectCharacteristicConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <
-    T = Promise<AsyncIterator<ProjectCharacteristicEdgeSubscription>>
-  >() => T;
-  aggregate: <T = AggregateProjectCharacteristicSubscription>() => T;
-}
-
-export interface ProjectCharacteristicEdge {
-  node: ProjectCharacteristic;
-  cursor: String;
-}
-
-export interface ProjectCharacteristicEdgePromise
-  extends Promise<ProjectCharacteristicEdge>,
-    Fragmentable {
-  node: <T = ProjectCharacteristicPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProjectCharacteristicEdgeSubscription
-  extends Promise<AsyncIterator<ProjectCharacteristicEdge>>,
-    Fragmentable {
-  node: <T = ProjectCharacteristicSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateProjectCharacteristic {
-  count: Int;
-}
-
-export interface AggregateProjectCharacteristicPromise
-  extends Promise<AggregateProjectCharacteristic>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProjectCharacteristicSubscription
-  extends Promise<AsyncIterator<AggregateProjectCharacteristic>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  category: <T = ProjectCategoryPromise>() => T;
+  characteristics: <T = FragmentableArray<ProjectCharacteristic>>(args?: {
+    where?: ProjectCharacteristicWhereInput;
+    orderBy?: ProjectCharacteristicOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  sourceOfItems: () => Promise<SourceOfItems>;
+  amountOfKidsHelped: () => Promise<Int>;
+  whyIsThisImportant: () => Promise<String>;
+  meaningToTheKids: () => Promise<String>;
+  microNeed: () => Promise<String>;
+  numberOfItems: () => Promise<Int>;
+  estimatedCost: () => Promise<Int>;
+  personalMessage: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
 }
 
 export interface ProjectCharacteristicGroupConnection {
@@ -1664,39 +1705,194 @@ export interface ProjectCharacteristicGroupConnectionSubscription
   aggregate: <T = AggregateProjectCharacteristicGroupSubscription>() => T;
 }
 
-export interface ProjectCharacteristicGroupEdge {
-  node: ProjectCharacteristicGroup;
-  cursor: String;
+export interface ProjectSubscriptionPayload {
+  mutation: MutationType;
+  node: Project;
+  updatedFields: String[];
+  previousValues: ProjectPreviousValues;
 }
 
-export interface ProjectCharacteristicGroupEdgePromise
-  extends Promise<ProjectCharacteristicGroupEdge>,
+export interface ProjectSubscriptionPayloadPromise
+  extends Promise<ProjectSubscriptionPayload>,
     Fragmentable {
-  node: <T = ProjectCharacteristicGroupPromise>() => T;
-  cursor: () => Promise<String>;
+  mutation: () => Promise<MutationType>;
+  node: <T = ProjectPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProjectPreviousValuesPromise>() => T;
 }
 
-export interface ProjectCharacteristicGroupEdgeSubscription
-  extends Promise<AsyncIterator<ProjectCharacteristicGroupEdge>>,
+export interface ProjectSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProjectSubscriptionPayload>>,
     Fragmentable {
-  node: <T = ProjectCharacteristicGroupSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProjectSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProjectPreviousValuesSubscription>() => T;
 }
 
-export interface AggregateProjectCharacteristicGroup {
+export interface AggregateProjectCharacteristic {
   count: Int;
 }
 
-export interface AggregateProjectCharacteristicGroupPromise
-  extends Promise<AggregateProjectCharacteristicGroup>,
+export interface AggregateProjectCharacteristicPromise
+  extends Promise<AggregateProjectCharacteristic>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateProjectCharacteristicGroupSubscription
-  extends Promise<AsyncIterator<AggregateProjectCharacteristicGroup>>,
+export interface AggregateProjectCharacteristicSubscription
+  extends Promise<AsyncIterator<AggregateProjectCharacteristic>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProjectPreviousValues {
+  id: ID_Output;
+  title: String;
+  sourceOfItems: SourceOfItems;
+  amountOfKidsHelped: Int;
+  whyIsThisImportant: String;
+  meaningToTheKids: String;
+  microNeed: String;
+  numberOfItems: Int;
+  estimatedCost: Int;
+  personalMessage: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface ProjectPreviousValuesPromise
+  extends Promise<ProjectPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  sourceOfItems: () => Promise<SourceOfItems>;
+  amountOfKidsHelped: () => Promise<Int>;
+  whyIsThisImportant: () => Promise<String>;
+  meaningToTheKids: () => Promise<String>;
+  microNeed: () => Promise<String>;
+  numberOfItems: () => Promise<Int>;
+  estimatedCost: () => Promise<Int>;
+  personalMessage: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProjectPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  sourceOfItems: () => Promise<AsyncIterator<SourceOfItems>>;
+  amountOfKidsHelped: () => Promise<AsyncIterator<Int>>;
+  whyIsThisImportant: () => Promise<AsyncIterator<String>>;
+  meaningToTheKids: () => Promise<AsyncIterator<String>>;
+  microNeed: () => Promise<AsyncIterator<String>>;
+  numberOfItems: () => Promise<AsyncIterator<Int>>;
+  estimatedCost: () => Promise<AsyncIterator<Int>>;
+  personalMessage: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ProjectCharacteristicConnection {
+  pageInfo: PageInfo;
+  edges: ProjectCharacteristicEdge[];
+}
+
+export interface ProjectCharacteristicConnectionPromise
+  extends Promise<ProjectCharacteristicConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProjectCharacteristicEdge>>() => T;
+  aggregate: <T = AggregateProjectCharacteristicPromise>() => T;
+}
+
+export interface ProjectCharacteristicConnectionSubscription
+  extends Promise<AsyncIterator<ProjectCharacteristicConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<ProjectCharacteristicEdgeSubscription>>
+  >() => T;
+  aggregate: <T = AggregateProjectCharacteristicSubscription>() => T;
+}
+
+export interface ProjectCharacteristicGroupSubscriptionPayload {
+  mutation: MutationType;
+  node: ProjectCharacteristicGroup;
+  updatedFields: String[];
+  previousValues: ProjectCharacteristicGroupPreviousValues;
+}
+
+export interface ProjectCharacteristicGroupSubscriptionPayloadPromise
+  extends Promise<ProjectCharacteristicGroupSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ProjectCharacteristicGroupPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProjectCharacteristicGroupPreviousValuesPromise>() => T;
+}
+
+export interface ProjectCharacteristicGroupSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProjectCharacteristicGroupSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProjectCharacteristicGroupSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <
+    T = ProjectCharacteristicGroupPreviousValuesSubscription
+  >() => T;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface ProjectCategorySubscriptionPayload {
+  mutation: MutationType;
+  node: ProjectCategory;
+  updatedFields: String[];
+  previousValues: ProjectCategoryPreviousValues;
+}
+
+export interface ProjectCategorySubscriptionPayloadPromise
+  extends Promise<ProjectCategorySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ProjectCategoryPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProjectCategoryPreviousValuesPromise>() => T;
+}
+
+export interface ProjectCategorySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProjectCategorySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProjectCategorySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProjectCategoryPreviousValuesSubscription>() => T;
 }
 
 export interface User {
@@ -1751,178 +1947,15 @@ export interface UserNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface ProjectSubscriptionPayload {
-  mutation: MutationType;
-  node: Project;
-  updatedFields: String[];
-  previousValues: ProjectPreviousValues;
-}
-
-export interface ProjectSubscriptionPayloadPromise
-  extends Promise<ProjectSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProjectPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProjectPreviousValuesPromise>() => T;
-}
-
-export interface ProjectSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProjectSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProjectSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProjectPreviousValuesSubscription>() => T;
-}
-
-export interface ProjectPreviousValues {
-  id: ID_Output;
-  title: String;
-  sourceOfItems: SourceOfItems;
-  amountOfKidsHelped: Int;
-  whyIsThisImportant: String;
-  meaningToTheKids: String;
-  microNeed: String;
-  numberOfItems: Int;
-  updatedAt: DateTimeOutput;
-  createdAt: DateTimeOutput;
-}
-
-export interface ProjectPreviousValuesPromise
-  extends Promise<ProjectPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  sourceOfItems: () => Promise<SourceOfItems>;
-  amountOfKidsHelped: () => Promise<Int>;
-  whyIsThisImportant: () => Promise<String>;
-  meaningToTheKids: () => Promise<String>;
-  microNeed: () => Promise<String>;
-  numberOfItems: () => Promise<Int>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProjectPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  sourceOfItems: () => Promise<AsyncIterator<SourceOfItems>>;
-  amountOfKidsHelped: () => Promise<AsyncIterator<Int>>;
-  whyIsThisImportant: () => Promise<AsyncIterator<String>>;
-  meaningToTheKids: () => Promise<AsyncIterator<String>>;
-  microNeed: () => Promise<AsyncIterator<String>>;
-  numberOfItems: () => Promise<AsyncIterator<Int>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProjectCategorySubscriptionPayload {
-  mutation: MutationType;
-  node: ProjectCategory;
-  updatedFields: String[];
-  previousValues: ProjectCategoryPreviousValues;
-}
-
-export interface ProjectCategorySubscriptionPayloadPromise
-  extends Promise<ProjectCategorySubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProjectCategoryPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProjectCategoryPreviousValuesPromise>() => T;
-}
-
-export interface ProjectCategorySubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProjectCategorySubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProjectCategorySubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProjectCategoryPreviousValuesSubscription>() => T;
-}
-
-export interface ProjectCategoryPreviousValues {
+export interface ProjectCategory {
   id: ID_Output;
   name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
 
-export interface ProjectCategoryPreviousValuesPromise
-  extends Promise<ProjectCategoryPreviousValues>,
+export interface ProjectCategoryPromise
+  extends Promise<ProjectCategory>,
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
@@ -1930,8 +1963,42 @@ export interface ProjectCategoryPreviousValuesPromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ProjectCategoryPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectCategoryPreviousValues>>,
+export interface ProjectCategorySubscription
+  extends Promise<AsyncIterator<ProjectCategory>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ProjectCategoryNullablePromise
+  extends Promise<ProjectCategory | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectCharacteristicPreviousValues {
+  id: ID_Output;
+  name: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface ProjectCharacteristicPreviousValuesPromise
+  extends Promise<ProjectCharacteristicPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectCharacteristicPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProjectCharacteristicPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
@@ -1964,15 +2031,38 @@ export interface ProjectCharacteristicSubscriptionPayloadSubscription
   previousValues: <T = ProjectCharacteristicPreviousValuesSubscription>() => T;
 }
 
-export interface ProjectCharacteristicPreviousValues {
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ProjectCategoryPreviousValues {
   id: ID_Output;
   name: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
 
-export interface ProjectCharacteristicPreviousValuesPromise
-  extends Promise<ProjectCharacteristicPreviousValues>,
+export interface ProjectCategoryPreviousValuesPromise
+  extends Promise<ProjectCategoryPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
@@ -1980,8 +2070,8 @@ export interface ProjectCharacteristicPreviousValuesPromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ProjectCharacteristicPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectCharacteristicPreviousValues>>,
+export interface ProjectCategoryPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProjectCategoryPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
@@ -1989,133 +2079,80 @@ export interface ProjectCharacteristicPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface ProjectCharacteristicGroupSubscriptionPayload {
-  mutation: MutationType;
+export interface ProjectCharacteristicEdge {
+  node: ProjectCharacteristic;
+  cursor: String;
+}
+
+export interface ProjectCharacteristicEdgePromise
+  extends Promise<ProjectCharacteristicEdge>,
+    Fragmentable {
+  node: <T = ProjectCharacteristicPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProjectCharacteristicEdgeSubscription
+  extends Promise<AsyncIterator<ProjectCharacteristicEdge>>,
+    Fragmentable {
+  node: <T = ProjectCharacteristicSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ProjectCharacteristicGroupEdge {
   node: ProjectCharacteristicGroup;
-  updatedFields: String[];
-  previousValues: ProjectCharacteristicGroupPreviousValues;
+  cursor: String;
 }
 
-export interface ProjectCharacteristicGroupSubscriptionPayloadPromise
-  extends Promise<ProjectCharacteristicGroupSubscriptionPayload>,
+export interface ProjectCharacteristicGroupEdgePromise
+  extends Promise<ProjectCharacteristicGroupEdge>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
   node: <T = ProjectCharacteristicGroupPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProjectCharacteristicGroupPreviousValuesPromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface ProjectCharacteristicGroupSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProjectCharacteristicGroupSubscriptionPayload>>,
+export interface ProjectCharacteristicGroupEdgeSubscription
+  extends Promise<AsyncIterator<ProjectCharacteristicGroupEdge>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
   node: <T = ProjectCharacteristicGroupSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <
-    T = ProjectCharacteristicGroupPreviousValuesSubscription
-  >() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ProjectCharacteristicGroupPreviousValues {
-  id: ID_Output;
-  name: String;
-  updatedAt: DateTimeOutput;
-  createdAt: DateTimeOutput;
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
 }
 
-export interface ProjectCharacteristicGroupPreviousValuesPromise
-  extends Promise<ProjectCharacteristicGroupPreviousValues>,
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
 }
 
-export interface ProjectCharacteristicGroupPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectCharacteristicGroupPreviousValues>>,
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
+export interface AggregateProjectCategory {
+  count: Int;
 }
 
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
+export interface AggregateProjectCategoryPromise
+  extends Promise<AggregateProjectCategory>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
+  count: () => Promise<Int>;
 }
 
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+export interface AggregateProjectCategorySubscription
+  extends Promise<AsyncIterator<AggregateProjectCategory>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  count: () => Promise<AsyncIterator<Int>>;
 }
-
-export interface UserPreviousValues {
-  id: ID_Output;
-  email: String;
-  displayName?: String;
-  firstName: String;
-  lastName: String;
-  password: String;
-  userGroup: String;
-  updatedAt: DateTimeOutput;
-  createdAt: DateTimeOutput;
-}
-
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  displayName: () => Promise<String>;
-  firstName: () => Promise<String>;
-  lastName: () => Promise<String>;
-  password: () => Promise<String>;
-  userGroup: () => Promise<String>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
-}
-
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  displayName: () => Promise<AsyncIterator<String>>;
-  firstName: () => Promise<AsyncIterator<String>>;
-  lastName: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
-  userGroup: () => Promise<AsyncIterator<String>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number;
-export type ID_Output = string;
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
 
 /*
 DateTime scalar input type, allowing Date
@@ -2132,12 +2169,23 @@ The `Int` scalar type represents non-fractional signed whole numeric values. Int
 */
 export type Int = number;
 
+export type Long = string;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
+
+/*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number;
+export type ID_Output = string;
+
 /*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
-
-export type Long = string;
 
 /**
  * Model Metadata

@@ -10,6 +10,7 @@ export interface GetProjects_getProjectFeed_projects {
   __typename: "Project";
   id: string;
   title: string;
+  meaningToTheKids: string;
 }
 
 export interface GetProjects_getProjectFeed {

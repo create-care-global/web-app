@@ -1,23 +1,35 @@
+import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Block from 'common/components/Block';
+import Button from 'common/components/Button';
 import H1 from 'common/components/H1';
-import H2 from 'common/components/H2';
 import Main from 'common/components/Main';
 import Paper from 'common/components/Paper';
+import Select from 'common/components/Select';
+import Text from 'common/components/Text';
+import TextArea from 'common/components/TextArea';
 import TextInput from 'common/components/TextInput';
 import React, { Component } from 'react';
+import CreateProjectMutation, {
+  CreateProjectMutationFn
+} from './CreateProjectMutation';
+import GetProjectCategoriesAndCharacteristicGroupsQuery from './GetProjectCategoriesAndCharacteristicGroupsQuery';
 
 class ProjectRegister extends Component<{}, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      projectName: '',
+      title: '',
       microNeed: '',
-      itemAmount: '',
-      fundingChoice: '',
-      kidAmount: '',
-      importance: '',
-      meaning: ''
+      numberOfItems: '',
+      sourceOfItems: '',
+      estimatedCost: '',
+      amountOfKidsHelped: '',
+      whyIsThisImportant: '',
+      meaningToTheKids: '',
+      personalMessage: '',
+      categoryId: '',
+      characteristicIds: []
     };
   }
   // On change of input field, update the field
@@ -25,18 +37,68 @@ class ProjectRegister extends Component<{}, any> {
     this.setState({ [event.target.name]: event.target.value })
 
   // On submit of form, send state to the back end to be stored
-  onSubmit = () => {
-    return this.state;
-  }
+  onSubmit = async (createProjectFn: CreateProjectMutationFn) => {
+    const {
+      title,
+      microNeed,
+      numberOfItems,
+      sourceOfItems,
+      estimatedCost,
+      amountOfKidsHelped,
+      whyIsThisImportant,
+      meaningToTheKids,
+      personalMessage,
+      categoryId,
+      characteristicIds
+    } = this.state;
 
-  // On clicking radio button choice, select the type of funding
-  onRadioChange = (event: any) => {
-    this.setState({
-      fundingChoice: event.target.value
-    });
+    // Hacking type
+    /* tslint:disable */
+    try {
+      const result = await createProjectFn({
+        variables: {
+          input: {
+            title,
+            microNeed,
+            numberOfItems: parseInt(numberOfItems),
+            sourceOfItems,
+            estimatedCost: parseInt(estimatedCost),
+            amountOfKidsHelped: parseInt(amountOfKidsHelped),
+            whyIsThisImportant,
+            meaningToTheKids,
+            personalMessage,
+            categoryId,
+            characteristicIds
+          }
+        }
+      });
+      // Ignore this type for maximum hack.
+      // This should be typed in the component props
+      // @ts-ignore
+      const destination = '/projects/' + result.data.createProject.project.id;
+      // @ts-ignore
+      this.props.history.push(destination);
+    } catch (e) {
+      alert('Something has gone wrong!');
+    }
+    /* tslint:enable */
   }
 
   render() {
+    const {
+      title,
+      microNeed,
+      numberOfItems,
+      sourceOfItems,
+      estimatedCost,
+      amountOfKidsHelped,
+      whyIsThisImportant,
+      meaningToTheKids,
+      personalMessage,
+      categoryId,
+      characteristicIds
+    } = this.state;
+
     return (
       <Main>
         <Box mt={2} />
@@ -48,74 +110,172 @@ class ProjectRegister extends Component<{}, any> {
               placeholder="Name of your project"
               label="Project name"
               onChange={this.onChange}
+              value={title}
             />
 
-            <H2>What is your MicroNeed</H2>
             <TextInput
               name="microNeed"
-              placeholder="MicroNeed of your project"
-              label="MicroNeed"
+              label="What is your MicroNeed"
               onChange={this.onChange}
+              value={microNeed}
             />
             <TextInput
               name="numberOfItems"
-              placeholder="Number of items"
-              label="Number of items"
+              label="How many of those items do you need?"
               onChange={this.onChange}
               type="number"
+              value={numberOfItems}
             />
 
-            <H2>Are you looking for:</H2>
-            {/* TODO add unordered list for the radio buttons
-    https://magnusbenoni.com/radio-buttons-react/*/}
-            <ul>
-              <li>
-                <input
-                  type="radio"
-                  value="direct"
-                  onChange={this.onRadioChange}
-                  checked={this.state.fundingChoice === 'direct'}
-                />{' '}
-                Items to be sent directly
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  value="local"
-                  onChange={this.onRadioChange}
-                  checked={this.state.fundingChoice === 'local'}
-                />{' '}
-                Funding to source the item locally
-              </li>
-            </ul>
-
-            <H2>How many kids will this help</H2>
-            <input
-              type="text"
-              name="kidAmount"
-              placeholder="Amount of kids helped"
+            <Select
+              name="sourceOfItems"
+              value={sourceOfItems}
+              options={[
+                { value: '', label: 'Select option' },
+                { value: 'DIRECT', label: 'Items to be sent directly to you' },
+                { value: 'LOCAL', label: 'Funding to source the item locally' },
+                {
+                  value: 'OTHER',
+                  label: 'Funding to source the item somewhere else'
+                }
+              ]}
               onChange={this.onChange}
             />
-
-            {/*TODO word limitation*/}
-            <H2>Why is this so important(150 words)</H2>
-            <textarea
-              name="importance"
-              placeholder="Importance of the project"
+            <TextInput
+              name="estimatedCost"
+              label="Estimated cost (if you have a sense)?"
               onChange={this.onChange}
+              type="number"
+              value={estimatedCost}
             />
-
-            <H2>
-              If we can meet this need, what will it mean for your kids?(150
-              words)
-            </H2>
-            <textarea
-              name="meaning"
-              placeholder="Meaning to the kids"
+            <TextInput
+              name="amountOfKidsHelped"
+              label="How many of your kids will this help?"
               onChange={this.onChange}
+              type="number"
+              value={amountOfKidsHelped}
             />
-            <br />
-            <button onClick={this.onSubmit}>Submit</button>
+            <TextArea
+              label={'Why is this important? (150 words)'}
+              onChange={this.onChange}
+              name="whyIsThisImportant"
+              rows={4}
+              value={whyIsThisImportant}
+            />
+            <TextArea
+              label={
+                'If we can meet this need, what will it mean for your kids? (150 words)'
+              }
+              onChange={this.onChange}
+              name="meaningToTheKids"
+              rows={4}
+              value={meaningToTheKids}
+            />
+            <TextArea
+              label={
+                'Anything else you\'d like to share with potential SOLVERs (e.g. personal message)?'
+              }
+              onChange={this.onChange}
+              name="personalMessage"
+              rows={4}
+              value={personalMessage}
+            />
+            <GetProjectCategoriesAndCharacteristicGroupsQuery>
+              {({ data, loading, error }) => {
+                if (error) {
+                  return <div>Error...</div>;
+                }
+                if (loading) {
+                  return <div>Loading...</div>;
+                }
+
+                if (!data) {
+                  return <div>No data</div>;
+                }
+
+                return (
+                  <div>
+                    <Box mt={3} />
+                    <Text>
+                      Which of these categories does your MicroNeed best fall
+                      under:
+                    </Text>
+                    <Grid container direction="column">
+                      {data &&
+                        data.projectCategories &&
+                        data.projectCategories.map(({ id, name }) => (
+                          <Grid container item key={id} direction="row">
+                            <input
+                              id={id}
+                              type="radio"
+                              name="categoryId"
+                              value={id}
+                              onChange={this.onChange}
+                              checked={categoryId === id}
+                            />
+                            <Text>
+                              <label htmlFor={id}>{name}</label>
+                            </Text>
+                          </Grid>
+                        ))}
+                    </Grid>
+
+                    <Box mt={3} />
+                    <Text>
+                      Which of the following does this MicroNeed specifically
+                      reflect: (you can tick more than one!)
+                    </Text>
+                    {data.projectCharacteristicGroups.map(
+                      ({ id, name, items }) => {
+                        const itemOptions = items.map(
+                          ({ id: value, name: label }) => ({
+                            value,
+                            label
+                          })
+                        );
+                        itemOptions.unshift({ value: '', label: '' });
+                        return (
+                          <Select
+                            key={id}
+                            label={name}
+                            options={itemOptions}
+                            onChange={e => {
+                              if (
+                                characteristicIds.indexOf(e.target.value) ===
+                                  -1 &&
+                                e.target.value !== ''
+                              ) {
+                                // This is buggy, if there is more than one of the same group selected
+                                // It's adding it to the array, this is behaving like a checkbox !
+                                const newcharacteristicIds = [
+                                  ...characteristicIds,
+                                  e.target.value
+                                ];
+                                this.setState({
+                                  characteristicIds: newcharacteristicIds
+                                });
+                              }
+                            }}
+                          />
+                        );
+                      }
+                    )}
+                  </div>
+                );
+              }}
+            </GetProjectCategoriesAndCharacteristicGroupsQuery>
+
+            <CreateProjectMutation>
+              {(createProjectFn, { loading }) => (
+                <Button
+                  onClick={e => this.onSubmit(createProjectFn)}
+                  disabled={loading}
+                  showSpinner={loading}
+                >
+                  Submit
+                </Button>
+              )}
+            </CreateProjectMutation>
           </Paper>
         </Block>
       </Main>
