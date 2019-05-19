@@ -58,7 +58,7 @@ const logoClassName = css`
 `;
 
 const Header: React.FunctionComponent<{}> = () => {
-  const { viewer, isDriver } = useViewer();
+  const { viewer } = useViewer();
   return (
     <header className={headerClassName}>
       <div className={headerContentClassName}>
@@ -69,6 +69,9 @@ const Header: React.FunctionComponent<{}> = () => {
         </div>
 
         <div className={actionWrapperClassName}>
+          <Link to="/project-registration">
+            <Button variant="text">Start solving</Button>
+          </Link>
           {!viewer && (
             <>
               <Link to={linkgen(Paths.signup)}>
@@ -81,14 +84,6 @@ const Header: React.FunctionComponent<{}> = () => {
           )}
           {viewer && (
             <>
-              {isDriver && (
-                <Link to="/project-registration">
-                  <Button variant="text">Create a project</Button>
-                </Link>
-              )}
-              <Link to={linkgen(Paths.dashboard)}>
-                <Button variant="text">Dashboard</Button>
-              </Link>
               <Link to={linkgen(Paths.logout)}>
                 <Button variant="text">Logout</Button>
               </Link>
