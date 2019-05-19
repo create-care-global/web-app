@@ -18,7 +18,7 @@ const defaultClassName = css`
 `;
 
 const fullHeightClassName = css`
-  /*height: 100%;*/
+  height: 100%;
 `;
 
 const Block: React.FunctionComponent<Props> = ({
@@ -27,8 +27,7 @@ const Block: React.FunctionComponent<Props> = ({
   fullHeight
 }) => {
   const maxWidthClassName = css`
-    /*max-width: ${breakpoints[size]}px;*/
-    max-width: 1024px; 
+    max-width: ${breakpoints[size]}px;
   `;
 
   const classNames = [defaultClassName, maxWidthClassName];

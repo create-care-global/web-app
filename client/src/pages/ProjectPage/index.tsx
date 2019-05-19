@@ -17,7 +17,7 @@ const ProjectPage = () => {
   return (
     <Main>
       <Box mt={6} />
-      <Block size="sm">
+      <Block size="md">
         <Paper>
           <GetProjectQuery variables={{ input: { id } }}>
             {({ data, loading, error }) => {
