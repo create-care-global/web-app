@@ -6,6 +6,7 @@ import React from 'react';
 interface Props {
   children?: React.ReactNode;
   className?: string;
+  elevation?: number; 
 }
 
 const spacingClassName = css`
@@ -13,11 +14,12 @@ const spacingClassName = css`
   width: 100%;
 `;
 
-const Paper: React.FunctionComponent<Props> = ({ className, children }) => {
+const Paper: React.FunctionComponent<Props> = ({ className, children, elevation = 1}) => {
   return (
     <MuiPaper
-      className={cx([className, spacingClassName])}
-      elevation={1}
+      className={cx([spacingClassName, className])}
+     
+      elevation={elevation}
       square
     >
       {children}
