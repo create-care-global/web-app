@@ -19,7 +19,9 @@ const createPrismaProject: CreatePrismaProjectFn = async (
     whyIsThisImportant,
     meaningToTheKids,
     microNeed,
-    numberOfItems
+    numberOfItems,
+    estimatedCost,
+    personalMessage
   }
 ) => {
   try {
@@ -31,6 +33,8 @@ const createPrismaProject: CreatePrismaProjectFn = async (
       meaningToTheKids,
       microNeed,
       numberOfItems,
+      estimatedCost,
+      personalMessage,
       category: {
         connect: { id: categoryId }
       },

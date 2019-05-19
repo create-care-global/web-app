@@ -22,6 +22,8 @@ input CreateProjectInput {
   microNeed: String!
   numberOfItems: Int!
   characteristicIds: [ID!]!
+  estimatedCost: Int!
+  personalMessage: String!
 }
 
 type CreateProjectPayload {

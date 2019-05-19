@@ -570,6 +570,8 @@ export namespace MutationResolvers {
     microNeed: string;
     numberOfItems: number;
     characteristicIds: string[];
+    estimatedCost: number;
+    personalMessage: string;
   }
   export interface SignupInput {
     email: string;
