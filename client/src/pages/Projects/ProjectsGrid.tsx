@@ -32,7 +32,7 @@ const ProjectsGrid = () => {
           <Grid container justify="space-between" spacing={3}>
             {data.getProjectFeed.projects.map(
               ({ id, title, meaningToTheKids }) => (
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4}>
                   <Card>
                     <CardHeader title={title} />
                     <CardContent>
