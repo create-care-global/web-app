@@ -11,7 +11,8 @@
     "object-literal-sort-keys": false,
     "no-console": [true, "log", "table"],
     "interface-name": [true, "never-prefix"],
-    "no-empty": [true, "allow-empty-functions"]
+    "no-empty": [true, "allow-empty-functions"],
+    "max-line-length": [true, 200]
   },
   "rulesDirectory": []
 }

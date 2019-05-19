@@ -314,6 +314,10 @@ export type ProjectOrderByInput =
   | "microNeed_DESC"
   | "numberOfItems_ASC"
   | "numberOfItems_DESC"
+  | "estimatedCost_ASC"
+  | "estimatedCost_DESC"
+  | "personalMessage_ASC"
+  | "personalMessage_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -572,6 +576,7 @@ export interface ProjectWhereInput {
   microNeed_ends_with?: Maybe<String>;
   microNeed_not_ends_with?: Maybe<String>;
   numberOfItems?: Maybe<Int>;
+<<<<<<< HEAD
   numberOfItems_not?: Maybe<Int>;
   numberOfItems_in?: Maybe<Int[] | Int>;
   numberOfItems_not_in?: Maybe<Int[] | Int>;
@@ -601,6 +606,154 @@ export interface ProjectWhereInput {
 }
 
 export interface ProjectCategoryWhereInput {
+=======
+  estimatedCost?: Maybe<Int>;
+  personalMessage?: Maybe<String>;
+}
+
+export interface ProjectCategorySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ProjectCategoryWhereInput>;
+  AND?: Maybe<
+    | ProjectCategorySubscriptionWhereInput[]
+    | ProjectCategorySubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | ProjectCategorySubscriptionWhereInput[]
+    | ProjectCategorySubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | ProjectCategorySubscriptionWhereInput[]
+    | ProjectCategorySubscriptionWhereInput
+  >;
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: Maybe<String>;
+  displayName?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  password?: Maybe<String>;
+  userGroup?: Maybe<String>;
+}
+
+export interface UserUpdateInput {
+  email?: Maybe<String>;
+  displayName?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  password?: Maybe<String>;
+  userGroup?: Maybe<String>;
+}
+
+export interface ProjectCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  category: ProjectCategoryCreateOneInput;
+  characteristics?: Maybe<ProjectCharacteristicCreateManyInput>;
+  sourceOfItems: SourceOfItems;
+  amountOfKidsHelped: Int;
+  whyIsThisImportant: String;
+  meaningToTheKids: String;
+  microNeed: String;
+  numberOfItems: Int;
+  estimatedCost: Int;
+  personalMessage: String;
+}
+
+export interface ProjectCharacteristicGroupUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface ProjectCategoryCreateOneInput {
+  create?: Maybe<ProjectCategoryCreateInput>;
+  connect?: Maybe<ProjectCategoryWhereUniqueInput>;
+}
+
+export type ProjectCharacteristicWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ProjectCategoryCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+}
+
+export interface ProjectCharacteristicUpdateWithWhereUniqueWithoutGroupInput {
+  where: ProjectCharacteristicWhereUniqueInput;
+  data: ProjectCharacteristicUpdateWithoutGroupDataInput;
+}
+
+export interface ProjectCharacteristicCreateManyInput {
+  create?: Maybe<
+    ProjectCharacteristicCreateInput[] | ProjectCharacteristicCreateInput
+  >;
+  connect?: Maybe<
+    | ProjectCharacteristicWhereUniqueInput[]
+    | ProjectCharacteristicWhereUniqueInput
+  >;
+}
+
+export type ProjectCharacteristicGroupWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ProjectCharacteristicCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  group: ProjectCharacteristicGroupCreateOneWithoutItemsInput;
+}
+
+export interface ProjectCharacteristicCreateWithoutGroupInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+}
+
+export interface ProjectCharacteristicGroupCreateOneWithoutItemsInput {
+  create?: Maybe<ProjectCharacteristicGroupCreateWithoutItemsInput>;
+  connect?: Maybe<ProjectCharacteristicGroupWhereUniqueInput>;
+}
+
+export interface ProjectCharacteristicGroupCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  items?: Maybe<ProjectCharacteristicCreateManyWithoutGroupInput>;
+}
+
+export interface ProjectCharacteristicUpdateManyDataInput {
+  name?: Maybe<String>;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<UserWhereInput>;
+  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+}
+
+export interface ProjectUpdateInput {
+  title?: Maybe<String>;
+  category?: Maybe<ProjectCategoryUpdateOneRequiredInput>;
+  characteristics?: Maybe<ProjectCharacteristicUpdateManyInput>;
+  sourceOfItems?: Maybe<SourceOfItems>;
+  amountOfKidsHelped?: Maybe<Int>;
+  whyIsThisImportant?: Maybe<String>;
+  meaningToTheKids?: Maybe<String>;
+  microNeed?: Maybe<String>;
+  numberOfItems?: Maybe<Int>;
+  estimatedCost?: Maybe<Int>;
+  personalMessage?: Maybe<String>;
+}
+
+export interface ProjectCharacteristicWhereInput {
+>>>>>>> Create backend for fields, create frontend for form
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -682,6 +835,7 @@ export interface UserWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+<<<<<<< HEAD
   email?: Maybe<String>;
   email_not?: Maybe<String>;
   email_in?: Maybe<String[] | String>;
@@ -766,6 +920,110 @@ export interface UserWhereInput {
   userGroup_not_starts_with?: Maybe<String>;
   userGroup_ends_with?: Maybe<String>;
   userGroup_not_ends_with?: Maybe<String>;
+=======
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  category?: Maybe<ProjectCategoryWhereInput>;
+  characteristics_every?: Maybe<ProjectCharacteristicWhereInput>;
+  characteristics_some?: Maybe<ProjectCharacteristicWhereInput>;
+  characteristics_none?: Maybe<ProjectCharacteristicWhereInput>;
+  sourceOfItems?: Maybe<SourceOfItems>;
+  sourceOfItems_not?: Maybe<SourceOfItems>;
+  sourceOfItems_in?: Maybe<SourceOfItems[] | SourceOfItems>;
+  sourceOfItems_not_in?: Maybe<SourceOfItems[] | SourceOfItems>;
+  amountOfKidsHelped?: Maybe<Int>;
+  amountOfKidsHelped_not?: Maybe<Int>;
+  amountOfKidsHelped_in?: Maybe<Int[] | Int>;
+  amountOfKidsHelped_not_in?: Maybe<Int[] | Int>;
+  amountOfKidsHelped_lt?: Maybe<Int>;
+  amountOfKidsHelped_lte?: Maybe<Int>;
+  amountOfKidsHelped_gt?: Maybe<Int>;
+  amountOfKidsHelped_gte?: Maybe<Int>;
+  whyIsThisImportant?: Maybe<String>;
+  whyIsThisImportant_not?: Maybe<String>;
+  whyIsThisImportant_in?: Maybe<String[] | String>;
+  whyIsThisImportant_not_in?: Maybe<String[] | String>;
+  whyIsThisImportant_lt?: Maybe<String>;
+  whyIsThisImportant_lte?: Maybe<String>;
+  whyIsThisImportant_gt?: Maybe<String>;
+  whyIsThisImportant_gte?: Maybe<String>;
+  whyIsThisImportant_contains?: Maybe<String>;
+  whyIsThisImportant_not_contains?: Maybe<String>;
+  whyIsThisImportant_starts_with?: Maybe<String>;
+  whyIsThisImportant_not_starts_with?: Maybe<String>;
+  whyIsThisImportant_ends_with?: Maybe<String>;
+  whyIsThisImportant_not_ends_with?: Maybe<String>;
+  meaningToTheKids?: Maybe<String>;
+  meaningToTheKids_not?: Maybe<String>;
+  meaningToTheKids_in?: Maybe<String[] | String>;
+  meaningToTheKids_not_in?: Maybe<String[] | String>;
+  meaningToTheKids_lt?: Maybe<String>;
+  meaningToTheKids_lte?: Maybe<String>;
+  meaningToTheKids_gt?: Maybe<String>;
+  meaningToTheKids_gte?: Maybe<String>;
+  meaningToTheKids_contains?: Maybe<String>;
+  meaningToTheKids_not_contains?: Maybe<String>;
+  meaningToTheKids_starts_with?: Maybe<String>;
+  meaningToTheKids_not_starts_with?: Maybe<String>;
+  meaningToTheKids_ends_with?: Maybe<String>;
+  meaningToTheKids_not_ends_with?: Maybe<String>;
+  microNeed?: Maybe<String>;
+  microNeed_not?: Maybe<String>;
+  microNeed_in?: Maybe<String[] | String>;
+  microNeed_not_in?: Maybe<String[] | String>;
+  microNeed_lt?: Maybe<String>;
+  microNeed_lte?: Maybe<String>;
+  microNeed_gt?: Maybe<String>;
+  microNeed_gte?: Maybe<String>;
+  microNeed_contains?: Maybe<String>;
+  microNeed_not_contains?: Maybe<String>;
+  microNeed_starts_with?: Maybe<String>;
+  microNeed_not_starts_with?: Maybe<String>;
+  microNeed_ends_with?: Maybe<String>;
+  microNeed_not_ends_with?: Maybe<String>;
+  numberOfItems?: Maybe<Int>;
+  numberOfItems_not?: Maybe<Int>;
+  numberOfItems_in?: Maybe<Int[] | Int>;
+  numberOfItems_not_in?: Maybe<Int[] | Int>;
+  numberOfItems_lt?: Maybe<Int>;
+  numberOfItems_lte?: Maybe<Int>;
+  numberOfItems_gt?: Maybe<Int>;
+  numberOfItems_gte?: Maybe<Int>;
+  estimatedCost?: Maybe<Int>;
+  estimatedCost_not?: Maybe<Int>;
+  estimatedCost_in?: Maybe<Int[] | Int>;
+  estimatedCost_not_in?: Maybe<Int[] | Int>;
+  estimatedCost_lt?: Maybe<Int>;
+  estimatedCost_lte?: Maybe<Int>;
+  estimatedCost_gt?: Maybe<Int>;
+  estimatedCost_gte?: Maybe<Int>;
+  personalMessage?: Maybe<String>;
+  personalMessage_not?: Maybe<String>;
+  personalMessage_in?: Maybe<String[] | String>;
+  personalMessage_not_in?: Maybe<String[] | String>;
+  personalMessage_lt?: Maybe<String>;
+  personalMessage_lte?: Maybe<String>;
+  personalMessage_gt?: Maybe<String>;
+  personalMessage_gte?: Maybe<String>;
+  personalMessage_contains?: Maybe<String>;
+  personalMessage_not_contains?: Maybe<String>;
+  personalMessage_starts_with?: Maybe<String>;
+  personalMessage_not_starts_with?: Maybe<String>;
+  personalMessage_ends_with?: Maybe<String>;
+  personalMessage_not_ends_with?: Maybe<String>;
+>>>>>>> Create backend for fields, create frontend for form
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
   updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1237,6 +1495,8 @@ export interface Project {
   meaningToTheKids: String;
   microNeed: String;
   numberOfItems: Int;
+  estimatedCost: Int;
+  personalMessage: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -1260,6 +1520,8 @@ export interface ProjectPromise extends Promise<Project>, Fragmentable {
   meaningToTheKids: () => Promise<String>;
   microNeed: () => Promise<String>;
   numberOfItems: () => Promise<Int>;
+  estimatedCost: () => Promise<Int>;
+  personalMessage: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -1287,6 +1549,8 @@ export interface ProjectSubscription
   meaningToTheKids: () => Promise<AsyncIterator<String>>;
   microNeed: () => Promise<AsyncIterator<String>>;
   numberOfItems: () => Promise<AsyncIterator<Int>>;
+  estimatedCost: () => Promise<AsyncIterator<Int>>;
+  personalMessage: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -1312,6 +1576,8 @@ export interface ProjectNullablePromise
   meaningToTheKids: () => Promise<String>;
   microNeed: () => Promise<String>;
   numberOfItems: () => Promise<Int>;
+  estimatedCost: () => Promise<Int>;
+  personalMessage: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -1527,6 +1793,7 @@ export interface AggregateProjectSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+<<<<<<< HEAD
 export interface ProjectCategoryConnection {
   pageInfo: PageInfo;
   edges: ProjectCategoryEdge[];
@@ -1565,6 +1832,21 @@ export interface ProjectCategoryEdgeSubscription
     Fragmentable {
   node: <T = ProjectCategorySubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+=======
+export interface ProjectPreviousValues {
+  id: ID_Output;
+  title: String;
+  sourceOfItems: SourceOfItems;
+  amountOfKidsHelped: Int;
+  whyIsThisImportant: String;
+  meaningToTheKids: String;
+  microNeed: String;
+  numberOfItems: Int;
+  estimatedCost: Int;
+  personalMessage: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+>>>>>>> Create backend for fields, create frontend for form
 }
 
 export interface AggregateProjectCategory {
@@ -1574,13 +1856,43 @@ export interface AggregateProjectCategory {
 export interface AggregateProjectCategoryPromise
   extends Promise<AggregateProjectCategory>,
     Fragmentable {
+<<<<<<< HEAD
   count: () => Promise<Int>;
+=======
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  sourceOfItems: () => Promise<SourceOfItems>;
+  amountOfKidsHelped: () => Promise<Int>;
+  whyIsThisImportant: () => Promise<String>;
+  meaningToTheKids: () => Promise<String>;
+  microNeed: () => Promise<String>;
+  numberOfItems: () => Promise<Int>;
+  estimatedCost: () => Promise<Int>;
+  personalMessage: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+>>>>>>> Create backend for fields, create frontend for form
 }
 
 export interface AggregateProjectCategorySubscription
   extends Promise<AsyncIterator<AggregateProjectCategory>>,
     Fragmentable {
+<<<<<<< HEAD
   count: () => Promise<AsyncIterator<Int>>;
+=======
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  sourceOfItems: () => Promise<AsyncIterator<SourceOfItems>>;
+  amountOfKidsHelped: () => Promise<AsyncIterator<Int>>;
+  whyIsThisImportant: () => Promise<AsyncIterator<String>>;
+  meaningToTheKids: () => Promise<AsyncIterator<String>>;
+  microNeed: () => Promise<AsyncIterator<String>>;
+  numberOfItems: () => Promise<AsyncIterator<Int>>;
+  estimatedCost: () => Promise<AsyncIterator<Int>>;
+  personalMessage: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+>>>>>>> Create backend for fields, create frontend for form
 }
 
 export interface ProjectCharacteristicConnection {

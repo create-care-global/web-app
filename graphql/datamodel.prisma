@@ -23,6 +23,8 @@ type Project {
   meaningToTheKids: String!
   microNeed: String!
   numberOfItems: Int!
+  estimatedCost: Int!
+  personalMessage: String!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }

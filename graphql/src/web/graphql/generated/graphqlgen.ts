@@ -136,7 +136,9 @@ export namespace ProjectResolvers {
     meaningToTheKids: (parent: Project) => parent.meaningToTheKids,
     microNeed: (parent: Project) => parent.microNeed,
     numberOfItems: (parent: Project) => parent.numberOfItems,
-    sourceOfItems: (parent: Project) => parent.sourceOfItems
+    sourceOfItems: (parent: Project) => parent.sourceOfItems,
+    estimatedCost: (parent: Project) => parent.estimatedCost,
+    personalMessage: (parent: Project) => parent.personalMessage
   };
 
   export type IdResolver = (
@@ -209,6 +211,20 @@ export namespace ProjectResolvers {
     info: GraphQLResolveInfo
   ) => ProjectCharacteristic[] | Promise<ProjectCharacteristic[]>;
 
+  export type EstimatedCostResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => number | Promise<number>;
+
+  export type PersonalMessageResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
   export interface Type {
     id: (
       parent: Project,
@@ -279,6 +295,20 @@ export namespace ProjectResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => ProjectCharacteristic[] | Promise<ProjectCharacteristic[]>;
+
+    estimatedCost: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => number | Promise<number>;
+
+    personalMessage: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
   }
 }
 
@@ -540,6 +570,8 @@ export namespace MutationResolvers {
     microNeed: string;
     numberOfItems: number;
     characteristicIds: string[];
+    estimatedCost: number;
+    personalMessage: string;
   }
   export interface SignupInput {
     email: string;
