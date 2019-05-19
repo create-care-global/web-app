@@ -30,6 +30,8 @@ export interface Project {
   sourceOfItems: SourceOfItems;
   category?: ProjectCategory;
   characteristics?: ProjectCharacteristic[];
+  estimatedCost: number;
+  personalMessage: string;
 }
 
 export interface GetProjectFeedPayload {

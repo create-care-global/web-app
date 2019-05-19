@@ -39,6 +39,8 @@ type Project {
   microNeed: String!
   numberOfItems: Int!
   characteristics: [ProjectCharacteristic!]!
+  estimatedCost: Int!
+  personalMessage: String!
 }
 
 type ProjectCategory {

@@ -91,6 +91,8 @@ type Project {
   meaningToTheKids: String!
   microNeed: String!
   numberOfItems: Int!
+  estimatedCost: Int!
+  personalMessage: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -661,6 +663,8 @@ input ProjectCreateInput {
   meaningToTheKids: String!
   microNeed: String!
   numberOfItems: Int!
+  estimatedCost: Int!
+  personalMessage: String!
 }
 
 type ProjectEdge {
@@ -685,6 +689,10 @@ enum ProjectOrderByInput {
   microNeed_DESC
   numberOfItems_ASC
   numberOfItems_DESC
+  estimatedCost_ASC
+  estimatedCost_DESC
+  personalMessage_ASC
+  personalMessage_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -700,6 +708,8 @@ type ProjectPreviousValues {
   meaningToTheKids: String!
   microNeed: String!
   numberOfItems: Int!
+  estimatedCost: Int!
+  personalMessage: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -732,6 +742,8 @@ input ProjectUpdateInput {
   meaningToTheKids: String
   microNeed: String
   numberOfItems: Int
+  estimatedCost: Int
+  personalMessage: String
 }
 
 input ProjectUpdateManyMutationInput {
@@ -742,6 +754,8 @@ input ProjectUpdateManyMutationInput {
   meaningToTheKids: String
   microNeed: String
   numberOfItems: Int
+  estimatedCost: Int
+  personalMessage: String
 }
 
 input ProjectWhereInput {
@@ -839,6 +853,28 @@ input ProjectWhereInput {
   numberOfItems_lte: Int
   numberOfItems_gt: Int
   numberOfItems_gte: Int
+  estimatedCost: Int
+  estimatedCost_not: Int
+  estimatedCost_in: [Int!]
+  estimatedCost_not_in: [Int!]
+  estimatedCost_lt: Int
+  estimatedCost_lte: Int
+  estimatedCost_gt: Int
+  estimatedCost_gte: Int
+  personalMessage: String
+  personalMessage_not: String
+  personalMessage_in: [String!]
+  personalMessage_not_in: [String!]
+  personalMessage_lt: String
+  personalMessage_lte: String
+  personalMessage_gt: String
+  personalMessage_gte: String
+  personalMessage_contains: String
+  personalMessage_not_contains: String
+  personalMessage_starts_with: String
+  personalMessage_not_starts_with: String
+  personalMessage_ends_with: String
+  personalMessage_not_ends_with: String
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]

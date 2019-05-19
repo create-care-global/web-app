@@ -1,9 +1,11 @@
 import Box from '@material-ui/core/Box';
 import Block from 'common/components/Block';
+import Button from 'common/components/Button';
 import H1 from 'common/components/H1';
-import H2 from 'common/components/H2';
 import Main from 'common/components/Main';
 import Paper from 'common/components/Paper';
+import Select from 'common/components/Select';
+import TextArea from 'common/components/TextArea';
 import TextInput from 'common/components/TextInput';
 import React, { Component } from 'react';
 
@@ -11,13 +13,15 @@ class ProjectRegister extends Component<{}, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      projectName: '',
+      title: '',
       microNeed: '',
-      itemAmount: '',
-      fundingChoice: '',
-      kidAmount: '',
-      importance: '',
-      meaning: ''
+      numberOfItems: '',
+      sourceOfItems: '',
+      estimatedCost: '',
+      amountOfKidsHelped: '',
+      whyIsThisImportant: '',
+      meaningToTheKids: '',
+      personalMessage: ''
     };
   }
   // On change of input field, update the field
@@ -26,7 +30,8 @@ class ProjectRegister extends Component<{}, any> {
 
   // On submit of form, send state to the back end to be stored
   onSubmit = () => {
-    return this.state;
+    // console.log(this.state);
+    // return this.state;
   }
 
   // On clicking radio button choice, select the type of funding
@@ -37,6 +42,18 @@ class ProjectRegister extends Component<{}, any> {
   }
 
   render() {
+    const {
+      title,
+      microNeed,
+      numberOfItems,
+      sourceOfItems,
+      estimatedCost,
+      amountOfKidsHelped,
+      whyIsThisImportant,
+      meaningToTheKids,
+      personalMessage
+    } = this.state;
+
     return (
       <Main>
         <Box mt={2} />
@@ -48,74 +65,78 @@ class ProjectRegister extends Component<{}, any> {
               placeholder="Name of your project"
               label="Project name"
               onChange={this.onChange}
+              value={title}
             />
 
-            <H2>What is your MicroNeed</H2>
             <TextInput
               name="microNeed"
-              placeholder="MicroNeed of your project"
-              label="MicroNeed"
+              label="What is your MicroNeed"
               onChange={this.onChange}
+              value={microNeed}
             />
             <TextInput
               name="numberOfItems"
-              placeholder="Number of items"
-              label="Number of items"
+              label="How many of those items do you need?"
               onChange={this.onChange}
               type="number"
+              value={numberOfItems}
             />
 
-            <H2>Are you looking for:</H2>
-            {/* TODO add unordered list for the radio buttons
-    https://magnusbenoni.com/radio-buttons-react/*/}
-            <ul>
-              <li>
-                <input
-                  type="radio"
-                  value="direct"
-                  onChange={this.onRadioChange}
-                  checked={this.state.fundingChoice === 'direct'}
-                />{' '}
-                Items to be sent directly
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  value="local"
-                  onChange={this.onRadioChange}
-                  checked={this.state.fundingChoice === 'local'}
-                />{' '}
-                Funding to source the item locally
-              </li>
-            </ul>
-
-            <H2>How many kids will this help</H2>
-            <input
-              type="text"
-              name="kidAmount"
-              placeholder="Amount of kids helped"
+            <Select
+              name="sourceOfItems"
+              value={sourceOfItems}
+              options={[
+                { value: '', label: 'Select option' },
+                { value: 'DIRECT', label: 'Items to be sent directly to you' },
+                { value: 'LOCAL', label: 'Funding to source the item locally' },
+                {
+                  value: 'OTHER',
+                  label: 'Funding to source the item somewhere else'
+                }
+              ]}
               onChange={this.onChange}
             />
-
-            {/*TODO word limitation*/}
-            <H2>Why is this so important(150 words)</H2>
-            <textarea
-              name="importance"
-              placeholder="Importance of the project"
+            <TextInput
+              name="estimatedCost"
+              label="Estimated cost (if you have a sense)?"
               onChange={this.onChange}
+              type="number"
+              value={estimatedCost}
+            />
+            <TextInput
+              name="amountOfKidsHelped"
+              label="How many of those items do you need?"
+              onChange={this.onChange}
+              type="number"
+              value={amountOfKidsHelped}
+            />
+            <TextArea
+              label={'Why is this important? (150 words)'}
+              onChange={this.onChange}
+              name="whyIsThisImportant"
+              rows={4}
+              value={whyIsThisImportant}
+            />
+            <TextArea
+              label={
+                'If we can meet this need, what will it mean for your kids? (150 words)'
+              }
+              onChange={this.onChange}
+              name="meaningToTheKids"
+              rows={4}
+              value={meaningToTheKids}
+            />
+            <TextArea
+              label={
+                'Anything else you\'d like to share with potential SOLVERs (e.g. personal message)?'
+              }
+              onChange={this.onChange}
+              name="personalMessage"
+              rows={4}
+              value={personalMessage}
             />
 
-            <H2>
-              If we can meet this need, what will it mean for your kids?(150
-              words)
-            </H2>
-            <textarea
-              name="meaning"
-              placeholder="Meaning to the kids"
-              onChange={this.onChange}
-            />
-            <br />
-            <button onClick={this.onSubmit}>Submit</button>
+            <Button onClick={this.onSubmit}>Submit</Button>
           </Paper>
         </Block>
       </Main>
