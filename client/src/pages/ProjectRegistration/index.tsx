@@ -1,3 +1,4 @@
+import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Block from 'common/components/Block';
 import Button from 'common/components/Button';
@@ -5,9 +6,11 @@ import H1 from 'common/components/H1';
 import Main from 'common/components/Main';
 import Paper from 'common/components/Paper';
 import Select from 'common/components/Select';
+import Text from 'common/components/Text';
 import TextArea from 'common/components/TextArea';
 import TextInput from 'common/components/TextInput';
 import React, { Component } from 'react';
+import GetProjectCategoriesAndCharacteristicGroupsQuery from './GetProjectCategoriesAndCharacteristicGroupsQuery';
 
 class ProjectRegister extends Component<{}, any> {
   constructor(props: any) {
@@ -21,7 +24,9 @@ class ProjectRegister extends Component<{}, any> {
       amountOfKidsHelped: '',
       whyIsThisImportant: '',
       meaningToTheKids: '',
-      personalMessage: ''
+      personalMessage: '',
+      categoryId: '',
+      characteristics: []
     };
   }
   // On change of input field, update the field
@@ -34,13 +39,6 @@ class ProjectRegister extends Component<{}, any> {
     // return this.state;
   }
 
-  // On clicking radio button choice, select the type of funding
-  onRadioChange = (event: any) => {
-    this.setState({
-      fundingChoice: event.target.value
-    });
-  }
-
   render() {
     const {
       title,
@@ -51,7 +49,9 @@ class ProjectRegister extends Component<{}, any> {
       amountOfKidsHelped,
       whyIsThisImportant,
       meaningToTheKids,
-      personalMessage
+      personalMessage,
+      categoryId,
+      characteristics
     } = this.state;
 
     return (
@@ -135,6 +135,90 @@ class ProjectRegister extends Component<{}, any> {
               rows={4}
               value={personalMessage}
             />
+            <GetProjectCategoriesAndCharacteristicGroupsQuery>
+              {({ data, loading, error }) => {
+                if (error) {
+                  return <div>Error...</div>;
+                }
+                if (loading) {
+                  return <div>Loading...</div>;
+                }
+
+                if (!data) {
+                  return <div>No data</div>;
+                }
+
+                return (
+                  <div>
+                    <Box mt={3} />
+                    <Text>
+                      Which of these categories does your MicroNeed best fall
+                      under:
+                    </Text>
+                    <Grid container direction="column">
+                      {data &&
+                        data.projectCategories &&
+                        data.projectCategories.map(({ id, name }) => (
+                          <Grid container item key={id} direction="row">
+                            <input
+                              id={id}
+                              type="radio"
+                              name="categoryId"
+                              value={id}
+                              onChange={this.onChange}
+                              checked={categoryId === id}
+                            />
+                            <Text>
+                              <label htmlFor={id}>{name}</label>
+                            </Text>
+                          </Grid>
+                        ))}
+                    </Grid>
+
+                    <Box mt={3} />
+                    <Text>
+                      Which of the following does this MicroNeed specifically
+                      reflect: (you can tick more than one!)
+                    </Text>
+                    {data.projectCharacteristicGroups.map(
+                      ({ id, name, items }) => {
+                        const itemOptions = items.map(
+                          ({ id: value, name: label }) => ({
+                            value,
+                            label
+                          })
+                        );
+                        itemOptions.unshift({ value: '', label: '' });
+                        return (
+                          <Select
+                            key={id}
+                            label={name}
+                            options={itemOptions}
+                            onChange={e => {
+                              if (
+                                characteristics.indexOf(e.target.value) ===
+                                  -1 &&
+                                e.target.value !== ''
+                              ) {
+                                // This is buggy, if there is more than one of the same group selected
+                                // It's adding it to the array, this is behaving like a checkbox !
+                                const newCharacteristics = [
+                                  ...characteristics,
+                                  e.target.value
+                                ];
+                                this.setState({
+                                  characteristics: newCharacteristics
+                                });
+                              }
+                            }}
+                          />
+                        );
+                      }
+                    )}
+                  </div>
+                );
+              }}
+            </GetProjectCategoriesAndCharacteristicGroupsQuery>
 
             <Button onClick={this.onSubmit}>Submit</Button>
           </Paper>
