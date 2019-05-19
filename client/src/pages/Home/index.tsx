@@ -24,7 +24,22 @@ const Home = () => {
   return (
     <div style={{ marginTop: '5rem' }}>
       {/* Header Section */}
+      <Grid
+        container
+        style={{backgroundImage:`url(https://i.imgur.com/qrNFAcK.jpg)`}}
+      >
+        {/* <div style={{position: 'relative'}}>
+        <img src="https://i.imgur.com/qrNFAcK.jpg"
+          style={{
+            maxWidth:'100%',
+            height:'auto',
+            zIndex:-999
+          }}/>
+          <p style={{zIndex:1000, position: 'absolute'}}>test</p>
+        </div> */}
+      </Grid>
 
+      {/* Projects */}
       <div style={{ backgroundColor: '#455560' }}>
         <Block size="md">
           <Box mt={2} />
@@ -42,7 +57,7 @@ const Home = () => {
       <Grid container>
         <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
           <img
-            // src={smallActBigImpact}
+            src='https://i.imgur.com/nWPO5bE.png'
             style={{
               maxWidth: '100%',
               height: 'auto',
@@ -134,7 +149,7 @@ const Home = () => {
                     padding: '0px',
                     margin: '0px'
                   }}
-                  // src={jenny}
+                  src='https://i.imgur.com/ttHRZL5.jpg'
                   alt={'success'}
                 />
               </div>
@@ -150,11 +165,11 @@ const Home = () => {
       {/* What makes this different? */}
       <Grid
         container
-        // style={{backgroundImage:`url(${makeADifference}`,
-        // backgroundSize: 'cover',
-        // backgroundRepeat: 'no-repeat',
-        // backgroundPosition: 'center',
-        // height: '500px'}}
+        style={{backgroundImage:`url(https://i.imgur.com/FMgIhzC.jpg)`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        height: '500px'}}
         direction="row"
         justify="center"
         alignItems="center"
@@ -179,7 +194,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={5}>
           <img
-            // src={speech}
+            src='https://i.imgur.com/gc2qmsf.png'
             style={{
               maxWidth: '100%',
               height: 'auto',
@@ -213,17 +228,11 @@ const Home = () => {
           </h5>
         </Grid>
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={4}>
-            <img
-              // src={frontPageFooterImage}
-              alt="greatful people"
-            />
-          </Grid>
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={4}>
               <img
                 style={{ width: '60%', height: 'auto', marginLeft: '1em' }}
-                // src={frontPageFooterIm age}
+                src='https://i.imgur.com/kuzKElL.jpg'
                 alt="greatful people"
               />
             </Grid>
