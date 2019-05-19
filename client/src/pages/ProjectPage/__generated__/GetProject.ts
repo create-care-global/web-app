@@ -31,6 +31,7 @@ export interface GetProject_getProject_project {
   meaningToTheKids: string;
   microNeed: string;
   numberOfItems: number;
+  personalMessage: string;
   characteristics: GetProject_getProject_project_characteristics[];
 }
 
