@@ -597,7 +597,7 @@ export interface ProjectCharacteristicUpdateManyInput {
 
 export interface ProjectCharacteristicUpdateInput {
   name?: Maybe<String>;
-  group?: Maybe<ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput>;
+  group?: Maybe<ProjectCharacteristicGroupUpdateOneWithoutItemsInput>;
 }
 
 export interface ProjectCharacteristicGroupWhereInput {
@@ -845,7 +845,7 @@ export type ProjectCharacteristicGroupWhereUniqueInput = AtLeastOne<{
 export interface ProjectCharacteristicCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
-  group: ProjectCharacteristicGroupCreateOneWithoutItemsInput;
+  group?: Maybe<ProjectCharacteristicGroupCreateOneWithoutItemsInput>;
 }
 
 export interface ProjectCharacteristicCreateWithoutGroupInput {
@@ -1013,7 +1013,7 @@ export type UserWhereUniqueInput = AtLeastOne<{
 
 export interface ProjectCharacteristicUpdateDataInput {
   name?: Maybe<String>;
-  group?: Maybe<ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput>;
+  group?: Maybe<ProjectCharacteristicGroupUpdateOneWithoutItemsInput>;
 }
 
 export interface ProjectCharacteristicSubscriptionWhereInput {
@@ -1051,10 +1051,12 @@ export interface ProjectCharacteristicGroupUpdateWithoutItemsDataInput {
   name?: Maybe<String>;
 }
 
-export interface ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput {
+export interface ProjectCharacteristicGroupUpdateOneWithoutItemsInput {
   create?: Maybe<ProjectCharacteristicGroupCreateWithoutItemsInput>;
   update?: Maybe<ProjectCharacteristicGroupUpdateWithoutItemsDataInput>;
   upsert?: Maybe<ProjectCharacteristicGroupUpsertWithoutItemsInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
   connect?: Maybe<ProjectCharacteristicGroupWhereUniqueInput>;
 }
 

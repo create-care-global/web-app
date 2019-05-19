@@ -242,7 +242,7 @@ input ProjectCategoryWhereUniqueInput {
 type ProjectCharacteristic {
   id: ID!
   name: String!
-  group: ProjectCharacteristicGroup!
+  group: ProjectCharacteristicGroup
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -256,7 +256,7 @@ type ProjectCharacteristicConnection {
 input ProjectCharacteristicCreateInput {
   id: ID
   name: String!
-  group: ProjectCharacteristicGroupCreateOneWithoutItemsInput!
+  group: ProjectCharacteristicGroupCreateOneWithoutItemsInput
 }
 
 input ProjectCharacteristicCreateManyInput {
@@ -359,10 +359,12 @@ input ProjectCharacteristicGroupUpdateManyMutationInput {
   name: String
 }
 
-input ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput {
+input ProjectCharacteristicGroupUpdateOneWithoutItemsInput {
   create: ProjectCharacteristicGroupCreateWithoutItemsInput
   update: ProjectCharacteristicGroupUpdateWithoutItemsDataInput
   upsert: ProjectCharacteristicGroupUpsertWithoutItemsInput
+  delete: Boolean
+  disconnect: Boolean
   connect: ProjectCharacteristicGroupWhereUniqueInput
 }
 
@@ -520,12 +522,12 @@ input ProjectCharacteristicSubscriptionWhereInput {
 
 input ProjectCharacteristicUpdateDataInput {
   name: String
-  group: ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput
+  group: ProjectCharacteristicGroupUpdateOneWithoutItemsInput
 }
 
 input ProjectCharacteristicUpdateInput {
   name: String
-  group: ProjectCharacteristicGroupUpdateOneRequiredWithoutItemsInput
+  group: ProjectCharacteristicGroupUpdateOneWithoutItemsInput
 }
 
 input ProjectCharacteristicUpdateManyDataInput {
