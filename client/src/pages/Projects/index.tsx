@@ -1,3 +1,4 @@
+import Box from '@material-ui/core/Box';
 import Block from 'common/components/Block';
 import H1 from 'common/components/H1';
 import Main from 'common/components/Main';
@@ -8,7 +9,8 @@ const Projects = () => {
   return (
     <Main>
       <Block size="md">
-        <H1>Projects</H1>
+        <Box mt={4} />
+        <H1>Explore the MicroNeeds... And find one you can solve</H1>
         <ProjectsGrid />
       </Block>
     </Main>

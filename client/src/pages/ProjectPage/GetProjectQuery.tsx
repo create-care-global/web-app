@@ -20,6 +20,7 @@ const PROJECT_QUERY = gql`
         meaningToTheKids
         microNeed
         numberOfItems
+        personalMessage
         characteristics {
           id
           name
