@@ -1,5 +1,12 @@
 // This is shared in `/projects` and `/`
-import { Card, CardActions, CardContent, CardHeader } from '@material-ui/core';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Grid
+} from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import Button from 'common/components/Button';
 import Link from 'common/components/Link';
 import Text from 'common/components/Text';
@@ -21,20 +28,27 @@ const ProjectsGrid = () => {
           return <div>Empty...</div>;
         }
 
-        return data.getProjectFeed.projects.map(
-          ({ id, title, meaningToTheKids }) => (
-            <Card>
-              <CardHeader title={title} />
-              <CardContent>
-                <Text>{meaningToTheKids}</Text>
-              </CardContent>
-              <CardActions>
-                <Link to={`/projects/${id}`} key={id}>
-                  <Button>View project</Button>
-                </Link>
-              </CardActions>
-            </Card>
-          )
+        return (
+          <Grid container justify="space-between" spacing={3}>
+            {data.getProjectFeed.projects.map(
+              ({ id, title, meaningToTheKids }) => (
+                <Grid item xs={12} sm={3}>
+                  <Card>
+                    <CardHeader title={title} />
+                    <CardContent>
+                      <Text>{meaningToTheKids}</Text>
+                    </CardContent>
+                    <CardActions>
+                      <Link to={`/projects/${id}`} key={id}>
+                        <Button>View project</Button>
+                      </Link>
+                    </CardActions>
+                  </Card>
+                  <Box mb={4} />
+                </Grid>
+              )
+            )}
+          </Grid>
         );
       }}
     </GetProjectsQuery>
