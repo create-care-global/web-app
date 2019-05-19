@@ -26,17 +26,36 @@ const Home = () => {
       {/* Header Section */}
       <Grid
         container
-        style={{backgroundImage:`url(https://i.imgur.com/qrNFAcK.jpg)`}}
+        className='headerBackground'
+        style={{backgroundImage:`url(https://i.imgur.com/qrNFAcK.jpg)`,
+        backgroundPosition:'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+      }}
       >
-        {/* <div style={{position: 'relative'}}>
-        <img src="https://i.imgur.com/qrNFAcK.jpg"
-          style={{
-            maxWidth:'100%',
-            height:'auto',
-            zIndex:-999
-          }}/>
-          <p style={{zIndex:1000, position: 'absolute'}}>test</p>
-        </div> */}
+        <Grid 
+        container
+        style={{height: '100vh', width:'auto'}}>
+              <Grid item>
+                  <div style={{width: '40%', marginTop: '50%', marginLeft: '30%', color: 'white'}}>
+                    <h2>Small act. Big Impact!</h2>
+                    <h3>Use your creativity to help kids in need and make a big difference in the world.</h3>
+                    <Link to="/projects">
+                    <Button>Start Solving!</Button>
+                    </Link>
+                  </div>
+              </Grid>
+        </Grid>
+        <Grid container>
+                <div style={{marginBottom:'0px', color:'white',
+                marginLeft:'auto',
+                marginRight:'auto',
+                textAlign:'center',
+                }}>
+                  <p>Simple. Easy. Practical</p>
+                  <p>Take action to solve a MicroNeed and show the kids that the world cares</p>
+                </div>
+              </Grid>
       </Grid>
 
       {/* Projects */}
