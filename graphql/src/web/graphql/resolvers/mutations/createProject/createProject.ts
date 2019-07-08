@@ -1,28 +1,24 @@
-import { ResolverContext } from 'src/types';
 import { throwDatabaseError } from 'src/web/graphql/errors';
 import { MutationResolvers } from 'src/web/graphql/generated/graphqlgen';
-import { Project as PrismaProject } from 'src/web/graphql/generated/prisma-client';
 
-type CreatePrismaProjectFn = (
-  ctx: ResolverContext,
-  input: MutationResolvers.CreateProjectInput
-) => Promise<{ project?: PrismaProject; error?: Error }>;
-
-const createPrismaProject: CreatePrismaProjectFn = async (
-  ctx,
+const createProject: MutationResolvers.CreateProjectResolver = async (
+  parent,
   {
-    title,
-    categoryId,
-    characteristicIds,
-    sourceOfItems,
-    amountOfKidsHelped,
-    whyIsThisImportant,
-    meaningToTheKids,
-    microNeed,
-    numberOfItems,
-    estimatedCost,
-    personalMessage
-  }
+    input: {
+      title,
+      categoryId,
+      characteristicIds,
+      sourceOfItems,
+      amountOfKidsHelped,
+      whyIsThisImportant,
+      meaningToTheKids,
+      microNeed,
+      numberOfItems,
+      estimatedCost,
+      personalMessage
+    }
+  },
+  ctx
 ) => {
   try {
     const project = await ctx.prisma.createProject({
@@ -36,32 +32,18 @@ const createPrismaProject: CreatePrismaProjectFn = async (
       estimatedCost,
       personalMessage,
       category: {
-        connect: { id: categoryId }
+        connect: categoryId ? { id: categoryId } : undefined
       },
       characteristics: {
         connect: characteristicIds.map(id => ({ id }))
-      }
+      },
+      state: 'PENDING'
     });
 
     return { project };
-  } catch (error) {
-    return { error };
+  } catch (e) {
+    return throwDatabaseError('Unable to create new microneed');
   }
-};
-
-const createProject: MutationResolvers.CreateProjectResolver = async (
-  parent,
-  args,
-  ctx
-) => {
-  const { input } = args;
-  const { project, error } = await createPrismaProject(ctx, input);
-
-  if (error || !project) {
-    return throwDatabaseError('Unable to create new user');
-  }
-
-  return { project };
 };
 
 export default createProject;
