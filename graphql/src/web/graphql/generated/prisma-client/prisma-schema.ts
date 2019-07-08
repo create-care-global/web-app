@@ -93,6 +93,7 @@ type Project {
   numberOfItems: Int!
   estimatedCost: Int!
   personalMessage: String!
+  state: ProjectState!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -667,6 +668,7 @@ input ProjectCreateInput {
   numberOfItems: Int!
   estimatedCost: Int!
   personalMessage: String!
+  state: ProjectState!
 }
 
 type ProjectEdge {
@@ -695,6 +697,8 @@ enum ProjectOrderByInput {
   estimatedCost_DESC
   personalMessage_ASC
   personalMessage_DESC
+  state_ASC
+  state_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -712,8 +716,15 @@ type ProjectPreviousValues {
   numberOfItems: Int!
   estimatedCost: Int!
   personalMessage: String!
+  state: ProjectState!
   updatedAt: DateTime!
   createdAt: DateTime!
+}
+
+enum ProjectState {
+  PENDING
+  SOLVING
+  COMPLETED
 }
 
 type ProjectSubscriptionPayload {
@@ -746,6 +757,7 @@ input ProjectUpdateInput {
   numberOfItems: Int
   estimatedCost: Int
   personalMessage: String
+  state: ProjectState
 }
 
 input ProjectUpdateManyMutationInput {
@@ -758,6 +770,7 @@ input ProjectUpdateManyMutationInput {
   numberOfItems: Int
   estimatedCost: Int
   personalMessage: String
+  state: ProjectState
 }
 
 input ProjectWhereInput {
@@ -877,6 +890,10 @@ input ProjectWhereInput {
   personalMessage_not_starts_with: String
   personalMessage_ends_with: String
   personalMessage_not_ends_with: String
+  state: ProjectState
+  state_not: ProjectState
+  state_in: [ProjectState!]
+  state_not_in: [ProjectState!]
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
