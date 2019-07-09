@@ -36,9 +36,8 @@ export interface Project {
   characteristics?: ProjectCharacteristic[];
 }
 
-export interface GetProjectFeedPayload {
+export interface ProjectFeed {
   projects: Project[];
-  category?: ProjectCategory;
 }
 
 export interface ProjectCategory {

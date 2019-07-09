@@ -1,10 +1,12 @@
 directive @isOwner on FIELD_DEFINITION
+directive @isAdmin on FIELD_DEFINITION
 directive @isLoggedIn(status: Boolean) on FIELD_DEFINITION
 
 type Query {
   user(id: ID!): User
 
-  getProjectFeed: GetProjectFeedPayload!
+  getProjectFeed: ProjectFeed!
+  getAdminProjectFeed: ProjectFeed! @isAdmin
   projectCategories: [ProjectCategory!]!
   projectCharacteristicGroups: [ProjectCharacteristicGroup!]!
   getProject(input: GetProjectInput!): GetProjectPayload!
@@ -88,7 +90,7 @@ type ProjectCategory {
   name: String!
 }
 
-type GetProjectFeedPayload {
+type ProjectFeed {
   projects: [Project!]!
 }
 
