@@ -25,6 +25,7 @@ type Project {
   numberOfItems: Int!
   estimatedCost: Int!
   personalMessage: String!
+  state: ProjectState!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
@@ -56,4 +57,10 @@ enum SourceOfItems {
   LOCAL
   DIRECT
   OTHER
+}
+
+enum ProjectState {
+  PENDING
+  SOLVING
+  COMPLETED
 }

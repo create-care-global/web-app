@@ -285,6 +285,8 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type SourceOfItems = "LOCAL" | "DIRECT" | "OTHER";
+
 export type ProjectCharacteristicOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -295,7 +297,7 @@ export type ProjectCharacteristicOrderByInput =
   | "createdAt_ASC"
   | "createdAt_DESC";
 
-export type SourceOfItems = "LOCAL" | "DIRECT" | "OTHER";
+export type ProjectState = "PENDING" | "SOLVING" | "COMPLETED";
 
 export type ProjectOrderByInput =
   | "id_ASC"
@@ -318,6 +320,8 @@ export type ProjectOrderByInput =
   | "estimatedCost_DESC"
   | "personalMessage_ASC"
   | "personalMessage_DESC"
+  | "state_ASC"
+  | "state_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -750,6 +754,7 @@ export interface ProjectUpdateManyMutationInput {
   numberOfItems?: Maybe<Int>;
   estimatedCost?: Maybe<Int>;
   personalMessage?: Maybe<String>;
+  state?: Maybe<ProjectState>;
 }
 
 export interface ProjectCategorySubscriptionWhereInput {
@@ -803,6 +808,7 @@ export interface ProjectCreateInput {
   numberOfItems: Int;
   estimatedCost: Int;
   personalMessage: String;
+  state: ProjectState;
 }
 
 export interface ProjectCharacteristicGroupUpdateManyMutationInput {
@@ -891,6 +897,7 @@ export interface ProjectUpdateInput {
   numberOfItems?: Maybe<Int>;
   estimatedCost?: Maybe<Int>;
   personalMessage?: Maybe<String>;
+  state?: Maybe<ProjectState>;
 }
 
 export interface ProjectCharacteristicWhereInput {
@@ -1181,6 +1188,10 @@ export interface ProjectWhereInput {
   personalMessage_not_starts_with?: Maybe<String>;
   personalMessage_ends_with?: Maybe<String>;
   personalMessage_not_ends_with?: Maybe<String>;
+  state?: Maybe<ProjectState>;
+  state_not?: Maybe<ProjectState>;
+  state_in?: Maybe<ProjectState[] | ProjectState>;
+  state_not_in?: Maybe<ProjectState[] | ProjectState>;
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
   updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1360,136 +1371,6 @@ export interface ProjectCharacteristicNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ProjectCategoryEdge {
-  node: ProjectCategory;
-  cursor: String;
-}
-
-export interface ProjectCategoryEdgePromise
-  extends Promise<ProjectCategoryEdge>,
-    Fragmentable {
-  node: <T = ProjectCategoryPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProjectCategoryEdgeSubscription
-  extends Promise<AsyncIterator<ProjectCategoryEdge>>,
-    Fragmentable {
-  node: <T = ProjectCategorySubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ProjectConnection {
-  pageInfo: PageInfo;
-  edges: ProjectEdge[];
-}
-
-export interface ProjectConnectionPromise
-  extends Promise<ProjectConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProjectEdge>>() => T;
-  aggregate: <T = AggregateProjectPromise>() => T;
-}
-
-export interface ProjectConnectionSubscription
-  extends Promise<AsyncIterator<ProjectConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProjectEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProjectSubscription>() => T;
-}
-
-export interface ProjectCharacteristicGroupPreviousValues {
-  id: ID_Output;
-  name: String;
-  updatedAt: DateTimeOutput;
-  createdAt: DateTimeOutput;
-}
-
-export interface ProjectCharacteristicGroupPreviousValuesPromise
-  extends Promise<ProjectCharacteristicGroupPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProjectCharacteristicGroupPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectCharacteristicGroupPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateProject {
-  count: Int;
-}
-
-export interface AggregateProjectPromise
-  extends Promise<AggregateProject>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProjectSubscription
-  extends Promise<AsyncIterator<AggregateProject>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
 export interface ProjectCharacteristicGroup {
   id: ID_Output;
   name: String;
@@ -1553,6 +1434,142 @@ export interface ProjectCharacteristicGroupNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProjectCharacteristicGroupPreviousValues {
+  id: ID_Output;
+  name: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface ProjectCharacteristicGroupPreviousValuesPromise
+  extends Promise<ProjectCharacteristicGroupPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectCharacteristicGroupPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProjectCharacteristicGroupPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ProjectConnection {
+  pageInfo: PageInfo;
+  edges: ProjectEdge[];
+}
+
+export interface ProjectConnectionPromise
+  extends Promise<ProjectConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProjectEdge>>() => T;
+  aggregate: <T = AggregateProjectPromise>() => T;
+}
+
+export interface ProjectConnectionSubscription
+  extends Promise<AsyncIterator<ProjectConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProjectEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProjectSubscription>() => T;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface AggregateProject {
+  count: Int;
+}
+
+export interface AggregateProjectPromise
+  extends Promise<AggregateProject>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateProjectSubscription
+  extends Promise<AsyncIterator<AggregateProject>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
 export interface ProjectEdge {
   node: Project;
   cursor: String;
@@ -1597,6 +1614,7 @@ export interface Project {
   numberOfItems: Int;
   estimatedCost: Int;
   personalMessage: String;
+  state: ProjectState;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -1622,6 +1640,7 @@ export interface ProjectPromise extends Promise<Project>, Fragmentable {
   numberOfItems: () => Promise<Int>;
   estimatedCost: () => Promise<Int>;
   personalMessage: () => Promise<String>;
+  state: () => Promise<ProjectState>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -1651,6 +1670,7 @@ export interface ProjectSubscription
   numberOfItems: () => Promise<AsyncIterator<Int>>;
   estimatedCost: () => Promise<AsyncIterator<Int>>;
   personalMessage: () => Promise<AsyncIterator<String>>;
+  state: () => Promise<AsyncIterator<ProjectState>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -1678,6 +1698,7 @@ export interface ProjectNullablePromise
   numberOfItems: () => Promise<Int>;
   estimatedCost: () => Promise<Int>;
   personalMessage: () => Promise<String>;
+  state: () => Promise<ProjectState>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -1757,6 +1778,7 @@ export interface ProjectPreviousValues {
   numberOfItems: Int;
   estimatedCost: Int;
   personalMessage: String;
+  state: ProjectState;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -1774,6 +1796,7 @@ export interface ProjectPreviousValuesPromise
   numberOfItems: () => Promise<Int>;
   estimatedCost: () => Promise<Int>;
   personalMessage: () => Promise<String>;
+  state: () => Promise<ProjectState>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -1791,6 +1814,7 @@ export interface ProjectPreviousValuesSubscription
   numberOfItems: () => Promise<AsyncIterator<Int>>;
   estimatedCost: () => Promise<AsyncIterator<Int>>;
   personalMessage: () => Promise<AsyncIterator<String>>;
+  state: () => Promise<AsyncIterator<ProjectState>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -1845,29 +1869,23 @@ export interface ProjectCharacteristicGroupSubscriptionPayloadSubscription
   >() => T;
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
+export interface ProjectCategoryEdge {
+  node: ProjectCategory;
+  cursor: String;
 }
 
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
+export interface ProjectCategoryEdgePromise
+  extends Promise<ProjectCategoryEdge>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
+  node: <T = ProjectCategoryPromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+export interface ProjectCategoryEdgeSubscription
+  extends Promise<AsyncIterator<ProjectCategoryEdge>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  node: <T = ProjectCategorySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ProjectCategorySubscriptionPayload {
@@ -2164,17 +2182,17 @@ DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
 
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number;
-
 export type Long = string;
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -2214,6 +2232,10 @@ export const models: Model[] = [
   },
   {
     name: "SourceOfItems",
+    embedded: false
+  },
+  {
+    name: "ProjectState",
     embedded: false
   }
 ];
