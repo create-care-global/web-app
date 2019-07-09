@@ -1,7 +1,9 @@
-# import Query.* from "authentication.graphql"
-# import Mutation.* from "authentication.graphql"
+directive @isOwner on FIELD_DEFINITION
+directive @isLoggedIn(status: Boolean) on FIELD_DEFINITION
 
 type Query {
+  user(id: ID!): User
+
   getProjectFeed: GetProjectFeedPayload!
   projectCategories: [ProjectCategory!]!
   projectCharacteristicGroups: [ProjectCharacteristicGroup!]!
@@ -9,7 +11,42 @@ type Query {
 }
 
 type Mutation {
+  signup(input: SignupInput!): SignupPayload! @isLoggedIn(status: false)
+  login(input: LoginInput!): LoginPayload @isLoggedIn(status: false)
+  logout: Boolean!
+
   createProject(input: CreateProjectInput!): CreateProjectPayload!
+    @isLoggedIn(status: true)
+}
+
+type User {
+  id: ID!
+  userGroup: String!
+  email: String! @isOwner
+  firstName: String!
+  lastName: String!
+  displayName: String
+}
+
+input SignupInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  group: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type SignupPayload {
+  user: User!
+}
+
+type LoginPayload {
+  user: User!
 }
 
 input CreateProjectInput {
