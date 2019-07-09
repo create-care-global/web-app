@@ -10,7 +10,6 @@ const PROJECT_QUERY = gql`
       projects {
         id
         title
-        meaningToTheKids
       }
     }
   }
