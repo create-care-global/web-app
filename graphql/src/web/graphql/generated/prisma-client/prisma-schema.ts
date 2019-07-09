@@ -723,6 +723,7 @@ type ProjectPreviousValues {
 
 enum ProjectState {
   PENDING
+  APPROVED
   SOLVING
   COMPLETED
 }

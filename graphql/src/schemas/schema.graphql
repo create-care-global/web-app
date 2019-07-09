@@ -43,6 +43,7 @@ type Project {
   characteristics: [ProjectCharacteristic!]!
   estimatedCost: Int!
   personalMessage: String!
+  state: ProjectState!
 }
 
 type ProjectCategory {
@@ -77,4 +78,11 @@ enum SourceOfItems {
   LOCAL
   DIRECT
   OTHER
+}
+
+enum ProjectState {
+  PENDING
+  APPROVED
+  SOLVING
+  COMPLETED
 }

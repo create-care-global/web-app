@@ -28,10 +28,12 @@ export interface Project {
   microNeed: string;
   numberOfItems: number;
   sourceOfItems: SourceOfItems;
-  category?: ProjectCategory;
-  characteristics?: ProjectCharacteristic[];
   estimatedCost: number;
   personalMessage: string;
+  state: ProjectState;
+
+  category?: ProjectCategory;
+  characteristics?: ProjectCharacteristic[];
 }
 
 export interface GetProjectFeedPayload {
@@ -60,3 +62,4 @@ export interface ProjectCharacteristic {
 }
 
 type SourceOfItems = 'LOCAL' | 'DIRECT' | 'OTHER';
+type ProjectState = 'PENDING' | 'APPROVED' | 'SOLVING' | 'COMPLETED';

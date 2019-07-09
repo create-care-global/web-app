@@ -16,6 +16,7 @@ import {
 import { ResolverContext } from '../../../types';
 
 type SourceOfItems = 'LOCAL' | 'DIRECT' | 'OTHER';
+type ProjectState = 'PENDING' | 'APPROVED' | 'SOLVING' | 'COMPLETED';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -138,7 +139,8 @@ export namespace ProjectResolvers {
     numberOfItems: (parent: Project) => parent.numberOfItems,
     sourceOfItems: (parent: Project) => parent.sourceOfItems,
     estimatedCost: (parent: Project) => parent.estimatedCost,
-    personalMessage: (parent: Project) => parent.personalMessage
+    personalMessage: (parent: Project) => parent.personalMessage,
+    state: (parent: Project) => parent.state
   };
 
   export type IdResolver = (
@@ -225,6 +227,13 @@ export namespace ProjectResolvers {
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
+  export type StateResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => ProjectState | Promise<ProjectState>;
+
   export interface Type {
     id: (
       parent: Project,
@@ -309,6 +318,13 @@ export namespace ProjectResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
+
+    state: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => ProjectState | Promise<ProjectState>;
   }
 }
 
