@@ -8,7 +8,11 @@ const getProjectFeed: QueryResolvers.GetProjectFeedResolver = async (
 ) => {
   try {
     return {
-      projects: await ctx.prisma.projects()
+      projects: await ctx.prisma.projects({
+        where: {
+          state_in: ['APPROVED', 'SOLVING', 'COMPLETED']
+        }
+      })
     };
   } catch (e) {
     return throwDatabaseError();
