@@ -297,7 +297,7 @@ export type ProjectCharacteristicOrderByInput =
   | "createdAt_ASC"
   | "createdAt_DESC";
 
-export type ProjectState = "PENDING" | "SOLVING" | "COMPLETED";
+export type ProjectState = "PENDING" | "APPROVED" | "SOLVING" | "COMPLETED";
 
 export type ProjectOrderByInput =
   | "id_ASC"

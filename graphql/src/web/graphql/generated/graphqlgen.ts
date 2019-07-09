@@ -2,20 +2,21 @@
 
 import { GraphQLResolveInfo } from 'graphql';
 import {
-  GetProjectFeedPayload,
+  User,
+  ProjectFeed,
   Project,
   ProjectCategory,
   ProjectCharacteristic,
   ProjectCharacteristicGroup,
   GetProjectPayload,
-  User,
-  CreateProjectPayload,
   SignupPayload,
-  LoginPayload
+  LoginPayload,
+  CreateProjectPayload
 } from '../models';
 import { ResolverContext } from '../../../types';
 
 type SourceOfItems = 'LOCAL' | 'DIRECT' | 'OTHER';
+type ProjectState = 'PENDING' | 'APPROVED' | 'SOLVING' | 'COMPLETED';
 
 export namespace QueryResolvers {
   export const defaultResolvers = {};
@@ -24,20 +25,34 @@ export namespace QueryResolvers {
     id: string;
   }
 
+  export interface ArgsUser {
+    id: string;
+  }
+
   export interface ArgsGetProject {
     input: GetProjectInput;
   }
 
-  export interface ArgsUser {
-    id: string;
-  }
+  export type UserResolver = (
+    parent: undefined,
+    args: ArgsUser,
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => User | null | Promise<User | null>;
 
   export type GetProjectFeedResolver = (
     parent: undefined,
     args: {},
     ctx: ResolverContext,
     info: GraphQLResolveInfo
-  ) => GetProjectFeedPayload | Promise<GetProjectFeedPayload>;
+  ) => ProjectFeed | Promise<ProjectFeed>;
+
+  export type GetAdminProjectFeedResolver = (
+    parent: undefined,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => ProjectFeed | Promise<ProjectFeed>;
 
   export type ProjectCategoriesResolver = (
     parent: undefined,
@@ -60,20 +75,27 @@ export namespace QueryResolvers {
     info: GraphQLResolveInfo
   ) => GetProjectPayload | Promise<GetProjectPayload>;
 
-  export type UserResolver = (
-    parent: undefined,
-    args: ArgsUser,
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => User | null | Promise<User | null>;
-
   export interface Type {
+    user: (
+      parent: undefined,
+      args: ArgsUser,
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => User | null | Promise<User | null>;
+
     getProjectFeed: (
       parent: undefined,
       args: {},
       ctx: ResolverContext,
       info: GraphQLResolveInfo
-    ) => GetProjectFeedPayload | Promise<GetProjectFeedPayload>;
+    ) => ProjectFeed | Promise<ProjectFeed>;
+
+    getAdminProjectFeed: (
+      parent: undefined,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => ProjectFeed | Promise<ProjectFeed>;
 
     projectCategories: (
       parent: undefined,
@@ -95,23 +117,114 @@ export namespace QueryResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => GetProjectPayload | Promise<GetProjectPayload>;
-
-    user: (
-      parent: undefined,
-      args: ArgsUser,
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => User | null | Promise<User | null>;
   }
 }
 
-export namespace GetProjectFeedPayloadResolvers {
+export namespace UserResolvers {
   export const defaultResolvers = {
-    projects: (parent: GetProjectFeedPayload) => parent.projects
+    id: (parent: User) => parent.id,
+    email: (parent: User) => parent.email,
+    firstName: (parent: User) => parent.firstName,
+    lastName: (parent: User) => parent.lastName,
+    displayName: (parent: User) =>
+      parent.displayName === undefined ? null : parent.displayName,
+    userGroup: (parent: User) => parent.userGroup
+  };
+
+  export type IdResolver = (
+    parent: User,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type UserGroupResolver = (
+    parent: User,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type EmailResolver = (
+    parent: User,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type FirstNameResolver = (
+    parent: User,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type LastNameResolver = (
+    parent: User,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type DisplayNameResolver = (
+    parent: User,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
+  export interface Type {
+    id: (
+      parent: User,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    userGroup: (
+      parent: User,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    email: (
+      parent: User,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    firstName: (
+      parent: User,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    lastName: (
+      parent: User,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    displayName: (
+      parent: User,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+  }
+}
+
+export namespace ProjectFeedResolvers {
+  export const defaultResolvers = {
+    projects: (parent: ProjectFeed) => parent.projects
   };
 
   export type ProjectsResolver = (
-    parent: GetProjectFeedPayload,
+    parent: ProjectFeed,
     args: {},
     ctx: ResolverContext,
     info: GraphQLResolveInfo
@@ -119,7 +232,7 @@ export namespace GetProjectFeedPayloadResolvers {
 
   export interface Type {
     projects: (
-      parent: GetProjectFeedPayload,
+      parent: ProjectFeed,
       args: {},
       ctx: ResolverContext,
       info: GraphQLResolveInfo
@@ -138,7 +251,8 @@ export namespace ProjectResolvers {
     numberOfItems: (parent: Project) => parent.numberOfItems,
     sourceOfItems: (parent: Project) => parent.sourceOfItems,
     estimatedCost: (parent: Project) => parent.estimatedCost,
-    personalMessage: (parent: Project) => parent.personalMessage
+    personalMessage: (parent: Project) => parent.personalMessage,
+    state: (parent: Project) => parent.state
   };
 
   export type IdResolver = (
@@ -225,6 +339,13 @@ export namespace ProjectResolvers {
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
+  export type StateResolver = (
+    parent: Project,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => ProjectState | Promise<ProjectState>;
+
   export interface Type {
     id: (
       parent: Project,
@@ -309,6 +430,13 @@ export namespace ProjectResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
+
+    state: (
+      parent: Project,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => ProjectState | Promise<ProjectState>;
   }
 }
 
@@ -459,107 +587,20 @@ export namespace GetProjectPayloadResolvers {
   }
 }
 
-export namespace UserResolvers {
-  export const defaultResolvers = {
-    id: (parent: User) => parent.id,
-    email: (parent: User) => parent.email,
-    firstName: (parent: User) => parent.firstName,
-    lastName: (parent: User) => parent.lastName,
-    displayName: (parent: User) =>
-      parent.displayName === undefined ? null : parent.displayName,
-    userGroup: (parent: User) => parent.userGroup
-  };
-
-  export type IdResolver = (
-    parent: User,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type UserGroupResolver = (
-    parent: User,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type EmailResolver = (
-    parent: User,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type FirstNameResolver = (
-    parent: User,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type LastNameResolver = (
-    parent: User,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export type DisplayNameResolver = (
-    parent: User,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => string | null | Promise<string | null>;
-
-  export interface Type {
-    id: (
-      parent: User,
-      args: {},
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    userGroup: (
-      parent: User,
-      args: {},
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    email: (
-      parent: User,
-      args: {},
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    firstName: (
-      parent: User,
-      args: {},
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    lastName: (
-      parent: User,
-      args: {},
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => string | Promise<string>;
-
-    displayName: (
-      parent: User,
-      args: {},
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => string | null | Promise<string | null>;
-  }
-}
-
 export namespace MutationResolvers {
   export const defaultResolvers = {};
 
+  export interface SignupInput {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    group: string;
+  }
+  export interface LoginInput {
+    email: string;
+    password: string;
+  }
   export interface CreateProjectInput {
     title: string;
     categoryId: string;
@@ -573,21 +614,6 @@ export namespace MutationResolvers {
     estimatedCost: number;
     personalMessage: string;
   }
-  export interface SignupInput {
-    email: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-    group: string;
-  }
-  export interface LoginInput {
-    email: string;
-    password: string;
-  }
-
-  export interface ArgsCreateProject {
-    input: CreateProjectInput;
-  }
 
   export interface ArgsSignup {
     input: SignupInput;
@@ -597,12 +623,9 @@ export namespace MutationResolvers {
     input: LoginInput;
   }
 
-  export type CreateProjectResolver = (
-    parent: undefined,
-    args: ArgsCreateProject,
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => CreateProjectPayload | Promise<CreateProjectPayload>;
+  export interface ArgsCreateProject {
+    input: CreateProjectInput;
+  }
 
   export type SignupResolver = (
     parent: undefined,
@@ -625,14 +648,14 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => boolean | Promise<boolean>;
 
-  export interface Type {
-    createProject: (
-      parent: undefined,
-      args: ArgsCreateProject,
-      ctx: ResolverContext,
-      info: GraphQLResolveInfo
-    ) => CreateProjectPayload | Promise<CreateProjectPayload>;
+  export type CreateProjectResolver = (
+    parent: undefined,
+    args: ArgsCreateProject,
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => CreateProjectPayload | Promise<CreateProjectPayload>;
 
+  export interface Type {
     signup: (
       parent: undefined,
       args: ArgsSignup,
@@ -653,28 +676,13 @@ export namespace MutationResolvers {
       ctx: ResolverContext,
       info: GraphQLResolveInfo
     ) => boolean | Promise<boolean>;
-  }
-}
 
-export namespace CreateProjectPayloadResolvers {
-  export const defaultResolvers = {
-    project: (parent: CreateProjectPayload) => parent.project
-  };
-
-  export type ProjectResolver = (
-    parent: CreateProjectPayload,
-    args: {},
-    ctx: ResolverContext,
-    info: GraphQLResolveInfo
-  ) => Project | Promise<Project>;
-
-  export interface Type {
-    project: (
-      parent: CreateProjectPayload,
-      args: {},
+    createProject: (
+      parent: undefined,
+      args: ArgsCreateProject,
       ctx: ResolverContext,
       info: GraphQLResolveInfo
-    ) => Project | Promise<Project>;
+    ) => CreateProjectPayload | Promise<CreateProjectPayload>;
   }
 }
 
@@ -722,17 +730,39 @@ export namespace LoginPayloadResolvers {
   }
 }
 
+export namespace CreateProjectPayloadResolvers {
+  export const defaultResolvers = {
+    project: (parent: CreateProjectPayload) => parent.project
+  };
+
+  export type ProjectResolver = (
+    parent: CreateProjectPayload,
+    args: {},
+    ctx: ResolverContext,
+    info: GraphQLResolveInfo
+  ) => Project | Promise<Project>;
+
+  export interface Type {
+    project: (
+      parent: CreateProjectPayload,
+      args: {},
+      ctx: ResolverContext,
+      info: GraphQLResolveInfo
+    ) => Project | Promise<Project>;
+  }
+}
+
 export interface Resolvers {
   Query: QueryResolvers.Type;
-  GetProjectFeedPayload: GetProjectFeedPayloadResolvers.Type;
+  User: UserResolvers.Type;
+  ProjectFeed: ProjectFeedResolvers.Type;
   Project: ProjectResolvers.Type;
   ProjectCategory: ProjectCategoryResolvers.Type;
   ProjectCharacteristic: ProjectCharacteristicResolvers.Type;
   ProjectCharacteristicGroup: ProjectCharacteristicGroupResolvers.Type;
   GetProjectPayload: GetProjectPayloadResolvers.Type;
-  User: UserResolvers.Type;
   Mutation: MutationResolvers.Type;
-  CreateProjectPayload: CreateProjectPayloadResolvers.Type;
   SignupPayload: SignupPayloadResolvers.Type;
   LoginPayload: LoginPayloadResolvers.Type;
+  CreateProjectPayload: CreateProjectPayloadResolvers.Type;
 }
