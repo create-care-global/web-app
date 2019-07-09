@@ -1,4 +1,3 @@
-// This is shared in `/projects` and `/`
 import Box from '@material-ui/core/Box';
 import Block from 'common/components/Block';
 import H1 from 'common/components/H1';
@@ -13,7 +12,7 @@ const Projects = () => {
       <Block size="md">
         <Box mt={4} />
         <H1>Explore the MicroNeeds... And find one you can solve</H1>
-        <GetProjectsQuery>
+        <GetProjectsQuery fetchPolicy="network-only">
           {({ data, loading, error }) => {
             if (error) {
               return <div>Error...</div>;

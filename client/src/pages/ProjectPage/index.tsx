@@ -19,7 +19,10 @@ const ProjectPage = () => {
       <Box mt={6} />
       <Block size="md">
         <Paper>
-          <GetProjectQuery variables={{ input: { id } }}>
+          <GetProjectQuery
+            fetchPolicy="network-only"
+            variables={{ input: { id } }}
+          >
             {({ data, loading, error }) => {
               if (error || !data) {
                 return <div>Unable to display project</div>;

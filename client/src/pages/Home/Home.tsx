@@ -66,7 +66,7 @@ const Home = () => {
       <div style={{ backgroundColor: '#455560' }}>
         <Block size="md">
           <Box mt={2} />
-          <HomeGetProjectsQuery>
+          <HomeGetProjectsQuery fetchPolicy="network-only">
             {({ data, loading, error }) => {
               if (error) {
                 return <div>Error...</div>;
