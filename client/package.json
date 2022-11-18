@@ -36,7 +36,7 @@
     "react-dom": "^16.8.6",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.1",
     "typescript": "^3.3.3",
     "use-react-router": "^1.0.5",
     "yup": "^0.26.6"
