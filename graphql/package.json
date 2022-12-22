@@ -36,7 +36,7 @@
     "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.16.7",
     "graphqlgen": "^0.4.0",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "prisma-client-lib": "^1.33.0",
     "yup": "^0.26.6"
   },
